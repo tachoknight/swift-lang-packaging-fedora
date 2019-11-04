@@ -1,0 +1,20 @@
+--- swiftpm/Sources/Basic/Process.swift.orig	2019-03-13 14:27:25.426760197 -0500
++++ swiftpm/Sources/Basic/Process.swift	2019-03-13 14:28:45.656837626 -0500
+@@ -327,7 +327,7 @@
+         let devNull = strdup("/dev/null")
+         defer { free(devNull) }
+         // Open /dev/null as stdin.
+-        posix_spawn_file_actions_addopen(&fileActions, 0, devNull, O_RDONLY, 0)
++        posix_spawn_file_actions_addopen(&fileActions, 0, devNull!, O_RDONLY, 0)
+ 
+         var outputPipe: [Int32] = [0, 0]
+         var stderrPipe: [Int32] = [0, 0]
+@@ -350,7 +350,7 @@
+ 
+         let argv = CStringArray(arguments)
+         let env = CStringArray(environment.map({ "\($0.0)=\($0.1)" }))
+-        let rv = posix_spawnp(&processID, argv.cArray[0], &fileActions, &attributes, argv.cArray, env.cArray)
++        let rv = posix_spawnp(&processID, argv.cArray[0]!, &fileActions, &attributes, argv.cArray, env.cArray)
+ 
+         guard rv == 0 else {
+             throw SystemError.posix_spawn(rv, arguments)

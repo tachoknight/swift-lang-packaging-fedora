@@ -1,0 +1,84 @@
+diff -Naur swift-corelibs-libdispatch-orig/src/internal.h swift-corelibs-libdispatch/src/internal.h
+--- swift-corelibs-libdispatch-orig/src/internal.h	2019-06-27 12:49:01.388123795 -0500
++++ swift-corelibs-libdispatch/src/internal.h	2019-06-27 12:50:35.349814203 -0500
+@@ -272,8 +272,6 @@
+ #include <sys/mount.h>
+ #ifdef __ANDROID__
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+ #endif /* __ANDROID__ */
+ #if !defined(__linux__)
+ #include <sys/queue.h>
+diff -Naur swift-corelibs-libdispatch-orig/tests/dispatch_apply.c swift-corelibs-libdispatch/tests/dispatch_apply.c
+--- swift-corelibs-libdispatch-orig/tests/dispatch_apply.c	2019-06-27 12:49:01.445126034 -0500
++++ swift-corelibs-libdispatch/tests/dispatch_apply.c	2019-06-27 12:51:52.294836266 -0500
+@@ -24,8 +24,6 @@
+ #include <unistd.h>
+ #ifdef __ANDROID__
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+ #endif /* __ANDROID__ */
+ #endif
+ #include <stdlib.h>
+diff -Naur swift-corelibs-libdispatch-orig/tests/dispatch_concur.c swift-corelibs-libdispatch/tests/dispatch_concur.c
+--- swift-corelibs-libdispatch-orig/tests/dispatch_concur.c	2019-06-27 12:49:01.447126112 -0500
++++ swift-corelibs-libdispatch/tests/dispatch_concur.c	2019-06-27 12:52:17.319819139 -0500
+@@ -27,8 +27,6 @@
+ #include <unistd.h>
+ #ifdef __ANDROID__
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+ #endif /* __ANDROID__ */
+ #endif
+ 
+diff -Naur swift-corelibs-libdispatch-orig/tests/dispatch_priority.c swift-corelibs-libdispatch/tests/dispatch_priority.c
+--- swift-corelibs-libdispatch-orig/tests/dispatch_priority.c	2019-06-27 12:49:01.440125837 -0500
++++ swift-corelibs-libdispatch/tests/dispatch_priority.c	2019-06-27 12:52:46.401961354 -0500
+@@ -25,8 +25,6 @@
+ #include <unistd.h>
+ #ifdef __ANDROID__
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+ #endif /* __ANDROID__ */
+ #endif
+ #include <stdlib.h>
+diff -Naur swift-corelibs-libdispatch-orig/tests/dispatch_readsync.c swift-corelibs-libdispatch/tests/dispatch_readsync.c
+--- swift-corelibs-libdispatch-orig/tests/dispatch_readsync.c	2019-06-27 12:49:01.427125327 -0500
++++ swift-corelibs-libdispatch/tests/dispatch_readsync.c	2019-06-27 12:53:14.563067393 -0500
+@@ -25,8 +25,6 @@
+ #include <unistd.h>
+ #ifdef __ANDROID__
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+ #endif /* __ANDROID__ */
+ #endif
+ #include <assert.h>
+diff -Naur swift-corelibs-libdispatch-orig/tests/dispatch_vm.c swift-corelibs-libdispatch/tests/dispatch_vm.c
+--- swift-corelibs-libdispatch-orig/tests/dispatch_vm.c	2019-06-27 12:49:01.433125562 -0500
++++ swift-corelibs-libdispatch/tests/dispatch_vm.c	2019-06-27 12:53:36.289920732 -0500
+@@ -30,8 +30,6 @@
+ #include <assert.h>
+ #ifdef __ANDROID__
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+ #endif /* __ANDROID__ */
+ #include <stdarg.h>
+ #include <time.h>
+diff -Naur swift-corelibs-libdispatch-orig/tests/Foundation/bench.mm swift-corelibs-libdispatch/tests/Foundation/bench.mm
+--- swift-corelibs-libdispatch-orig/tests/Foundation/bench.mm	2019-06-27 12:49:01.448126151 -0500
++++ swift-corelibs-libdispatch/tests/Foundation/bench.mm	2019-06-27 12:51:14.199340039 -0500
+@@ -22,8 +22,6 @@
+ #include <libkern/OSAtomic.h>
+ #ifdef __ANDROID__
+ #include <linux/sysctl.h>
+-#else
+-#include <sys/sysctl.h>
+ #endif /* __ANDROID__ */
+ #include <mach/mach.h>
+ #include <mach/mach_time.h>

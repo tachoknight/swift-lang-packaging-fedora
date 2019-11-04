@@ -1,0 +1,15 @@
+--- swift-corelibs-xctest/cmake/modules/SwiftSupport.cmake.orig	2019-03-22 13:10:16.930540857 -0500
++++ swift-corelibs-xctest/cmake/modules/SwiftSupport.cmake	2019-03-22 15:48:46.960621151 -0500
+@@ -139,12 +139,6 @@
+                          ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/${target}/Resources
+                        COMMAND
+                          ${CMAKE_COMMAND} -E copy ${AST_RESOURCES} ${CMAKE_CURRENT_BINARY_DIR}/${target}/Resources)
+-  else()
+-    add_custom_command(TARGET
+-                         ${target}
+-                       POST_BUILD
+-                       COMMAND
+-                         ${CMAKE_COMMAND} -E copy ${AST_OUTPUT} ${CMAKE_CURRENT_BINARY_DIR})
+   endif()
+ endfunction()
+ 
