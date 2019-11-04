@@ -223,8 +223,8 @@ mkdir -p %{buildroot}/usr/lib/swift_static
 cp -r %{_builddir}/usr/lib/swift_static/* %{buildroot}/usr/lib/swift_static
 
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE13} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
-install -m 0644 %{SOURCE14} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
+install -m 0644 %{SOURCE12} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
+install -m 0644 %{SOURCE13} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
 
 mkdir -p %{buildroot}%{_mandir}/man1
 install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1
