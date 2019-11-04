@@ -13,24 +13,19 @@ Summary:        Apple's Swift programming language
 License:        ASL 2.0
 URL:            https://swift.org
 Source0:        https://github.com/apple/swift/archive/swift-%{swifttag}.tar.gz#/swift.tar.gz
-Source1:        https://github.com/apple/swift-compiler-rt/archive/swift-%{swifttag}.tar.gz#/swift-compiler-rt.tar.gz
-Source2:        https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{swifttag}.tar.gz#/corelibs-libdispatch.tar.gz
-Source3:        https://github.com/apple/swift-corelibs-foundation/archive/swift-%{swifttag}.tar.gz#/corelibs-foundation.tar.gz
-Source4:        https://github.com/apple/swift-integration-tests/archive/swift-%{swifttag}.tar.gz#/swift-integration-tests.tar.gz
-Source5:        https://github.com/apple/swift-corelibs-xctest/archive/swift-%{swifttag}.tar.gz#/corelibs-xctest.tar.gz
-Source6:        https://github.com/apple/swift-clang/archive/swift-%{swifttag}.tar.gz#/clang.tar.gz
-Source7:        https://github.com/apple/swift-package-manager/archive/swift-%{swifttag}.tar.gz#/package-manager.tar.gz
-Source8:        https://github.com/apple/swift-lldb/archive/swift-%{swifttag}.tar.gz#/lldb.tar.gz
-Source9:        https://github.com/apple/swift-llvm/archive/swift-%{swifttag}.tar.gz#/llvm.tar.gz
-Source10:       https://github.com/apple/swift-llbuild/archive/swift-%{swifttag}.tar.gz#/llbuild.tar.gz
-Source11:       https://github.com/apple/swift-cmark/archive/swift-%{swifttag}.tar.gz#/cmark.tar.gz
-Source12:       https://github.com/apple/swift-xcode-playground-support/archive/swift-%{swifttag}.tar.gz#/swift-xcode-playground-support.tar.gz
-Source13:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
-Source14:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
-Source15:	https://github.com/apple/swift-clang-tools-extra/archive/swift-%{swifttag}.tar.gz#/swift-clang-tools-extra.tar.gz
-Source16:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source17:       swift-lang.conf
-Source18:	swift-lang-runtime.conf
+Source1:        https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{swifttag}.tar.gz#/corelibs-libdispatch.tar.gz
+Source2:        https://github.com/apple/swift-corelibs-foundation/archive/swift-%{swifttag}.tar.gz#/corelibs-foundation.tar.gz
+Source3:        https://github.com/apple/swift-integration-tests/archive/swift-%{swifttag}.tar.gz#/swift-integration-tests.tar.gz
+Source4:        https://github.com/apple/swift-corelibs-xctest/archive/swift-%{swifttag}.tar.gz#/corelibs-xctest.tar.gz
+Source5:        https://github.com/apple/swift-package-manager/archive/swift-%{swifttag}.tar.gz#/package-manager.tar.gz
+Source6:       	https://github.com/apple/swift-llbuild/archive/swift-%{swifttag}.tar.gz#/llbuild.tar.gz
+Source7:       	https://github.com/apple/swift-cmark/archive/swift-%{swifttag}.tar.gz#/cmark.tar.gz
+Source8:       	https://github.com/apple/swift-xcode-playground-support/archive/swift-%{swifttag}.tar.gz#/swift-xcode-playground-support.tar.gz
+Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
+Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
+Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
+Source12:       swift-lang.conf
+Source13:	swift-lang-runtime.conf
 
 Patch0:     	change-lldb-location.patch
 Patch1:		build-setup.patch
@@ -97,28 +92,31 @@ Runtime libraries for Swift programs
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 
 
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
-mv swift-clang-swift-%{swifttag} clang
 mv swift-cmark-swift-%{swifttag} cmark
-mv swift-compiler-rt-swift-%{swifttag} compiler-rt
 mv swift-corelibs-foundation-swift-%{swifttag} swift-corelibs-foundation
 mv swift-corelibs-libdispatch-swift-%{swifttag} swift-corelibs-libdispatch
 mv swift-corelibs-xctest-swift-%{swifttag} swift-corelibs-xctest
 mv swift-integration-tests-swift-%{swifttag} swift-integration-tests
 mv swift-llbuild-swift-%{swifttag} llbuild
-mv swift-lldb-swift-%{swifttag} lldb
-mv swift-llvm-swift-%{swifttag} llvm
 mv swift-package-manager-swift-%{swifttag} swiftpm
 mv swift-swift-%{swifttag} swift
 mv swift-xcode-playground-support-swift-%{swifttag} swift-xcode-playground-support
 mv sourcekit-lsp-swift-%{swifttag} sourcekit-lsp
 mv indexstore-db-swift-%{swifttag} indexstore-db
-mv swift-clang-tools-extra-swift-%{swifttag} clang-tools-extra
-mv llvm-project-swift-DEVELOPMENT-SNAPSHOT-2019-10-19-a llvm-project
+mv llvm-project-swift-%{swifttag} llvm-project
+# Apple did some reorganization of the various components and what
+# used to be separate subprojects are now symlinks into llvm-project
+ln -s llvm-project/llvm llvm
+ln -s llvm-project/lldb lldb
+ln -s llvm-project/libcxx libcxx
+ln -s llvm-project/compiler-rt compiler-rt
+ln -s llvm-project/clang-tools-extra clang-tools-extra
+ln -s llvm-project/clang clang
 
 # This patch tells the Swift executable to look for its Swift-specific
 # lldb executable in /usr/libexec/swift-lldb, not in the same directory
