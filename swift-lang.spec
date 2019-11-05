@@ -8,7 +8,7 @@
 
 Name:		swift-lang
 Version:        5.1.1
-Release:        0.5.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.6.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0
 URL:            https://swift.org
@@ -247,6 +247,7 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 /usr/lib/swift_static/
 /usr/lib/swift/CFURLSessionInterface/
 /usr/lib/swift/CFXMLInterface/
+/usr/lib/swift/FrameworkABIBaseline/
 %{_libexecdir}/swift-lldb/
 %{_sysconfdir}/ld.so.conf.d/swift-lang.conf
 %{_bindir}/clangd
@@ -270,6 +271,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Mon Nov 04 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.6.20191101gitb368b0d
+- Added unpackaged files, switched to new llvm-project-based subproject
 * Sun Nov 03 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.5.20191101gitb368b0d
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-11-01-a
 * Thu Oct 31 2019 Ron Olson <tachoknight@gmail.com> 5.1.1-0.4.20191004git4242edd
