@@ -1,11 +1,6 @@
---- swift/utils/build-presets.ini.orig	2019-08-16 22:08:50.000000000 -0500
-+++ swift/utils/build-presets.ini	2019-08-21 21:26:01.340252697 -0500
-@@ -740,12 +740,9 @@
- llbuild
- swiftpm
- xctest
--libicu
--libcxx
+--- swift/utils/build-presets.ini.orig	2019-11-05 10:52:56.027260006 -0600
++++ swift/utils/build-presets.ini	2019-11-05 10:53:52.275185967 -0600
+@@ -745,7 +745,6 @@
  
  dash-dash
  
