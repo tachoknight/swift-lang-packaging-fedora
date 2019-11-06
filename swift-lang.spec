@@ -24,10 +24,9 @@ Source8:       	https://github.com/apple/swift-xcode-playground-support/archive/
 Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
 Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:	https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.tar.gz#/swift-syntax.tar.gz
-Source13:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source14:       swift-lang.conf
-Source15:	swift-lang-runtime.conf
+Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
+Source13:       swift-lang.conf
+Source14:	swift-lang-runtime.conf
 
 Patch0:     	change-lldb-location.patch
 Patch1:		build-setup.patch
@@ -94,7 +93,7 @@ Runtime libraries for Swift programs
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 
 
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
@@ -228,8 +227,8 @@ mkdir -p %{buildroot}/usr/lib/swift_static
 cp -r %{_builddir}/usr/lib/swift_static/* %{buildroot}/usr/lib/swift_static
 
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE14} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
-install -m 0644 %{SOURCE15} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
+install -m 0644 %{SOURCE13} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
+install -m 0644 %{SOURCE14} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
 
 mkdir -p %{buildroot}%{_mandir}/man1
 install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1
