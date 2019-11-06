@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-11-01-a
+%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-11-05-a
 %global swiftgithash b368b0d
-%global swiftgitdate 20191101
+%global swiftgitdate 20191105
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
 Version:        5.1.1
-Release:        0.6.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.7.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0
 URL:            https://swift.org
@@ -276,9 +276,11 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
-* Mon Nov 04 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.6.20191101gitb368b0d
+* Wed Nov 06 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.7.20191105gitb368b0d
+- Added icu, also updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-11-05-a
+* Mon Nov 04 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.6.20191101git74328cd
 - Added unpackaged files, switched to new llvm-project-based subproject
-* Sun Nov 03 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.5.20191101gitb368b0d
+* Sun Nov 03 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.5.20191101git74328cd
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-11-01-a
 * Thu Oct 31 2019 Ron Olson <tachoknight@gmail.com> 5.1.1-0.4.20191004git4242edd
 - Added sourcekit-lsp
