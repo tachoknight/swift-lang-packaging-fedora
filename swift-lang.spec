@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-11-05-a
-%global swiftgithash b368b0d
-%global swiftgitdate 20191105
+%global swifttag 5.1.2-RELEASE
+%global swiftgithash 71def56
+%global swiftgitdate 20191107
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
-Version:        5.1.1
-Release:        0.7.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Version:        5.1.2
+Release:        0.1.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0
 URL:            https://swift.org
@@ -61,6 +61,7 @@ BuildRequires:  ninja-build
 
 Requires:       glibc-devel
 Requires:       clang
+Requires:	clang-tools-extra
 Requires:	ncurses-devel
 Requires:	ncurses-compat-libs
 Requires:	%{name}-runtime = %{version}-%{release}
@@ -178,7 +179,6 @@ ln -fs swift %{buildroot}/usr/bin/swift-autolink-extract
 ln -fs swift %{buildroot}/usr/bin/swiftc
 ln -fs swift %{buildroot}/usr/bin/swift-format
 
-install -m 0755 %{_builddir}/usr/bin/clangd %{buildroot}%{_bindir}
 install -m 0755 %{_builddir}/usr/bin/sourcekit-lsp %{buildroot}%{_bindir}
 install -m 0755 %{_builddir}/usr/bin/plutil %{buildroot}%{_bindir}
 
@@ -254,7 +254,6 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 /usr/lib/swift/FrameworkABIBaseline/
 %{_libexecdir}/swift-lldb/
 %{_sysconfdir}/ld.so.conf.d/swift-lang.conf
-%{_bindir}/clangd
 %{_bindir}/plutil
 %{_bindir}/sourcekit-lsp
 
@@ -275,6 +274,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Thu Nov 07 2019 Ron Olson <tachoknight@gmail.com> 5.1.2-0.1.20191107git71def56
+- Updated to swift-5.1.2-RELEASE
 * Wed Nov 06 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.7.20191105gitb368b0d
 - Added icu, also updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-11-05-a
 * Mon Nov 04 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.6.20191101git74328cd
