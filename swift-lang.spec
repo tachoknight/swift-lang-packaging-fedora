@@ -58,6 +58,7 @@ BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
+BuildRequires	make
 
 Requires:       glibc-devel
 Requires:       clang

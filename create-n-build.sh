@@ -44,8 +44,8 @@ popd
 
 # And commit it to the nightly-builds branch
 #git checkout nightly-builds
-#git commit -am "Updated to `awk '/%global swifttag *./{print $3}' ./swift-lang.spec`"
-#git push fedorapeople
+git commit -am "Updated to `awk '/%global swifttag *./{print $3}' ./swift-lang.spec`"
+git push 
 
 # Now move it to fedorapeople
 ssh fedorapeople.org "rm ~/public_html/swift-lang/*$THISVERSION*.rpm"
