@@ -18,7 +18,8 @@ def mid(s, offset, amount):
 def getDate(s):
     # Because we know the format of the string, this is safe to do
     # (e.g. swift-4.2-DEVELOPMENT-SNAPSHOT-2018-07-17-a)
-    return datetime.datetime.strptime(mid(s, 31, len(s)-31-2), '%Y-%m-%d').date()
+    # Date issues? Check the magic numbers (especially the last one)
+    return datetime.datetime.strptime(mid(s, 31, len(s)-31-3), '%Y-%m-%d').date()
 
 def getGitTag(post):
     f = requests.get(post.link)
@@ -95,13 +96,14 @@ lastBuild=''
 with open('last-release.txt', 'r') as lastbuildfile:
     lastBuild=lastbuildfile.read().replace('\n', '')
 
+print(lastBuild)
 lastDate = getDate(lastBuild)
 
 d = feedparser.parse("https://github.com/apple/swift/releases.atom")
 
 # We're gonna start from the top as that's the latest one
 
-print("Gonna go through them...")
+print("Ok, Gonna go through them...")
 for post in d.entries:    
     print(post.title)
     if left(post.title, 9) == 'swift-5.1':        

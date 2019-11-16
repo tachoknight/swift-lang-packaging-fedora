@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THISDIR=/home/rolson/rpmdev/swift-lang
+THISDIR=/home/rolson/swift-lang-packaging-fedora
 
 pushd $THISDIR
 
