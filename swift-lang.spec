@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-11-17-a
+%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-11-18-a
 %global swiftgithash 60f3082
-%global swiftgitdate 20191117
+%global swiftgitdate 20191118
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
 Version:        5.1.3
-Release:        0.3.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.4.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -275,6 +275,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Tue Nov 19 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.4.20191118git60f3082
+- Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-11-18-a
 * Mon Nov 18 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.3.20191117git60f3082
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-11-17-a
 * Sat Nov 16 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.2.20191115git51fe191
