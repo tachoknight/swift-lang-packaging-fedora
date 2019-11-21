@@ -69,7 +69,7 @@ Requires:	%{name}-runtime = %{version}-%{release}
 
 Provides:	%{name} = %{version}-%{release}
 
-ExclusiveArch: 	x86_64 aarch64
+ExclusiveArch: 	x86_64 aarch64 s390x
 
 
 %description
