@@ -25,8 +25,9 @@ Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz
 Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:       swift-lang.conf
-Source14:	swift-lang-runtime.conf
+Source13:	https://github.com/apple/swift-syntax/archive/swift-5.1.2-RELEASE.zip#/swift-syntax.tar.gz
+Source14:       swift-lang.conf
+Source15:	swift-lang-runtime.conf
 
 Patch0:     	change-lldb-location.patch
 Patch1:		build-setup.patch
@@ -38,6 +39,7 @@ Patch6:		linux-tests-python-3.patch
 Patch7:		lldb_python38_platform.patch
 Patch8:		sourcekit.patch
 Patch9:		compiler-rt-sanitizer.patch
+Patch10:	build-setup-s390x.patch
 
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -59,6 +61,12 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:	make
+# No it really doesn't but for troubleshooting mock
+# builds on the s390x arch, it'd be handy to have 
+# vim in the chroot
+BuildRequires:	vim
+# For troubleshooting in the chroot
+BuildRequires:	lldb
 
 Requires:       glibc-devel
 Requires:       clang
@@ -95,7 +103,7 @@ Runtime libraries for Swift programs
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
 
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
@@ -124,13 +132,21 @@ ln -s llvm-project/clang clang
 # ICU 
 mv icu-release-61-2 icu
 
+# Swift Syntax on its own release (sigh)
+mv swift-syntax-swift-5.1.2-RELEASE swift-syntax
+
 # This patch tells the Swift executable to look for its Swift-specific
 # lldb executable in /usr/libexec/swift-lldb, not in the same directory
 # as the swift executable (i.e. /usr/bin). 
 %patch0 -p0
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
+%ifnarch s390x
 %patch1 -p0
+%else
+# Don't build ICU on s390x
+%patch10 -p0
+%endif
 
 # This changes the location of where the headers and libs are to keep lldb happy
 %patch2 -p0
@@ -228,8 +244,8 @@ mkdir -p %{buildroot}/usr/lib/swift_static
 cp -r %{_builddir}/usr/lib/swift_static/* %{buildroot}/usr/lib/swift_static
 
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE13} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
-install -m 0644 %{SOURCE14} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
+install -m 0644 %{SOURCE14} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
+install -m 0644 %{SOURCE15} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
 
 mkdir -p %{buildroot}%{_mandir}/man1
 install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1
