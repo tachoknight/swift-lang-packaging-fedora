@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-11-29-a
-%global swiftgithash 60f3082
-%global swiftgitdate 20191129
+%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-12-03-a
+%global swiftgithash 4b8db65
+%global swiftgitdate 20191203
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
 Version:        5.1.3
-Release:        0.12.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.13.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -61,12 +61,14 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:	make
+%ifarch s390x
 # No it really doesn't but for troubleshooting mock
 # builds on the s390x arch, it'd be handy to have 
 # vim in the chroot
 BuildRequires:	vim
 # For troubleshooting in the chroot
 BuildRequires:	lldb
+%endif
 
 Requires:       glibc-devel
 Requires:       clang
@@ -291,6 +293,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Wed Dec 04 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.13.20191203git4b8db65
+- Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-12-03-a
 * Sat Nov 30 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.12.20191129git60f3082
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-11-29-a
 * Fri Nov 29 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.11.20191128git60f3082
