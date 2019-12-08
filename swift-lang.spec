@@ -40,6 +40,7 @@ Patch7:		lldb_python38_platform.patch
 Patch8:		sourcekit.patch
 Patch9:		compiler-rt-sanitizer.patch
 Patch10:	build-setup-s390x.patch
+Patch11:	sourcekit-loc.patch
 
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -72,7 +73,6 @@ BuildRequires:	lldb
 
 Requires:       glibc-devel
 Requires:       clang
-Requires:	clang-tools-extra
 Requires:	ncurses-devel
 Requires:	ncurses-compat-libs
 Requires:	%{name}-runtime = %{version}-%{release}
@@ -169,6 +169,8 @@ mv swift-syntax-swift-5.1.2-RELEASE swift-syntax
 # New in Clang 9 is an assertion error of an array declared with a negative size
 %patch9 -p0
 
+# Changes locations where sourcekit-lsp looks for things
+%patch11 -p0
 
 %build
 export VERBOSE=1
@@ -203,6 +205,14 @@ install -m 0755 %{_builddir}/usr/bin/plutil %{buildroot}%{_bindir}
 
 install -m 0755 %{_builddir}/usr/bin/lldb* %{buildroot}%{_libexecdir}/swift-lldb
 install -m 0755 %{_builddir}/usr/bin/repl_swift %{buildroot}%{_libexecdir}/swift-lldb
+install -m 0755 %{_builddir}/usr/bin/clangd %{buildroot}%{_libexecdir}/swift-lldb
+install -m 0755 %{_builddir}/usr/bin/clang-7 %{buildroot}%{_libexecdir}/swift-lldb
+# This is not a "real" clang, but an ersatz Swift version - placed here so it
+# doesn't get in the way of the real one
+ln -fs clang-7 %{buildroot}%{_libexecdir}/clang
+ln -fs clang-7 %{buildroot}%{_libexecdir}/clang++
+ln -fs clang-7 %{buildroot}%{_libexecdir}/clang-cl
+ln -fs clang-7 %{buildroot}%{_libexecdir}/clang-cpp
 
 # Why /usr/lib instead of %{_libdir}?
 # The Swift toolchain is *extermely* sensitive to locations of its files

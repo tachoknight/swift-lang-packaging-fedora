@@ -1,0 +1,34 @@
+--- sourcekit-lsp/Sources/SKCore/Toolchain.swift.orig	2019-12-07 13:28:15.316371656 -0600
++++ sourcekit-lsp/Sources/SKCore/Toolchain.swift	2019-12-07 19:25:39.784513174 -0600
+@@ -127,12 +127,12 @@
+ 
+     var foundAny = false
+ 
+-    let clangPath = binPath.appending(component: "clang")
++    let clangPath = AbsolutePath("/usr/libexec/swift-lldb/clang")
+     if fs.isExecutableFile(clangPath) {
+       self.clang = clangPath
+       foundAny = true
+     }
+-    let clangdPath = binPath.appending(component: "clangd")
++    let clangdPath = AbsolutePath("/usr/libexec/swift-lldb/clangd") 
+     if fs.isExecutableFile(clangdPath) {
+       self.clangd = clangdPath
+       foundAny = true
+@@ -152,14 +152,14 @@
+       self.sourcekitd = sourcekitdPath
+       foundAny = true
+     } else {
+-      let sourcekitdPath = libPath.appending(component: "libsourcekitdInProc.\(dylibExt)")
++      let sourcekitdPath = AbsolutePath("/usr/lib/swift-lldb/libsourcekitdInProc.so")
+       if fs.isFile(sourcekitdPath) {
+         self.sourcekitd = sourcekitdPath
+         foundAny = true
+       }
+     }
+ 
+-    let libIndexStore = libPath.appending(components: "libIndexStore.\(dylibExt)")
++    let libIndexStore = AbsolutePath("/usr/lib/swift-lldb/libIndexStore.so")
+     if fs.isFile(libIndexStore) {
+       self.libIndexStore = libIndexStore
+       foundAny = true
