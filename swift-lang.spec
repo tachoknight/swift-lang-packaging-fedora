@@ -209,10 +209,10 @@ install -m 0755 %{_builddir}/usr/bin/clangd %{buildroot}%{_libexecdir}/swift-lld
 install -m 0755 %{_builddir}/usr/bin/clang-7 %{buildroot}%{_libexecdir}/swift-lldb
 # This is not a "real" clang, but an ersatz Swift version - placed here so it
 # doesn't get in the way of the real one
-ln -fs clang-7 %{buildroot}%{_libexecdir}/clang
-ln -fs clang-7 %{buildroot}%{_libexecdir}/clang++
-ln -fs clang-7 %{buildroot}%{_libexecdir}/clang-cl
-ln -fs clang-7 %{buildroot}%{_libexecdir}/clang-cpp
+ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang
+ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang++
+ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cl
+ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cpp
 
 # Why /usr/lib instead of %{_libdir}?
 # The Swift toolchain is *extermely* sensitive to locations of its files
