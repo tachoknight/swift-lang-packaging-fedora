@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-12-06-a
-%global swiftgithash 4b8db65
-%global swiftgitdate 20191206
+%global swifttag 5.1.2-RELEASE
+%global swiftgithash ed9117a
+%global swiftgitdate 20191130
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
-Version:        5.1.3
-Release:        0.16.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Version:        5.1.2
+Release:        0.17.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -25,7 +25,7 @@ Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz
 Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:	https://github.com/apple/swift-syntax/archive/swift-5.1.2-RELEASE.zip#/swift-syntax.tar.gz
+Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source14:       swift-lang.conf
 Source15:	swift-lang-runtime.conf
 
@@ -62,14 +62,6 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:	make
-%ifarch s390x
-# No it really doesn't but for troubleshooting mock
-# builds on the s390x arch, it'd be handy to have 
-# vim in the chroot
-BuildRequires:	vim
-# For troubleshooting in the chroot
-BuildRequires:	lldb
-%endif
 
 Requires:       glibc-devel
 Requires:       clang
@@ -79,7 +71,7 @@ Requires:	%{name}-runtime = %{version}-%{release}
 
 Provides:	%{name} = %{version}-%{release}
 
-ExclusiveArch: 	x86_64 aarch64 s390x
+ExclusiveArch: 	x86_64 aarch64 
 
 
 %description
@@ -303,6 +295,10 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Mon Dec 09 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.17.20191130gited9117a
+- Release of 5.1.2 with sourcekit-lsp enabled. The user still needs to build
+  and install the plugin for vscode; if they do this version will support
+  code-completion, also works with neovim too
 * Sat Dec 07 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.16.20191206git4b8db65
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-12-06-a
 * Fri Dec 06 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.15.20191205git4b8db65
