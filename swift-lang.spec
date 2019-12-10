@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.1.2-RELEASE
-%global swiftgithash ed9117a
-%global swiftgitdate 20191130
+%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-12-09-a
+%global swiftgithash 4a1b378
+%global swiftgitdate 20191209
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
 Version:        5.1.2
-Release:        0.17.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.18.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -295,6 +295,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Tue Dec 10 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.18.20191209git4a1b378
+- Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-12-09-a
 * Mon Dec 09 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.17.20191130gited9117a
 - Release of 5.1.2 with sourcekit-lsp enabled. The user still needs to build
   and install the plugin for vscode; if they do this version will support
