@@ -25,7 +25,7 @@ Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz
 Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
+Source13:	https://github.com/apple/swift-syntax/archive/swift-5.1.2-RELEASE.zip#/swift-syntax.tar.gz
 Source14:       swift-lang.conf
 Source15:	swift-lang-runtime.conf
 
