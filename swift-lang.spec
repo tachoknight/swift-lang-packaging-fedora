@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-12-12-a
-%global swiftgithash a22eb08
-%global swiftgitdate 20191212
+%global swifttag 5.1.3-RELEASE
+%global swiftgithash 005fc1f
+%global swiftgitdate 20191213
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
-Version:        5.1.2
-Release:        0.20.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Version:        5.1.3
+Release:        0.1.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -25,7 +25,7 @@ Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz
 Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:	https://github.com/apple/swift-syntax/archive/swift-5.1.2-RELEASE.zip#/swift-syntax.tar.gz
+Source13:	https://github.com/apple/swift-syntax/archive/swift-5.1.3-RELEASE.zip#/swift-syntax.tar.gz
 Source14:       swift-lang.conf
 Source15:	swift-lang-runtime.conf
 
@@ -128,7 +128,7 @@ ln -s llvm-project/clang clang
 mv icu-release-61-2 icu
 
 # Swift Syntax on its own release (sigh)
-mv swift-syntax-swift-5.1.2-RELEASE swift-syntax
+mv swift-syntax-swift-5.1.3-RELEASE swift-syntax
 
 # This patch tells the Swift executable to look for its Swift-specific
 # lldb executable in /usr/libexec/swift-lldb, not in the same directory
@@ -300,6 +300,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Fri Dec 13 2019 Ron Olson <tachoknight@gmail.com> 5.1.3-0.1.20191213git005fc1f
+- Updated to swift-5.1.3-RELEASE
 * Fri Dec 13 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.20.20191212gita22eb08
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-12-12-a
 * Wed Dec 11 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.19.20191210git4a1b378
