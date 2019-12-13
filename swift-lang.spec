@@ -41,7 +41,8 @@ Patch8:		sourcekit.patch
 Patch9:		compiler-rt-sanitizer.patch
 Patch10:	build-setup-s390x.patch
 Patch11:	sourcekit-loc.patch
-
+Patch12:	glibcpthread.patch
+ 
 BuildRequires:  clang
 BuildRequires:  cmake
 BuildRequires:  swig
@@ -163,6 +164,10 @@ mv swift-syntax-swift-5.1.2-RELEASE swift-syntax
 
 # Changes locations where sourcekit-lsp looks for things
 %patch11 -p0
+
+# Fixes compiler issue with glibc and pthreads after 2.5.0.9000
+%patch12 -p0
+
 
 %build
 export VERBOSE=1
