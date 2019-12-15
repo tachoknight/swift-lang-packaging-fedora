@@ -1,5 +1,7 @@
 %global debug_package %{nil}
 %global swifttag 5.1.3-RELEASE
+# Swift syntax seems to only be updated on major releases
+%global swiftsyntax 5.1.3-RELEASE
 %global swiftgithash 005fc1f
 %global swiftgitdate 20191213
 %global swiftbuild swift-source
@@ -25,7 +27,7 @@ Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz
 Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:	https://github.com/apple/swift-syntax/archive/swift-5.1.3-RELEASE.zip#/swift-syntax.tar.gz
+Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
 Source14:       swift-lang.conf
 Source15:	swift-lang-runtime.conf
 
@@ -128,7 +130,7 @@ ln -s llvm-project/clang clang
 mv icu-release-61-2 icu
 
 # Swift Syntax on its own release (sigh)
-mv swift-syntax-swift-5.1.3-RELEASE swift-syntax
+mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # This patch tells the Swift executable to look for its Swift-specific
 # lldb executable in /usr/libexec/swift-lldb, not in the same directory
