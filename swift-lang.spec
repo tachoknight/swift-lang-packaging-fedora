@@ -308,7 +308,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 %changelog
 * Sat Jan 25 2020 Ron Olson <tachoknight@gmail.com> 5.1-0.15.20200124gite45437e
-- Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2020-01-24-a
+- Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2020-01-24-a and added patches to
+  handle the cstdint header not being implicitly included 
 * Fri Jan 24 2020 Ron Olson <tachoknight@gmail.com> 5.1-0.14.20200123gite45437e
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2020-01-23-a
 * Wed Jan 22 2020 Ron Olson <tachoknight@gmail.com> 5.1-0.13.20200121gite45437e
