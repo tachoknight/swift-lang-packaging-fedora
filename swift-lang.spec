@@ -44,6 +44,8 @@ Patch9:		compiler-rt-sanitizer.patch
 Patch10:	build-setup-s390x.patch
 Patch11:	sourcekit-loc.patch
 Patch12:	glibcpthread.patch
+Patch13:	llvm.patch
+Patch14:	indexstore.patch
  
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -170,6 +172,9 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
 %patch12 -p0
 
+# Fixed STL no longer implicitly including <cstdint>
+%patch13 -p0
+%patch14 -p0
 
 %build
 export VERBOSE=1
