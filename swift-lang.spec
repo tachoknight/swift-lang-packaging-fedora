@@ -1,16 +1,16 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2020-01-24-a
+%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2020-01-27-a
 # Swift syntax seems to only be updated on major releases
 %global swiftsyntax 5.1.3-RELEASE
 %global swiftgithash e45437e
-%global swiftgitdate 20200124
+%global swiftgitdate 20200127
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
 Version:        5.1.3
-Release:        0.15.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.16.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -307,6 +307,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Tue Jan 28 2020 Ron Olson <tachoknight@gmail.com> 5.1-0.16.20200127gite45437e
+- Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2020-01-27-a
 * Sat Jan 25 2020 Ron Olson <tachoknight@gmail.com> 5.1-0.15.20200124gite45437e
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2020-01-24-a and added patches to
   handle the cstdint header not being implicitly included 
