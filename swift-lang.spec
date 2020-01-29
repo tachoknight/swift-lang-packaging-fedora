@@ -1,16 +1,16 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2019-12-20-a
+%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-01-17-a
 # Swift syntax seems to only be updated on major releases
 %global swiftsyntax 5.1.3-RELEASE
-%global swiftgithash 04833a6
-%global swiftgitdate 20191220
+%global swiftgithash 3194881
+%global swiftgitdate 20200117
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
-Version:        5.1.3
-Release:        0.6.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Version:        5.2
+Release:        0.2.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -44,6 +44,7 @@ Patch9:		compiler-rt-sanitizer.patch
 Patch10:	build-setup-s390x.patch
 Patch11:	sourcekit-loc.patch
 Patch12:	glibcpthread.patch
+Patch13:	swift.patch
  
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -153,13 +154,13 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
  
 # Patch for handling optional issue with pthreads functions in Swift file
 # in the package mananger
-%patch4 -p0
+#%patch4 -p0
 
 # Python 3 is the new default so we need to make the python code work with it
 %patch5 -p0
-%patch6 -p0
-%patch7 -p0
-%patch8 -p0
+#%patch6 -p0
+#%patch7 -p0
+#%patch8 -p0
 
 # New in Clang 9 is an assertion error of an array declared with a negative size
 %patch9 -p0
@@ -170,6 +171,10 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
 %patch12 -p0
 
+#
+# 5.2 patches
+# 
+%patch13 -p0
 
 %build
 export VERBOSE=1
@@ -302,6 +307,12 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Mon Jan 20 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.3.20200117git3194881
+- Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-01-17-a
+* Fri Jan 10 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.2.20200109git880e9e6
+- Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-01-09-a
+* Tue Jan 07 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.1.20200106git74df113
+- Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-01-06-a
 * Sat Dec 21 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.6.20191220git04833a6
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2019-12-20-a
 * Fri Dec 20 2019 Ron Olson <tachoknight@gmail.com> 5.1-0.5.20191219git04833a6
