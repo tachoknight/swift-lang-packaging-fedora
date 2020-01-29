@@ -1,0 +1,146 @@
+diff -Naur swift-orig/utils/build-presets.ini swift/utils/build-presets.ini
+--- swift-orig/utils/build-presets.ini	2020-01-10 20:31:28.888458009 -0600
++++ swift/utils/build-presets.ini	2020-01-10 21:11:55.663549028 -0600
+@@ -37,7 +37,6 @@
+ verbose-build
+ build-ninja
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ install-swift
+ 
+@@ -318,8 +317,6 @@
+ release
+ assertions
+ 
+-build-swift-stdlib-unittest-extra
+-
+ libcxx
+ 
+ # Build llbuild & swiftpm here
+@@ -379,8 +376,6 @@
+ # of the XCTest Xcode project.
+ xctest
+ 
+-build-swift-stdlib-unittest-extra
+-
+ dash-dash
+ 
+ # This preset is meant to test XCTest, not Swift or Foundation. We don't
+@@ -416,7 +411,6 @@
+ release-debuginfo
+ assertions
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ dash-dash
+ 
+@@ -444,7 +438,6 @@
+ assertions
+ enable-tsan
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ dash-dash
+ 
+@@ -464,7 +457,6 @@
+ release-debuginfo
+ assertions
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ dash-dash
+ 
+@@ -495,7 +487,6 @@
+ # Build Release with debug info, so that we can symbolicate backtraces.
+ assertions
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ dash-dash
+ 
+@@ -527,7 +518,6 @@
+ release
+ assertions
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ # We run the OS X tests and validation tests.
+ test
+@@ -559,8 +549,6 @@
+ install-swiftpm
+ install-libcxx
+ 
+-# We need to build the unittest extras so we can test
+-build-swift-stdlib-unittest-extra
+ 
+ # Make sure our stdlib is RA.
+ swift-stdlib-build-type=RelWithDebInfo
+@@ -637,7 +625,6 @@
+ verbose-build
+ build-ninja
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ skip-build-ios
+ skip-test-ios
+@@ -677,7 +664,6 @@
+ reconfigure
+ verbose-build
+ build-ninja
+-build-swift-stdlib-unittest-extra
+ swift-runtime-enable-leak-checker
+ 
+ [preset: buildbot_incremental_leaks,tools=RA,stdlib=R]
+@@ -847,7 +833,6 @@
+ 
+ build-swift-static-stdlib
+ build-swift-static-sdk-overlay
+-build-swift-stdlib-unittest-extra
+ 
+ # Path to the root of the installation filesystem.
+ install-destdir=%(install_destdir)s
+@@ -1168,7 +1153,6 @@
+ lldb-build-type=Release
+ verbose-build
+ build-ninja
+-build-swift-stdlib-unittest-extra
+ playgroundsupport-build-type=Release
+ 
+ install-swift
+@@ -1388,7 +1372,6 @@
+ release
+ assertions
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ libcxx
+ 
+@@ -1474,7 +1457,6 @@
+ release
+ assertions
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ # Build llbuild & swiftpm here
+ llbuild
+@@ -1808,7 +1790,6 @@
+ 
+ verbose-build
+ build-ninja
+-build-swift-stdlib-unittest-extra
+ skip-build-benchmarks
+ 
+ [preset: mixin_buildbot_incremental,test=macOS,type=device]
+diff -Naur swift-orig/utils/swift_build_support/swift_build_support/host_specific_configuration.py swift/utils/swift_build_support/swift_build_support/host_specific_configuration.py
+--- swift-orig/utils/swift_build_support/swift_build_support/host_specific_configuration.py	2020-01-10 20:31:28.859456909 -0600
++++ swift/utils/swift_build_support/swift_build_support/host_specific_configuration.py	2020-01-10 20:33:11.899365207 -0600
+@@ -12,7 +12,7 @@
+ 
+ from argparse import ArgumentError
+ 
+-import diagnostics
++from .diagnostics import *
+ 
+ from .targets import StdlibDeploymentTarget
+ 

@@ -1,16 +1,16 @@
 %global debug_package %{nil}
-%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-01-17-a
+%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-01-27-a
 # Swift syntax seems to only be updated on major releases
 %global swiftsyntax 5.1.3-RELEASE
-%global swiftgithash 3194881
-%global swiftgitdate 20200117
+%global swiftgithash 7c02102
+%global swiftgitdate 20200127
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
 Version:        5.2
-Release:        0.2.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.3.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -36,15 +36,17 @@ Patch1:		build-setup.patch
 Patch2:		clangloc.patch
 Patch3:		compiler-rt-fuzzer.patch
 Patch4:		swift-unwrapped.patch
-Patch5:		python3.patch
-Patch6:		linux-tests-python-3.patch
+Patch5:		python3-2.patch
+Patch6:		linux-tests-python-3-2.patch
 Patch7:		lldb_python38_platform.patch
-Patch8:		sourcekit.patch
+Patch8:		sourcekit-2.patch
 Patch9:		compiler-rt-sanitizer.patch
 Patch10:	build-setup-s390x.patch
 Patch11:	sourcekit-loc.patch
 Patch12:	glibcpthread.patch
 Patch13:	swift.patch
+Patch14:	llvm.patch
+Patch15:	indexstore.patch
  
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -158,9 +160,9 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # Python 3 is the new default so we need to make the python code work with it
 %patch5 -p0
-#%patch6 -p0
-#%patch7 -p0
-#%patch8 -p0
+%patch6 -p0
+#%patch7 -p0 - already in the sources ... patch not needed at all :)
+%patch8 -p0
 
 # New in Clang 9 is an assertion error of an array declared with a negative size
 %patch9 -p0
@@ -175,6 +177,11 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 # 5.2 patches
 # 
 %patch13 -p0
+
+# implicit include of cstdint
+%patch14 -p0
+%patch15 -p0
+
 
 %build
 export VERBOSE=1
@@ -307,6 +314,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Tue Jan 28 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.4.20200137git7c02102
+- Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-01-27-a
 * Mon Jan 20 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.3.20200117git3194881
 - Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-01-17-a
 * Fri Jan 10 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.2.20200109git880e9e6
