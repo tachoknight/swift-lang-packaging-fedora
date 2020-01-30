@@ -34,3 +34,15 @@ diff -Naur swift-integration-tests-orig/test-snapshot-binaries/linux_load_comman
      sys.exit(0)
  
  if __name__ == "__main__":
+diff -Naur swift-integration-tests-orig/test-sourcekit-lsp/test-sourcekit-lsp.py swift-integration-tests/test-sourcekit-lsp/test-sourcekit-lsp.py
+--- swift-integration-tests-orig/test-sourcekit-lsp/test-sourcekit-lsp.py	2019-10-07 17:57:28.000000000 -0500
++++ swift-integration-tests/test-sourcekit-lsp/test-sourcekit-lsp.py	2020-01-29 18:35:26.953725332 -0600
+@@ -136,7 +136,7 @@
+ 
+     skargs = [args.sourcekit_lsp, '--sync', '-Xclangd', '-sync']
+     p = subprocess.Popen(skargs, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+-    out, _ = p.communicate(lsp.script)
++    out, _ = p.communicate(lsp.script.encode())
+     print(out)
+     print('')
+ 
