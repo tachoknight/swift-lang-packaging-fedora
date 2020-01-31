@@ -1,6 +1,6 @@
---- swift/utils/build-presets.ini.orig	2019-11-05 10:52:56.027260006 -0600
-+++ swift/utils/build-presets.ini	2019-11-05 10:53:52.275185967 -0600
-@@ -745,7 +745,6 @@
+--- swift/utils/build-presets.ini.orig	2020-01-30 19:54:07.528043218 -0600
++++ swift/utils/build-presets.ini	2020-01-30 19:55:11.580461138 -0600
+@@ -741,7 +741,6 @@
  
  dash-dash
  
@@ -8,3 +8,15 @@
  install-swift
  install-lldb
  install-llbuild
+@@ -755,11 +754,6 @@
+ build-swift-static-sdk-overlay
+ build-swift-stdlib-unittest-extra
+ 
+-# Executes the lit tests for the installable package that is created
+-# Assumes the swift-integration-tests repo is checked out
+-
+-test-installable-package
+-
+ # Build the benchmarks against the toolchain.
+ toolchain-benchmarks
+ 

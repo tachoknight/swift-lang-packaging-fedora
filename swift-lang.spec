@@ -1,16 +1,16 @@
 %global debug_package %{nil}
-%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-01-27-a
+%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-01-29-a
 # Swift syntax seems to only be updated on major releases
 %global swiftsyntax 5.1.3-RELEASE
-%global swiftgithash 7c02102
-%global swiftgitdate 20200127
+%global swiftgithash a0c1677
+%global swiftgitdate 20200129
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
 Version:        5.2
-Release:        0.3.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.5.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -234,8 +234,8 @@ ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cpp
 mkdir -p %{buildroot}/usr/lib/swift-lldb
 cp %{_builddir}/usr/lib/libIndexStore.so.7svn %{buildroot}/usr/lib/swift-lldb
 ln -fs libIndexStore.so.7svn %{buildroot}/usr/lib/swift-lldb/libIndexStore.so
-cp %{_builddir}/usr/lib/liblldb.so.992.8.1svn %{buildroot}/usr/lib/swift-lldb
-ln -fs liblldb.so.992.8.1svn %{buildroot}/usr/lib/swift-lldb/liblldb.so.7svn
+cp %{_builddir}/usr/lib/liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb
+ln -fs liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb/liblldb.so.7svn
 ln -fs liblldb.so.7svn %{buildroot}/usr/lib/swift-lldb/liblldb.so
 cp %{_builddir}/usr/lib/libsourcekitdInProc.so %{buildroot}/usr/lib/swift-lldb
 cp %{_builddir}/usr/lib/libswiftDemangle.so %{buildroot}/usr/lib/swift-lldb
@@ -314,7 +314,9 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
-* Tue Jan 28 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.4.20200137git7c02102
+* Thu Jan 30 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.5.20200129gita0c1677
+- Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-01-29-a
+* Tue Jan 28 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.4.20200127git7c02102
 - Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-01-27-a
 * Mon Jan 20 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.3.20200117git3194881
 - Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-01-17-a
