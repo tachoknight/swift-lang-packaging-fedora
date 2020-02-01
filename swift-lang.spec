@@ -239,8 +239,6 @@ ln -fs liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb/liblldb.so.7svn
 ln -fs liblldb.so.7svn %{buildroot}/usr/lib/swift-lldb/liblldb.so
 cp %{_builddir}/usr/lib/libsourcekitdInProc.so %{buildroot}/usr/lib/swift-lldb
 cp %{_builddir}/usr/lib/libswiftDemangle.so %{buildroot}/usr/lib/swift-lldb
-cp %{_builddir}/usr/lib/liblldbIntelFeatures.so.7svn %{buildroot}/usr/lib/swift-lldb
-ln -fs liblldbIntelFeatures.so.7svn %{buildroot}/usr/lib/swift-lldb/liblldbIntelFeatures.so
 ln -fs %{_bindir}/swift %{buildroot}%{_libexecdir}/swift-lldb/swift
 cp %{_builddir}/usr/lib/libBlocksRuntime.so %{buildroot}/usr/lib/swift-lldb
 cp %{_builddir}/usr/lib/libdispatch.so %{buildroot}/usr/lib/swift-lldb
