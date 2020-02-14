@@ -1,9 +1,9 @@
 %global debug_package %{nil}
-%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-02-09-a
+%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-02-11-a
 # Swift syntax seems to only be updated on major releases
 %global swiftsyntax 5.1.4-RELEASE
-%global swiftgithash 5af2757
-%global swiftgitdate 20200208
+%global swiftgithash dd125c
+%global swiftgitdate 20200211
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
