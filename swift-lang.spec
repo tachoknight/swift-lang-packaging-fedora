@@ -10,7 +10,7 @@
 
 Name:		swift-lang
 Version:        5.1.4
-Release:        0.1.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.2.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -46,6 +46,7 @@ Patch11:	sourcekit-loc.patch
 Patch12:	glibcpthread.patch
 Patch13:	llvm.patch
 Patch14:	indexstore.patch
+Patch15:	implicit_fallthru.patch
  
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -175,6 +176,10 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 # Fixed STL no longer implicitly including <cstdint>
 %patch13 -p0
 %patch14 -p0
+
+# Implicit fallthrough warning treated as error in Clang 10
+%patch15 -p0
+
 
 %build
 export VERBOSE=1
@@ -307,6 +312,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Mon Feb 17 2020 Ron Olson <tachoknight@gmail.com> 5.1.4-0.2.20200131git2194dc2
+- Added patch to handle warning-as-error using Clang 10
 * Fri Jan 31 2020 Ron Olson <tachoknight@gmail.com> 5.1.4-0.1.20200131git2194dc2
 - Updated to swift-5.1.4-RELEASE
 * Wed Jan 29 2020 Ron Olson <tachoknight@gmail.com> 5.1-0.17.20200128gite45437e
