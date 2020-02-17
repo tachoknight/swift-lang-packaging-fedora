@@ -1,16 +1,16 @@
 %global debug_package %{nil}
-%global swifttag 5.1-DEVELOPMENT-SNAPSHOT-2020-01-28-a
+%global swifttag 5.1.4-RELEASE
 # Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.1.3-RELEASE
-%global swiftgithash e45437e
-%global swiftgitdate 20200128
+%global swiftsyntax 5.1.4-RELEASE
+%global swiftgithash 2194dc2
+%global swiftgitdate 20200131
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
 
 Name:		swift-lang
-Version:        5.1.3
-Release:        0.17.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Version:        5.1.4
+Release:        0.1.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -307,6 +307,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Fri Jan 31 2020 Ron Olson <tachoknight@gmail.com> 5.1.4-0.1.20200131git2194dc2
+- Updated to swift-5.1.4-RELEASE
 * Wed Jan 29 2020 Ron Olson <tachoknight@gmail.com> 5.1-0.17.20200128gite45437e
 - Updated to swift-5.1-DEVELOPMENT-SNAPSHOT-2020-01-28-a
 * Tue Jan 28 2020 Ron Olson <tachoknight@gmail.com> 5.1-0.16.20200127gite45437e
