@@ -1,9 +1,9 @@
 %global debug_package %{nil}
-%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-02-11-a
+%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-02-23-a
 # Swift syntax seems to only be updated on major releases
 %global swiftsyntax 5.1.4-RELEASE
-%global swiftgithash dd125c
-%global swiftgitdate 20200211
+%global swiftgithash b1336e1
+%global swiftgitdate 20200223
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 
@@ -39,7 +39,7 @@ Patch4:		swift-unwrapped.patch
 Patch5:		python3-2.patch
 Patch6:		linux-tests-python-3-2.patch
 Patch7:		lldb_python38_platform.patch
-Patch8:		sourcekit-2.patch
+#Patch8:		sourcekit-2.patch
 Patch9:		compiler-rt-sanitizer.patch
 Patch10:	build-setup-s390x.patch
 Patch11:	sourcekit-loc.patch
@@ -162,10 +162,10 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %patch5 -p0
 %patch6 -p0
 #%patch7 -p0 - already in the sources ... patch not needed at all :)
-%patch8 -p0
+#%patch8 -p0
 
 # New in Clang 9 is an assertion error of an array declared with a negative size
-%patch9 -p0
+#%patch9 -p0
 
 # Changes locations where sourcekit-lsp looks for things
 %patch11 -p0
