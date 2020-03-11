@@ -1,88 +1,112 @@
 diff -Naur swift-corelibs-libdispatch-orig/src/event/event_epoll.c swift-corelibs-libdispatch/src/event/event_epoll.c
 --- swift-corelibs-libdispatch-orig/src/event/event_epoll.c	2019-07-31 17:58:26.000000000 -0500
-+++ swift-corelibs-libdispatch/src/event/event_epoll.c	2020-02-17 14:14:03.206521736 -0600
-@@ -174,6 +174,7 @@
++++ swift-corelibs-libdispatch/src/event/event_epoll.c	2020-03-11 16:06:21.182865901 -0500
+@@ -174,6 +174,9 @@
  	}
  	case EVFILT_WRITE:
  		filter = EVFILT_READ;
-+		__attribute__((fallthrough));
++ #if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  	case EVFILT_READ:
  		if (fstat(fd, &sb) < 0) {
  			return NULL;
 diff -Naur swift-corelibs-libdispatch-orig/src/io.c swift-corelibs-libdispatch/src/io.c
 --- swift-corelibs-libdispatch-orig/src/io.c	2019-07-31 17:58:26.000000000 -0500
-+++ swift-corelibs-libdispatch/src/io.c	2020-02-17 14:12:31.262859649 -0600
-@@ -2086,11 +2086,13 @@
++++ swift-corelibs-libdispatch/src/io.c	2020-03-11 16:08:45.344481709 -0500
+@@ -2086,11 +2086,17 @@
  	case DISPATCH_OP_DELIVER:
  		flags = DOP_DEFAULT;
  		// Fall through
-+		__attribute__((fallthrough));
++		#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  	case DISPATCH_OP_DELIVER_AND_COMPLETE:
  		flags = (flags != DOP_DEFAULT) ? DOP_DELIVER | DOP_NO_EMPTY :
  				DOP_DEFAULT;
  		_dispatch_operation_deliver_data(op, flags);
  		// Fall through
-+		__attribute__((fallthrough));
++		#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  	case DISPATCH_OP_COMPLETE:
  		if (flags != DOP_DEFAULT) {
  			_dispatch_stream_complete_operation(stream, op);
-@@ -2103,6 +2105,7 @@
+@@ -2103,6 +2109,9 @@
  	case DISPATCH_OP_COMPLETE_RESUME:
  		_dispatch_stream_complete_operation(stream, op);
  		// Fall through
-+		__attribute__((fallthrough));
++		#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  	case DISPATCH_OP_RESUME:
  		if (_dispatch_stream_operation_avail(stream)) {
  			stream->source_running = true;
 diff -Naur swift-corelibs-libdispatch-orig/src/semaphore.c swift-corelibs-libdispatch/src/semaphore.c
 --- swift-corelibs-libdispatch-orig/src/semaphore.c	2019-07-31 17:58:26.000000000 -0500
-+++ swift-corelibs-libdispatch/src/semaphore.c	2020-02-17 14:13:18.248731082 -0600
-@@ -118,6 +118,7 @@
++++ swift-corelibs-libdispatch/src/semaphore.c	2020-03-11 16:10:04.319558171 -0500
+@@ -118,6 +118,9 @@
  		}
  		// Fall through and try to undo what the fast path did to
  		// dsema->dsema_value
-+		__attribute__((fallthrough));
++		#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  	case DISPATCH_TIME_NOW:
  		orig = dsema->dsema_value;
  		while (orig < 0) {
-@@ -128,6 +129,7 @@
+@@ -128,6 +131,9 @@
  		}
  		// Another thread called semaphore_signal().
  		// Fall through and drain the wakeup.
-+		__attribute__((fallthrough));
++		#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  	case DISPATCH_TIME_FOREVER:
  		_dispatch_sema4_wait(&dsema->dsema_sema);
  		break;
 diff -Naur swift-corelibs-libdispatch-orig/src/shims/lock.c swift-corelibs-libdispatch/src/shims/lock.c
 --- swift-corelibs-libdispatch-orig/src/shims/lock.c	2019-07-31 17:58:26.000000000 -0500
-+++ swift-corelibs-libdispatch/src/shims/lock.c	2020-02-17 14:13:39.321570408 -0600
-@@ -428,8 +428,11 @@
++++ swift-corelibs-libdispatch/src/shims/lock.c	2020-03-11 16:10:55.045534383 -0500
+@@ -428,8 +428,17 @@
  				continue;
  			}
  			/* FALLTHROUGH */
-+			__attribute__((fallthrough));
++#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  		case ETIMEDOUT:
-+			__attribute__((fallthrough));
++#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  		case EFAULT:
-+			__attribute__((fallthrough));
++#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  		case EWOULDBLOCK:
  			return errno;
  		default:
 diff -Naur swift-corelibs-libdispatch-orig/src/transform.c swift-corelibs-libdispatch/src/transform.c
 --- swift-corelibs-libdispatch-orig/src/transform.c	2019-07-31 17:58:26.000000000 -0500
-+++ swift-corelibs-libdispatch/src/transform.c	2020-02-17 14:12:59.634989699 -0600
-@@ -781,11 +781,14 @@
++++ swift-corelibs-libdispatch/src/transform.c	2020-03-11 16:11:47.034560632 -0500
+@@ -781,11 +781,20 @@
  			case 1:
  				*ptr++ = '='; // c
  				*ptr++ = '='; // d
-+				__attribute__((fallthrough));
++#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  			case 2:
  				*ptr++ = '='; // e
-+				__attribute__((fallthrough));
++#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  			case 3:
  				*ptr++ = '='; // f
  				*ptr++ = '='; // g
-+				__attribute__((fallthrough));
++#if __clang_major__ >= 10
++                __attribute__((fallthrough));
++ #endif
  			case 4:
  				*ptr++ = '='; // h
  				break;
