@@ -1,16 +1,17 @@
 %global debug_package %{nil}
-%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-02-27-a
+%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-03-11-a
 # Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.1.4-RELEASE
+%global swiftsyntax 5.1.5-RELEASE
 %global swiftgithash 33150e3
-%global swiftgitdate 20200227
+%global swiftgitdate 20200311
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
+%global cmake_version 3.16.5
 
 
 Name:		swift-lang
 Version:        5.2
-Release:        0.8.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.9.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -30,6 +31,7 @@ Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
 Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
 Source14:       swift-lang.conf
 Source15:	swift-lang-runtime.conf
+Source16:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:     	change-lldb-location.patch
 Patch1:		build-setup.patch
@@ -49,7 +51,7 @@ Patch14:	llvm.patch
 Patch15:	indexstore.patch
  
 BuildRequires:  clang
-BuildRequires:  cmake
+#BuildRequires:  cmake 
 BuildRequires:  swig
 BuildRequires:  pkgconfig
 BuildRequires:  perl-podlators
@@ -104,7 +106,6 @@ Runtime libraries for Swift programs
 
 %prep
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
-
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -183,6 +184,13 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %patch15 -p0
 
 
+# Now we handle our own CMake (sigh)
+%setup -q -c -n cmake -a 16
+mkdir cmake-build
+cd cmake-build
+../cmake-%{cmake_version}/bootstrap && make
+
+
 %build
 export VERBOSE=1
 # We may not have /usr/bin/python, so we roll our own
@@ -190,6 +198,9 @@ export VERBOSE=1
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
+# And for CMake
+export PATH=$PWD/../cmake/cmake-build/bin:$PATH
+
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
 
@@ -312,6 +323,10 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Thu 12 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.9.20200311git33150e3
+- Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-03-11-a and switched to
+  using patched version of cmake to get around issues building 5.2 with
+  3.17
 * Fri Feb 28 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.8.20200227git33150e3
 - Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-02-27-a
 * Sun Feb 02 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.7.20200201git66c06ab
