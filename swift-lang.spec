@@ -193,6 +193,10 @@ cd cmake-build
 
 %build
 export VERBOSE=1
+# First we need to be in the right place (when last we
+# saw our heroes, they were in the %{_builddir}/cmake
+# directory)
+cd %{_builddir}/%{swiftbuild}
 # We may not have /usr/bin/python, so we roll our own
 # because the build script expects there to be one.
 mkdir $PWD/binforpython
@@ -323,7 +327,7 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
-* Thu 12 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.9.20200311git33150e3
+* Thu Mar 12 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.9.20200311git33150e3
 - Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-03-11-a and switched to
   using patched version of cmake to get around issues building 5.2 with
   3.17
