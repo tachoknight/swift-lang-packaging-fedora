@@ -326,7 +326,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 %changelog
 * Tue Mar 10 2020 Ron Olson <tachoknight@gmail.com> 5.1.5-0.1.20200305git30c042c
-- Updated to swift-5.1.5-RELEASE
+- Updated to swift-5.1.5-RELEASE and added building the 3.16 version of CMake
+  to work around issues with 3.17
 * Mon Feb 17 2020 Ron Olson <tachoknight@gmail.com> 5.1.4-0.2.20200131git2194dc2
 - Added patch to handle warning-as-error using Clang 10
 * Fri Jan 31 2020 Ron Olson <tachoknight@gmail.com> 5.1.4-0.1.20200131git2194dc2
