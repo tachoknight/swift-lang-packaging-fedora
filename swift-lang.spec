@@ -6,6 +6,7 @@
 %global swiftgitdate 20200305
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
+%global cmake_version 3.16.5
 
 
 Name:		swift-lang
@@ -30,6 +31,7 @@ Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
 Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
 Source14:       swift-lang.conf
 Source15:	swift-lang-runtime.conf
+Source16:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:     	change-lldb-location.patch
 Patch1:		build-setup.patch
@@ -49,7 +51,6 @@ Patch14:	indexstore.patch
 Patch15:	implicit_fallthru.patch
  
 BuildRequires:  clang
-BuildRequires:  cmake
 BuildRequires:  swig
 BuildRequires:  pkgconfig
 BuildRequires:  perl-podlators
@@ -68,6 +69,7 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:	make
+BuildRequires:  openssl-devel
 
 Requires:       glibc-devel
 Requires:       clang
@@ -103,6 +105,14 @@ Runtime libraries for Swift programs
 
 
 %prep
+
+# First we handle our own CMake (sigh)
+%setup -q -c -n cmake -a 16
+mkdir cmake-build
+cd cmake-build
+../cmake-%{cmake_version}/bootstrap && make
+
+# Now continue on with Swift...
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
 
 # The Swift build script requires directories to be named
@@ -188,6 +198,9 @@ export VERBOSE=1
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
+# And for CMake, which we built first
+export PATH=$PWD/../cmake/cmake-build/bin:$PATH
+
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
 

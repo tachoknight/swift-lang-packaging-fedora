@@ -1,5 +1,5 @@
---- swift/utils/build-presets.ini.orig	2019-11-05 10:52:56.027260006 -0600
-+++ swift/utils/build-presets.ini	2019-11-05 10:53:52.275185967 -0600
+--- swift/utils/build-presets.ini.orig	2020-03-12 16:04:54.935355266 -0500
++++ swift/utils/build-presets.ini	2020-03-12 16:05:14.714144269 -0500
 @@ -745,7 +745,6 @@
  
  dash-dash
@@ -8,3 +8,12 @@
  install-swift
  install-lldb
  install-llbuild
+@@ -762,7 +761,7 @@
+ # Executes the lit tests for the installable package that is created
+ # Assumes the swift-integration-tests repo is checked out
+ 
+-test-installable-package
++#test-installable-package
+ 
+ # Path to the root of the installation filesystem.
+ install-destdir=%(install_destdir)s
