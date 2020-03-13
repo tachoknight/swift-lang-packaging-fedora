@@ -105,6 +105,14 @@ Runtime libraries for Swift programs
 
 
 %prep
+
+# Now we handle our own CMake (sigh)
+%setup -q -c -n cmake -a 16
+mkdir cmake-build
+cd cmake-build
+../cmake-%{cmake_version}/bootstrap && make
+
+
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
@@ -184,19 +192,12 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %patch15 -p0
 
 
-# Now we handle our own CMake (sigh)
-%setup -q -c -n cmake -a 16
-mkdir cmake-build
-cd cmake-build
-../cmake-%{cmake_version}/bootstrap && make
-
-
 %build
 export VERBOSE=1
 # First we need to be in the right place (when last we
 # saw our heroes, they were in the %{_builddir}/cmake
 # directory)
-cd %{_builddir}/%{swiftbuild}
+#cd %{_builddir}/%{swiftbuild}
 # We may not have /usr/bin/python, so we roll our own
 # because the build script expects there to be one.
 mkdir $PWD/binforpython
