@@ -194,16 +194,12 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 %build
 export VERBOSE=1
-# First we need to be in the right place (when last we
-# saw our heroes, they were in the %{_builddir}/cmake
-# directory)
-#cd %{_builddir}/%{swiftbuild}
 # We may not have /usr/bin/python, so we roll our own
 # because the build script expects there to be one.
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
-# And for CMake
+# And for CMake, which we built first
 export PATH=$PWD/../cmake/cmake-build/bin:$PATH
 
 # Here we go!

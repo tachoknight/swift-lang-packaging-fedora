@@ -6,6 +6,7 @@ START_TS=`date`
 
 rm -rf $HOME/rpmbuild
 rm -rf $MYDIR/mock-results
+mkdir $MYDIR/mock-results
 mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 cp $PWD/*.patch $HOME/rpmbuild/SOURCES
 cp $PWD/*.conf $HOME/rpmbuild/SOURCES
