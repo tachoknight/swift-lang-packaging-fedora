@@ -51,7 +51,6 @@ Patch14:	llvm.patch
 Patch15:	indexstore.patch
  
 BuildRequires:  clang
-#BuildRequires:  cmake 
 BuildRequires:  swig
 BuildRequires:  pkgconfig
 BuildRequires:  perl-podlators
@@ -70,6 +69,7 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:	make
+BuildRequires:  openssl-devel
 
 Requires:       glibc-devel
 Requires:       clang
