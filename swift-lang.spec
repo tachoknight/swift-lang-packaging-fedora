@@ -1,9 +1,9 @@
 %global debug_package %{nil}
-%global swifttag 5.2-DEVELOPMENT-SNAPSHOT-2020-03-11-a
+%global swifttag 5.2-RELEASE
 # Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.1.5-RELEASE
-%global swiftgithash 33150e3
-%global swiftgitdate 20200311
+%global swiftsyntax 5.2-RELEASE
+%global swiftgithash 443e9a4
+%global swiftgitdate 20200324
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 %global cmake_version 3.16.5
@@ -11,7 +11,7 @@
 
 Name:		swift-lang
 Version:        5.2
-Release:        0.9.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        0.10.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -324,6 +324,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Wed Mar 25 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.10.20200324git443e9a4
+- Updated to swift-5.2-RELEASE
 * Thu Mar 12 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.9.20200311git33150e3
 - Updated to swift-5.2-DEVELOPMENT-SNAPSHOT-2020-03-11-a and switched to
   using patched version of cmake to get around issues building 5.2 with
