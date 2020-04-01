@@ -1,17 +1,17 @@
 %global debug_package %{nil}
-%global swifttag 5.2-RELEASE
+%global swifttag 5.2.1-RELEASE
 # Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.2-RELEASE
-%global swiftgithash 443e9a4
-%global swiftgitdate 20200324
+%global swiftsyntax 5.2.1-RELEASE
+%global swiftgithash 2e3b1b3
+%global swiftgitdate 20200331
 %global swiftbuild swift-source
 %global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 %global cmake_version 3.16.5
 
 
 Name:		swift-lang
-Version:        5.2
-Release:        0.10.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Version:        5.2.1
+Release:        0.1.%{swiftgitdate}git%{swiftgithash}%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -158,7 +158,7 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %endif
 
 # This changes the location of where the headers and libs are to keep lldb happy
-%patch2 -p0
+#%patch2 -p0
 
 # Fixes an issue with using std::thread in a vector in compiler-rt
 %patch3 -p0 
@@ -324,6 +324,8 @@ install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/m
 
 
 %changelog
+* Wed Apr 01 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-0.1.20200331git2e3b1b3
+- Updated to swift-5.2.1-RELEASE
 * Wed Mar 25 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.10.20200324git443e9a4
 - Updated to swift-5.2-RELEASE
 * Thu Mar 12 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.9.20200311git33150e3
