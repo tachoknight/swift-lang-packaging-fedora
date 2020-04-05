@@ -94,16 +94,6 @@ importantly, Swift is designed to make writing and maintaining
 correct programs easier for the developer. 
 
 
-%package runtime
-Summary: Runtime files for Swift programs
-
-Provides:	%{name}-runtime = %{version}-%{release}
-
-
-%description runtime
-Runtime libraries for Swift programs
-
-
 %prep
 
 # Now we handle our own CMake (sigh)
@@ -147,7 +137,7 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 # This patch tells the Swift executable to look for its Swift-specific
 # lldb executable in /usr/libexec/swift-lldb, not in the same directory
 # as the swift executable (i.e. /usr/bin). 
-%patch0 -p0
+#%patch0 -p0
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
 %ifnarch s390x
@@ -207,35 +197,38 @@ swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_buil
 
 
 %install
-mkdir -p %{buildroot}%{_libexecdir}/swift-lldb
-mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}/usr/lib
-install -m 0755 %{_builddir}/usr/bin/swift %{buildroot}%{_bindir}
-install -m 0755 %{_builddir}/usr/bin/swift-build %{buildroot}%{_bindir}
-install -m 0755 %{_builddir}/usr/bin/swift-build-tool %{buildroot}%{_bindir}
-install -m 0755 %{_builddir}/usr/bin/swift-demangle %{buildroot}%{_bindir}
-install -m 0755 %{_builddir}/usr/bin/swift-package %{buildroot}%{_bindir}
-install -m 0755 %{_builddir}/usr/bin/swift-run %{buildroot}%{_bindir}
-install -m 0755 %{_builddir}/usr/bin/swift-test %{buildroot}%{_bindir}
-install -m 0755 %{_builddir}/usr/bin/swift-api-digester %{buildroot}%{_bindir}
-install -m 0644 %{_builddir}/usr/bin/swift-api-checker.py %{buildroot}%{_bindir}
-ln -fs swift %{buildroot}/usr/bin/swift-autolink-extract
-ln -fs swift %{buildroot}/usr/bin/swiftc
-ln -fs swift %{buildroot}/usr/bin/swift-format
+mkdir -p %{buildroot}%{_libexecdir}/swift/usr
+cp -r %{_builddir}/usr/* %{buildroot}%{_libexecdir}/swift/usr
+ln -fs %{_buildroot}%{_libexecdir}/swift/usr/bin/swift %{_buildroot}/usr/bin/swift 
+ln -fs %{_buildroot}%{_libexecdir}/swift/usr/bin/swift %{_buildroot}/usr/bin/swiftc
+#mkdir -p %{buildroot}%{_bindir}
+#mkdir -p %{buildroot}/usr/lib
+#install -m 0755 %{_builddir}/usr/bin/swift %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/swift-build %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/swift-build-tool %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/swift-demangle %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/swift-package %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/swift-run %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/swift-test %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/swift-api-digester %{buildroot}%{_bindir}
+#install -m 0644 %{_builddir}/usr/bin/swift-api-checker.py %{buildroot}%{_bindir}
+#ln -fs swift %{buildroot}/usr/bin/swift-autolink-extract
+#ln -fs swift %{buildroot}/usr/bin/swiftc
+#ln -fs swift %{buildroot}/usr/bin/swift-format
 
-install -m 0755 %{_builddir}/usr/bin/sourcekit-lsp %{buildroot}%{_bindir}
-install -m 0755 %{_builddir}/usr/bin/plutil %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/sourcekit-lsp %{buildroot}%{_bindir}
+#install -m 0755 %{_builddir}/usr/bin/plutil %{buildroot}%{_bindir}
 
-install -m 0755 %{_builddir}/usr/bin/lldb* %{buildroot}%{_libexecdir}/swift-lldb
-install -m 0755 %{_builddir}/usr/bin/repl_swift %{buildroot}%{_libexecdir}/swift-lldb
-install -m 0755 %{_builddir}/usr/bin/clangd %{buildroot}%{_libexecdir}/swift-lldb
-install -m 0755 %{_builddir}/usr/bin/clang-7 %{buildroot}%{_libexecdir}/swift-lldb
+#install -m 0755 %{_builddir}/usr/bin/lldb* %{buildroot}%{_libexecdir}/swift-lldb
+#install -m 0755 %{_builddir}/usr/bin/repl_swift %{buildroot}%{_libexecdir}/swift-lldb
+#install -m 0755 %{_builddir}/usr/bin/clangd %{buildroot}%{_libexecdir}/swift-lldb
+#install -m 0755 %{_builddir}/usr/bin/clang-7 %{buildroot}%{_libexecdir}/swift-lldb
 # This is not a "real" clang, but an ersatz Swift version - placed here so it
 # doesn't get in the way of the real one
-ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang
-ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang++
-ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cl
-ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cpp
+#ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang
+#ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang++
+#ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cl
+#ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cpp
 
 # Why /usr/lib instead of %{_libdir}?
 # The Swift toolchain is *extermely* sensitive to locations of its files
@@ -243,80 +236,68 @@ ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cpp
 # has "lib" hardcoded in many, many places throughout all the projects that
 # make up the Swift toolchain. Since we use subdirectories for the
 # libraries, no actual .so files are dumped in /usr/lib.   
-mkdir -p %{buildroot}/usr/lib/swift-lldb
-cp %{_builddir}/usr/lib/libIndexStore.so.7svn %{buildroot}/usr/lib/swift-lldb
-ln -fs libIndexStore.so.7svn %{buildroot}/usr/lib/swift-lldb/libIndexStore.so
-cp %{_builddir}/usr/lib/liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb
-ln -fs liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb/liblldb.so.7svn
-ln -fs liblldb.so.7svn %{buildroot}/usr/lib/swift-lldb/liblldb.so
-cp %{_builddir}/usr/lib/libsourcekitdInProc.so %{buildroot}/usr/lib/swift-lldb
-cp %{_builddir}/usr/lib/libswiftDemangle.so %{buildroot}/usr/lib/swift-lldb
-ln -fs %{_bindir}/swift %{buildroot}%{_libexecdir}/swift-lldb/swift
-cp %{_builddir}/usr/lib/libBlocksRuntime.so %{buildroot}/usr/lib/swift-lldb
-cp %{_builddir}/usr/lib/libdispatch.so %{buildroot}/usr/lib/swift-lldb
+#mkdir -p %{buildroot}/usr/lib/swift-lldb
+#cp %{_builddir}/usr/lib/libIndexStore.so.7svn %{buildroot}/usr/lib/swift-lldb
+#ln -fs libIndexStore.so.7svn %{buildroot}/usr/lib/swift-lldb/libIndexStore.so
+#cp %{_builddir}/usr/lib/liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb
+#ln -fs liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb/liblldb.so.7svn
+#ln -fs liblldb.so.7svn %{buildroot}/usr/lib/swift-lldb/liblldb.so
+#cp %{_builddir}/usr/lib/libsourcekitdInProc.so %{buildroot}/usr/lib/swift-lldb
+#cp %{_builddir}/usr/lib/libswiftDemangle.so %{buildroot}/usr/lib/swift-lldb
+#ln -fs %{_bindir}/swift %{buildroot}%{_libexecdir}/swift-lldb/swift
+#cp %{_builddir}/usr/lib/libBlocksRuntime.so %{buildroot}/usr/lib/swift-lldb
+#cp %{_builddir}/usr/lib/libdispatch.so %{buildroot}/usr/lib/swift-lldb
 
-mkdir -p %{buildroot}/usr/lib/swift
-cp -r %{_builddir}/usr/lib/swift/* %{buildroot}/usr/lib/swift
-rm %{buildroot}/usr/lib/swift/clang
-cp -r %{_builddir}/usr/lib/clang %{buildroot}/usr/lib/swift
-ln -fs /usr/lib/swift/clang/7.0.0/include %{buildroot}/usr/lib/swift/clang/include
-ln -fs /usr/lib/swift/clang/7.0.0/lib %{buildroot}/usr/lib/swift/clang/lib
-ln -fs /usr/lib/swift/clang/7.0.0/share %{buildroot}/usr/lib/swift/clang/share
-ln -fs /usr/lib/swift %{buildroot}/usr/lib/swift-lldb/swift
-chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftDispatch.so
-chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundation.so
-chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundationXML.so
-chmod 0755 %{buildroot}/usr/lib/swift/linux/libXCTest.so
-chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundationNetworking.so
-chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftSwiftOnoneSupport.so
-chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftRemoteMirror.so
-chmod 0755 %{buildroot}/usr/lib/swift/pm/llbuild/libllbuild.so
-chmod 0755 %{buildroot}/usr/lib/swift/pm/llbuild/libllbuildSwift.so
+#mkdir -p %{buildroot}/usr/lib/swift
+#cp -r %{_builddir}/usr/lib/swift/* %{buildroot}/usr/lib/swift
+#rm %{buildroot}/usr/lib/swift/clang
+#cp -r %{_builddir}/usr/lib/clang %{buildroot}/usr/lib/swift
+#ln -fs /usr/lib/swift/clang/7.0.0/include %{buildroot}/usr/lib/swift/clang/include
+#ln -fs /usr/lib/swift/clang/7.0.0/lib %{buildroot}/usr/lib/swift/clang/lib
+#ln -fs /usr/lib/swift/clang/7.0.0/share %{buildroot}/usr/lib/swift/clang/share
+#ln -fs /usr/lib/swift %{buildroot}/usr/lib/swift-lldb/swift
+#chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftDispatch.so
+#chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundation.so
+#chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundationXML.so
+#chmod 0755 %{buildroot}/usr/lib/swift/linux/libXCTest.so
+#chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundationNetworking.so
+#chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftSwiftOnoneSupport.so
+#chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftRemoteMirror.so
+#chmod 0755 %{buildroot}/usr/lib/swift/pm/llbuild/libllbuild.so
+#chmod 0755 %{buildroot}/usr/lib/swift/pm/llbuild/libllbuildSwift.so
 
-mkdir -p %{buildroot}/usr/lib/swift_static
-cp -r %{_builddir}/usr/lib/swift_static/* %{buildroot}/usr/lib/swift_static
+#mkdir -p %{buildroot}/usr/lib/swift_static
+#cp -r %{_builddir}/usr/lib/swift_static/* %{buildroot}/usr/lib/swift_static
 
-mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE14} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
-install -m 0644 %{SOURCE15} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
+#mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
+#install -m 0644 %{SOURCE14} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
+#install -m 0644 %{SOURCE15} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
 
-mkdir -p %{buildroot}%{_mandir}/man1
-install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1
+#mkdir -p %{buildroot}%{_mandir}/man1
+#install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1
 
 
 %files
 %license swift/LICENSE.txt
 %{_bindir}/swift*
 %{_mandir}/man1/*
-/usr/lib/swift-lldb/
-/usr/lib/swift/Block/
-/usr/lib/swift/CoreFoundation/
-/usr/lib/swift/_InternalSwiftSyntaxParser/
-/usr/lib/swift/clang/
-/usr/lib/swift/dispatch/
-/usr/lib/swift/migrator/
-/usr/lib/swift/os/
-/usr/lib/swift/pm/
-/usr/lib/swift/shims/
-/usr/lib/swift_static/
-/usr/lib/swift/CFURLSessionInterface/
-/usr/lib/swift/CFXMLInterface/
-/usr/lib/swift/FrameworkABIBaseline/
-%{_libexecdir}/swift-lldb/
-%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
-%{_bindir}/plutil
-%{_bindir}/sourcekit-lsp
-
-
-%files runtime
-%dir /usr/lib/swift
-/usr/lib/swift/linux/
-%ifarch aarch64
-/usr/lib/swift/linux/aarch64/
-%else
-/usr/lib/swift/linux/x86_64/
-%endif
-%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
+%{_libexecdir}/swift/
+#/usr/lib/swift-lldb/
+#/usr/lib/swift/Block/
+#/usr/lib/swift/CoreFoundation/
+#/usr/lib/swift/_InternalSwiftSyntaxParser/
+#/usr/lib/swift/clang/
+#/usr/lib/swift/dispatch/
+#/usr/lib/swift/migrator/
+#/usr/lib/swift/os/
+#/usr/lib/swift/pm/
+#/usr/lib/swift/shims/
+#/usr/lib/swift_static/
+#/usr/lib/swift/CFURLSessionInterface/
+#/usr/lib/swift/CFXMLInterface/
+#/usr/lib/swift/FrameworkABIBaseline/
+#%{_libexecdir}/swift/
+#%{_bindir}/sourcekit-lsp
 
 
 %post -p /sbin/ldconfig
