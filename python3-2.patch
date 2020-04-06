@@ -1,46 +1,14 @@
-diff -Naur swift-orig/stdlib/public/core/FloatingPointTypes.swift.gyb swift/stdlib/public/core/FloatingPointTypes.swift.gyb
---- swift-orig/stdlib/public/core/FloatingPointTypes.swift.gyb	2019-07-14 15:16:38.000000000 -0500
-+++ swift/stdlib/public/core/FloatingPointTypes.swift.gyb	2019-07-22 11:22:17.049551459 -0500
-@@ -13,8 +13,8 @@
- import SwiftShims
- 
- %{
--from SwiftIntTypes import all_integer_types
--from SwiftFloatingPointTypes import all_floating_point_types
-+import SwiftIntTypes 
-+import SwiftFloatingPointTypes
- 
- #
- # Utility code for later in this template
-@@ -27,7 +27,7 @@
- builtinIntLiteralBits = 2048
- }%
- 
--% for self_type in all_floating_point_types():
-+% for self_type in SwiftFloatingPointTypes.all_floating_point_types():
- %{
- Self = self_type.stdlib_name
- bits = self_type.bits
-@@ -1650,7 +1650,7 @@
-     }
-   }
- 
--% for src_type in all_floating_point_types():
-+% for src_type in SwiftFloatingPointTypes.all_floating_point_types():
- %   srcBits = src_type.bits
- %   That = src_type.stdlib_name
- 
 diff -Naur swift-orig/stdlib/public/core/IntegerTypes.swift.gyb swift/stdlib/public/core/IntegerTypes.swift.gyb
---- swift-orig/stdlib/public/core/IntegerTypes.swift.gyb	2019-07-14 15:16:38.000000000 -0500
-+++ swift/stdlib/public/core/IntegerTypes.swift.gyb	2019-07-22 15:30:40.491317722 -0500
+--- swift-orig/stdlib/public/core/IntegerTypes.swift.gyb	2020-01-24 01:22:05.000000000 -0600
++++ swift/stdlib/public/core/IntegerTypes.swift.gyb	2020-01-29 13:23:24.851180231 -0600
 @@ -14,10 +14,9 @@
  # Utility code for later in this template
  #
  
 -from SwiftIntTypes import all_integer_types, int_max_bits, should_define_truncating_bit_pattern_init
 -from SwiftFloatingPointTypes import getFtoIBounds
-+import SwiftIntTypes 
-+import SwiftFloatingPointTypes 
++import SwiftIntTypes
++import SwiftFloatingPointTypes
  
 -from string import maketrans, capitalize
  from itertools import chain
@@ -63,8 +31,8 @@ diff -Naur swift-orig/stdlib/public/core/IntegerTypes.swift.gyb swift/stdlib/pub
 +%     (lower, upper) = SwiftFloatingPointTypes.getFtoIBounds(floatBits=FloatBits, intBits=int(bits), signed=signed)
  
  %     if FloatType == 'Float80':
- #if !os(Windows) && (arch(i386) || arch(x86_64))
-@@ -1651,7 +1650,7 @@
+ #if !(os(Windows) || os(Android)) && (arch(i386) || arch(x86_64))
+@@ -1648,7 +1647,7 @@
      return Hasher._hash(
        seed: seed,
        bytes: UInt64(truncatingIfNeeded: ${U}${Self}(_value)),
@@ -74,8 +42,8 @@ diff -Naur swift-orig/stdlib/public/core/IntegerTypes.swift.gyb swift/stdlib/pub
    }
  }
 diff -Naur swift-orig/stdlib/public/core/Mirrors.swift.gyb swift/stdlib/public/core/Mirrors.swift.gyb
---- swift-orig/stdlib/public/core/Mirrors.swift.gyb	2019-07-14 15:16:38.000000000 -0500
-+++ swift/stdlib/public/core/Mirrors.swift.gyb	2019-07-23 09:20:38.269152361 -0500
+--- swift-orig/stdlib/public/core/Mirrors.swift.gyb	2020-01-24 01:22:05.000000000 -0600
++++ swift/stdlib/public/core/Mirrors.swift.gyb	2020-01-29 13:27:07.425509032 -0600
 @@ -12,7 +12,7 @@
  
  %{
@@ -95,14 +63,14 @@ diff -Naur swift-orig/stdlib/public/core/Mirrors.swift.gyb swift/stdlib/public/c
    if self_ty.is_signed:
      Types.append( (Self, '.int', 'Int64(self)') )
 diff -Naur swift-orig/stdlib/public/core/SIMDVectorTypes.swift.gyb swift/stdlib/public/core/SIMDVectorTypes.swift.gyb
---- swift-orig/stdlib/public/core/SIMDVectorTypes.swift.gyb	2019-07-14 15:16:38.000000000 -0500
-+++ swift/stdlib/public/core/SIMDVectorTypes.swift.gyb	2019-07-22 15:30:52.516752476 -0500
+--- swift-orig/stdlib/public/core/SIMDVectorTypes.swift.gyb	2020-01-24 01:22:05.000000000 -0600
++++ swift/stdlib/public/core/SIMDVectorTypes.swift.gyb	2020-01-29 13:30:52.170919077 -0600
 @@ -11,7 +11,7 @@
  //===----------------------------------------------------------------------===//
  
  %{
 -from SwiftIntTypes import all_integer_types
-+import SwiftIntTypes 
++import SwiftIntTypes
  word_bits = int(CMAKE_SIZEOF_VOID_P) * 8
  storagescalarCounts = [2,4,8,16,32,64]
  vectorscalarCounts = storagescalarCounts + [3]
@@ -165,10 +133,10 @@ diff -Naur swift-orig/stdlib/public/core/SIMDVectorTypes.swift.gyb swift/stdlib/
    @frozen
    @_alignment(${bytes if bytes <= 16 else 16})
 diff -Naur swift-orig/stdlib/public/core/Tuple.swift.gyb swift/stdlib/public/core/Tuple.swift.gyb
---- swift-orig/stdlib/public/core/Tuple.swift.gyb	2019-07-14 15:16:38.000000000 -0500
-+++ swift/stdlib/public/core/Tuple.swift.gyb	2019-07-17 20:54:45.400558556 -0500
+--- swift-orig/stdlib/public/core/Tuple.swift.gyb	2020-01-24 01:22:05.000000000 -0600
++++ swift/stdlib/public/core/Tuple.swift.gyb	2020-01-29 13:32:22.287291260 -0600
 @@ -111,7 +111,7 @@
- %   equatableTypeParams = ", ".join(["{} : Equatable".format(c) for c in typeParams])
+ %   equatableTypeParams = ", ".join(["{}: Equatable".format(c) for c in typeParams])
  
  %   originalTuple = "(\"a\", {})".format(", ".join(map(str, range(1, arity))))
 -%   greaterTuple = "(\"a\", {})".format(", ".join(map(str, range(1, arity - 1) + [arity])))
@@ -177,8 +145,8 @@ diff -Naur swift-orig/stdlib/public/core/Tuple.swift.gyb swift/stdlib/public/cor
  /// Returns a Boolean value indicating whether the corresponding components of
  /// two tuples are equal.
 diff -Naur swift-orig/utils/gyb_sourcekit_support/__init__.py swift/utils/gyb_sourcekit_support/__init__.py
---- swift-orig/utils/gyb_sourcekit_support/__init__.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_sourcekit_support/__init__.py	2019-07-18 14:19:45.668770778 -0500
+--- swift-orig/utils/gyb_sourcekit_support/__init__.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_sourcekit_support/__init__.py	2020-01-29 13:33:22.111521781 -0600
 @@ -14,9 +14,9 @@
  # utils/gyb_sourcekit_support/ directory as a module.
  #
@@ -193,8 +161,8 @@ diff -Naur swift-orig/utils/gyb_sourcekit_support/__init__.py swift/utils/gyb_so
  
  def check_uid_duplication():
 diff -Naur swift-orig/utils/gyb_syntax_support/AttributeNodes.py swift/utils/gyb_syntax_support/AttributeNodes.py
---- swift-orig/utils/gyb_syntax_support/AttributeNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/AttributeNodes.py	2019-07-18 12:34:20.708714660 -0500
+--- swift-orig/utils/gyb_syntax_support/AttributeNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/AttributeNodes.py	2020-01-29 13:34:03.265044624 -0600
 @@ -1,5 +1,5 @@
 -from Child import Child
 -from Node import Node  # noqa: I201
@@ -204,8 +172,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/AttributeNodes.py swift/utils/gyb
  ATTRIBUTE_NODES = [
      # token-list -> token? token-list?
 diff -Naur swift-orig/utils/gyb_syntax_support/AvailabilityNodes.py swift/utils/gyb_syntax_support/AvailabilityNodes.py
---- swift-orig/utils/gyb_syntax_support/AvailabilityNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/AvailabilityNodes.py	2019-07-18 12:34:20.711714774 -0500
+--- swift-orig/utils/gyb_syntax_support/AvailabilityNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/AvailabilityNodes.py	2020-01-29 13:34:33.458161889 -0600
 @@ -1,5 +1,5 @@
 -from Child import Child
 -from Node import Node  # noqa: I201
@@ -215,8 +183,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/AvailabilityNodes.py swift/utils/
  AVAILABILITY_NODES = [
      # availability-spec-list -> availability-entry availability-spec-list?
 diff -Naur swift-orig/utils/gyb_syntax_support/Child.py swift/utils/gyb_syntax_support/Child.py
---- swift-orig/utils/gyb_syntax_support/Child.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/Child.py	2019-07-18 12:34:20.712714811 -0500
+--- swift-orig/utils/gyb_syntax_support/Child.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/Child.py	2020-01-29 13:35:02.044219688 -0600
 @@ -1,7 +1,7 @@
  # flake8: noqa I201
 -from Classification import classification_by_name
@@ -229,8 +197,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/Child.py swift/utils/gyb_syntax_s
  
  class Child(object):
 diff -Naur swift-orig/utils/gyb_syntax_support/Classification.py swift/utils/gyb_syntax_support/Classification.py
---- swift-orig/utils/gyb_syntax_support/Classification.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/Classification.py	2019-07-18 12:34:20.713714849 -0500
+--- swift-orig/utils/gyb_syntax_support/Classification.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/Classification.py	2020-01-29 13:46:45.334244147 -0600
 @@ -1,5 +1,5 @@
 -from Node import error
 -from kinds import lowercase_first_word  # noqa: I201
@@ -240,8 +208,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/Classification.py swift/utils/gyb
  
  class SyntaxClassification(object):
 diff -Naur swift-orig/utils/gyb_syntax_support/CommonNodes.py swift/utils/gyb_syntax_support/CommonNodes.py
---- swift-orig/utils/gyb_syntax_support/CommonNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/CommonNodes.py	2019-07-18 12:34:20.714714887 -0500
+--- swift-orig/utils/gyb_syntax_support/CommonNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/CommonNodes.py	2020-01-29 13:47:02.390875308 -0600
 @@ -1,5 +1,5 @@
 -from Child import Child
 -from Node import Node  # noqa: I201
@@ -251,8 +219,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/CommonNodes.py swift/utils/gyb_sy
  COMMON_NODES = [
      Node('Decl', kind='Syntax'),
 diff -Naur swift-orig/utils/gyb_syntax_support/DeclNodes.py swift/utils/gyb_syntax_support/DeclNodes.py
---- swift-orig/utils/gyb_syntax_support/DeclNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/DeclNodes.py	2019-07-18 12:34:20.716714963 -0500
+--- swift-orig/utils/gyb_syntax_support/DeclNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/DeclNodes.py	2020-01-29 13:47:30.486914972 -0600
 @@ -1,6 +1,6 @@
  # flake8: noqa I201
 -from Child import Child
@@ -263,8 +231,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/DeclNodes.py swift/utils/gyb_synt
  
  DECL_NODES = [
 diff -Naur swift-orig/utils/gyb_syntax_support/ExprNodes.py swift/utils/gyb_syntax_support/ExprNodes.py
---- swift-orig/utils/gyb_syntax_support/ExprNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/ExprNodes.py	2019-07-18 12:34:20.717715000 -0500
+--- swift-orig/utils/gyb_syntax_support/ExprNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/ExprNodes.py	2020-01-29 13:47:47.095529555 -0600
 @@ -1,5 +1,5 @@
 -from Child import Child
 -from Node import Node  # noqa: I201
@@ -274,8 +242,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/ExprNodes.py swift/utils/gyb_synt
  EXPR_NODES = [
      # An inout expression.
 diff -Naur swift-orig/utils/gyb_syntax_support/GenericNodes.py swift/utils/gyb_syntax_support/GenericNodes.py
---- swift-orig/utils/gyb_syntax_support/GenericNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/GenericNodes.py	2019-07-18 12:34:20.718715038 -0500
+--- swift-orig/utils/gyb_syntax_support/GenericNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/GenericNodes.py	2020-01-29 13:48:04.737182368 -0600
 @@ -1,5 +1,5 @@
 -from Child import Child
 -from Node import Node  # noqa: I201
@@ -285,9 +253,9 @@ diff -Naur swift-orig/utils/gyb_syntax_support/GenericNodes.py swift/utils/gyb_s
  GENERIC_NODES = [
      # generic-where-clause -> 'where' requirement-list
 diff -Naur swift-orig/utils/gyb_syntax_support/__init__.py swift/utils/gyb_syntax_support/__init__.py
---- swift-orig/utils/gyb_syntax_support/__init__.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/__init__.py	2019-07-18 12:34:33.973215999 -0500
-@@ -1,19 +1,19 @@
+--- swift-orig/utils/gyb_syntax_support/__init__.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/__init__.py	2020-01-29 13:52:03.762062110 -0600
+@@ -1,22 +1,22 @@
  import textwrap
 -from AttributeNodes import ATTRIBUTE_NODES  # noqa: I201
 -from AvailabilityNodes import AVAILABILITY_NODES  # noqa: I201
@@ -296,43 +264,48 @@ diff -Naur swift-orig/utils/gyb_syntax_support/__init__.py swift/utils/gyb_synta
 -from DeclNodes import DECL_NODES  # noqa: I201
 -from ExprNodes import EXPR_NODES  # noqa: I201
 -from GenericNodes import GENERIC_NODES  # noqa: I201
--from NodeSerializationCodes import SYNTAX_NODE_SERIALIZATION_CODES, \
 +from .AttributeNodes import ATTRIBUTE_NODES  # noqa: I201
 +from .AvailabilityNodes import AVAILABILITY_NODES  # noqa: I201
-+from . import Classification  # noqa: I201
++from . import  Classification  # noqa: I201
 +from .CommonNodes import COMMON_NODES  # noqa: I201
 +from .DeclNodes import DECL_NODES  # noqa: I201
 +from .ExprNodes import EXPR_NODES  # noqa: I201
 +from .GenericNodes import GENERIC_NODES  # noqa: I201
+ 
+-from NodeSerializationCodes import SYNTAX_NODE_SERIALIZATION_CODES, \
 +from .NodeSerializationCodes import SYNTAX_NODE_SERIALIZATION_CODES, \
      get_serialization_code, \
      verify_syntax_node_serialization_codes
  
 -from PatternNodes import PATTERN_NODES  # noqa: I201
 -from StmtNodes import STMT_NODES  # noqa: I201
--import Token
--from TypeNodes import TYPE_NODES  # noqa: I201
 +from .PatternNodes import PATTERN_NODES  # noqa: I201
 +from .StmtNodes import STMT_NODES  # noqa: I201
+ 
+-import Token
+-from Trivia import TRIVIAS  # noqa: I201
+-from TypeNodes import TYPE_NODES  # noqa: I201
 +from . import Token
++from .Trivia import TRIVIAS  # noqa: I201
 +from .TypeNodes import TYPE_NODES  # noqa: I201
  
  
  # Re-export global constants
 diff -Naur swift-orig/utils/gyb_syntax_support/Node.py swift/utils/gyb_syntax_support/Node.py
---- swift-orig/utils/gyb_syntax_support/Node.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/Node.py	2019-07-18 12:34:20.722715189 -0500
-@@ -1,6 +1,6 @@
+--- swift-orig/utils/gyb_syntax_support/Node.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/Node.py	2020-01-29 13:52:32.755139868 -0600
+@@ -1,7 +1,7 @@
  from __future__ import print_function
  import sys  # noqa: I201
+ 
 -from kinds import SYNTAX_BASE_KINDS, kind_to_type, lowercase_first_word
 +from .kinds import SYNTAX_BASE_KINDS, kind_to_type, lowercase_first_word
  
  
  def error(msg):
 diff -Naur swift-orig/utils/gyb_syntax_support/NodeSerializationCodes.py swift/utils/gyb_syntax_support/NodeSerializationCodes.py
---- swift-orig/utils/gyb_syntax_support/NodeSerializationCodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/NodeSerializationCodes.py	2019-07-18 12:34:20.723715227 -0500
+--- swift-orig/utils/gyb_syntax_support/NodeSerializationCodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/NodeSerializationCodes.py	2020-01-29 13:52:58.148083796 -0600
 @@ -1,4 +1,4 @@
 -from Node import error
 +from .Node import error
@@ -340,8 +313,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/NodeSerializationCodes.py swift/u
  
  SYNTAX_NODE_SERIALIZATION_CODES = {
 diff -Naur swift-orig/utils/gyb_syntax_support/PatternNodes.py swift/utils/gyb_syntax_support/PatternNodes.py
---- swift-orig/utils/gyb_syntax_support/PatternNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/PatternNodes.py	2019-07-18 12:34:20.724715265 -0500
+--- swift-orig/utils/gyb_syntax_support/PatternNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/PatternNodes.py	2020-01-29 13:53:38.452582038 -0600
 @@ -1,5 +1,5 @@
 -from Child import Child
 -from Node import Node  # noqa: I201
@@ -351,8 +324,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/PatternNodes.py swift/utils/gyb_s
  PATTERN_NODES = [
  
 diff -Naur swift-orig/utils/gyb_syntax_support/StmtNodes.py swift/utils/gyb_syntax_support/StmtNodes.py
---- swift-orig/utils/gyb_syntax_support/StmtNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/StmtNodes.py	2019-07-18 12:34:20.726715341 -0500
+--- swift-orig/utils/gyb_syntax_support/StmtNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/StmtNodes.py	2020-01-29 13:53:55.056199243 -0600
 @@ -1,5 +1,5 @@
 -from Child import Child
 -from Node import Node  # noqa: I201
@@ -362,8 +335,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/StmtNodes.py swift/utils/gyb_synt
  STMT_NODES = [
      # continue-stmt -> 'continue' label? ';'?
 diff -Naur swift-orig/utils/gyb_syntax_support/Token.py swift/utils/gyb_syntax_support/Token.py
---- swift-orig/utils/gyb_syntax_support/Token.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/Token.py	2019-07-18 12:34:20.727715378 -0500
+--- swift-orig/utils/gyb_syntax_support/Token.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/Token.py	2020-01-29 13:54:12.720855888 -0600
 @@ -1,6 +1,6 @@
 -from Classification import classification_by_name
 -from Node import error  # noqa: I201
@@ -375,8 +348,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/Token.py swift/utils/gyb_syntax_s
  
  class Token(object):
 diff -Naur swift-orig/utils/gyb_syntax_support/Trivia.py swift/utils/gyb_syntax_support/Trivia.py
---- swift-orig/utils/gyb_syntax_support/Trivia.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/Trivia.py	2019-07-18 14:22:04.074001913 -0500
+--- swift-orig/utils/gyb_syntax_support/Trivia.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/Trivia.py	2020-01-29 13:54:41.647931191 -0600
 @@ -1,5 +1,5 @@
 -from Node import error
 -from kinds import lowercase_first_word  # noqa: I201
@@ -386,8 +359,8 @@ diff -Naur swift-orig/utils/gyb_syntax_support/Trivia.py swift/utils/gyb_syntax_
  
  class Trivia(object):
 diff -Naur swift-orig/utils/gyb_syntax_support/TypeNodes.py swift/utils/gyb_syntax_support/TypeNodes.py
---- swift-orig/utils/gyb_syntax_support/TypeNodes.py	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/gyb_syntax_support/TypeNodes.py	2019-07-18 12:34:20.731715529 -0500
+--- swift-orig/utils/gyb_syntax_support/TypeNodes.py	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/gyb_syntax_support/TypeNodes.py	2020-01-29 13:55:07.952909024 -0600
 @@ -1,5 +1,5 @@
 -from Child import Child
 -from Node import Node  # noqa: I201
@@ -397,9 +370,9 @@ diff -Naur swift-orig/utils/gyb_syntax_support/TypeNodes.py swift/utils/gyb_synt
  TYPE_NODES = [
      # simple-type-identifier -> identifier generic-argument-clause?
 diff -Naur swift-orig/utils/line-directive swift/utils/line-directive
---- swift-orig/utils/line-directive	2019-07-14 15:16:38.000000000 -0500
-+++ swift/utils/line-directive	2019-07-19 09:01:35.602482603 -0500
-@@ -60,7 +60,7 @@
+--- swift-orig/utils/line-directive	2020-01-24 01:22:05.000000000 -0600
++++ swift/utils/line-directive	2020-01-29 13:57:12.829551057 -0600
+@@ -61,7 +61,7 @@
  
  def _make_line_map(target_filename, stream=None):
      """
@@ -408,7 +381,7 @@ diff -Naur swift-orig/utils/line-directive swift/utils/line-directive
      >>> _make_line_map('box',
      ... StringIO('''// ###sourceLocation(file: "foo.bar", line: 3)
      ... line 2
-@@ -94,7 +94,7 @@
+@@ -95,7 +95,7 @@
  
  def map_line_to_source_file(target_filename, target_line_num):
      """
@@ -417,7 +390,7 @@ diff -Naur swift-orig/utils/line-directive swift/utils/line-directive
      >>> # On Windows, the name of a NamedTemporaryFile cannot be used to open
      >>> # the file for a second time if delete=True. Therefore, we have to
      >>> # manually handle closing and deleting this file to allow us to open
-@@ -144,7 +144,7 @@
+@@ -145,7 +145,7 @@
  def map_line_from_source_file(source_filename, source_line_num,
                                target_filename):
      """
@@ -426,7 +399,7 @@ diff -Naur swift-orig/utils/line-directive swift/utils/line-directive
      >>> # On Windows, the name of a NamedTemporaryFile cannot be used to open
      >>> # the file for a second time if delete=True. Therefore, we have to
      >>> # manually handle closing and deleting this file to allow us to open
-@@ -230,7 +230,7 @@
+@@ -231,7 +231,7 @@
  def run():
      """Simulate a couple of gyb-generated files
  

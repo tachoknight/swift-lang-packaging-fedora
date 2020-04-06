@@ -1,0 +1,23 @@
+diff -Naur swift-orig/utils/build-presets.ini swift/utils/build-presets.ini
+--- swift-orig/utils/build-presets.ini	2020-02-10 23:48:46.000000000 -0600
++++ swift/utils/build-presets.ini	2020-02-13 20:40:30.123310629 -0600
+@@ -527,7 +527,6 @@
+ release
+ assertions
+ 
+-build-swift-stdlib-unittest-extra
+ 
+ # We run the OS X tests and validation tests.
+ test
+diff -Naur swift-orig/utils/swift_build_support/swift_build_support/host_specific_configuration.py swift/utils/swift_build_support/swift_build_support/host_specific_configuration.py
+--- swift-orig/utils/swift_build_support/swift_build_support/host_specific_configuration.py	2020-02-10 23:48:46.000000000 -0600
++++ swift/utils/swift_build_support/swift_build_support/host_specific_configuration.py	2020-02-13 20:22:27.615497246 -0600
+@@ -12,7 +12,7 @@
+ 
+ from argparse import ArgumentError
+ 
+-import diagnostics
++from . import diagnostics
+ 
+ from .targets import StdlibDeploymentTarget
+ 

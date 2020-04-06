@@ -1,19 +1,11 @@
-diff -Naur llvm-project-orig/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h llvm-project/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h
---- llvm-project-orig/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h	2019-12-12 22:11:12.000000000 -0600
-+++ llvm-project/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h	2020-01-23 11:01:29.173281217 -0600
-@@ -4,6 +4,8 @@
- #include "llvm/Demangle/Compiler.h"
+--- llvm-project/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h.orig	2020-01-29 10:02:44.222689214 -0600
++++ llvm-project/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h	2020-01-29 10:03:02.007354450 -0600
+@@ -16,6 +16,8 @@
+ #include "llvm/Demangle/DemangleConfig.h"
  #include "llvm/Demangle/StringView.h"
  #include <array>
 +#include <cstdint>
 +#include <string>
  
- class OutputStream;
- 
-@@ -599,4 +601,4 @@
- } // namespace ms_demangle
- } // namespace llvm
- 
--#endif
-\ No newline at end of file
-+#endif
+ namespace llvm {
+ namespace itanium_demangle {

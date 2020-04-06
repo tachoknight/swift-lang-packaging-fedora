@@ -1,5 +1,6 @@
---- swift-integration-tests/test-snapshot-binaries/linux_load_commands.py.orig	2019-07-22 18:29:09.865242157 -0500
-+++ swift-integration-tests/test-snapshot-binaries/linux_load_commands.py	2019-07-22 18:29:36.655204752 -0500
+diff -Naur swift-integration-tests-orig/test-snapshot-binaries/linux_load_commands.py swift-integration-tests/test-snapshot-binaries/linux_load_commands.py
+--- swift-integration-tests-orig/test-snapshot-binaries/linux_load_commands.py	2019-10-07 17:57:28.000000000 -0500
++++ swift-integration-tests/test-snapshot-binaries/linux_load_commands.py	2020-01-29 14:05:33.991180706 -0600
 @@ -85,12 +85,12 @@
      numberOfLinesSeen = 0
  
@@ -33,3 +34,15 @@
      sys.exit(0)
  
  if __name__ == "__main__":
+diff -Naur swift-integration-tests-orig/test-sourcekit-lsp/test-sourcekit-lsp.py swift-integration-tests/test-sourcekit-lsp/test-sourcekit-lsp.py
+--- swift-integration-tests-orig/test-sourcekit-lsp/test-sourcekit-lsp.py	2019-10-07 17:57:28.000000000 -0500
++++ swift-integration-tests/test-sourcekit-lsp/test-sourcekit-lsp.py	2020-01-29 18:35:26.953725332 -0600
+@@ -136,7 +136,7 @@
+ 
+     skargs = [args.sourcekit_lsp, '--sync', '-Xclangd', '-sync']
+     p = subprocess.Popen(skargs, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+-    out, _ = p.communicate(lsp.script)
++    out, _ = p.communicate(lsp.script.encode())
+     print(out)
+     print('')
+ 
