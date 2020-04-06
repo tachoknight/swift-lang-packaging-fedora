@@ -29,8 +29,8 @@ Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.g
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
 Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
-Source14:       swift-lang.conf
-Source15:	swift-lang-runtime.conf
+#Source14:       swift-lang.conf
+#Source15:	swift-lang-runtime.conf
 Source16:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:     	change-lldb-location.patch
@@ -70,13 +70,13 @@ BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:	make
 BuildRequires:  openssl-devel
-BuildRequires: /usr/bin/pathfix.py
+BuildRequires: 	/usr/bin/pathfix.py
 
 Requires:       glibc-devel
 Requires:       clang
 Requires:	ncurses-devel
 Requires:	ncurses-compat-libs
-Requires:	%{name}-runtime = %{version}-%{release}
+#Requires:	%{name}-runtime = %{version}-%{release}
 
 Provides:	%{name} = %{version}-%{release}
 
