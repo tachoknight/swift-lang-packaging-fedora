@@ -70,6 +70,7 @@ BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:	make
 BuildRequires:  openssl-devel
+BuildRequires: /usr/bin/pathfix.py
 
 Requires:       glibc-devel
 Requires:       clang
@@ -181,6 +182,8 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %patch14 -p0
 %patch15 -p0
 
+# Fix python to python3 
+pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 
 %build
 export VERBOSE=1
@@ -197,10 +200,11 @@ swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_buil
 
 
 %install
-mkdir -p %{buildroot}%{_libexecdir}/swift/usr
-cp -r %{_builddir}/usr/* %{buildroot}%{_libexecdir}/swift/usr
-ln -fs %{_buildroot}%{_libexecdir}/swift/usr/bin/swift %{_buildroot}/usr/bin/swift 
-ln -fs %{_buildroot}%{_libexecdir}/swift/usr/bin/swift %{_buildroot}/usr/bin/swiftc
+mkdir -p %{buildroot}%{_libexecdir}/swift/
+cp -r %{_builddir}/usr/* %{buildroot}%{_libexecdir}/swift
+mkdir -p %{buildroot}%{_bindir}
+ln -fs %{_libexecdir}/swift/bin/swift %{buildroot}%{_bindir}/swift 
+ln -fs %{_libexecdir}/swift/bin/swiftc %{buildroot}%{_bindir}/swiftc
 #mkdir -p %{buildroot}%{_bindir}
 #mkdir -p %{buildroot}/usr/lib
 #install -m 0755 %{_builddir}/usr/bin/swift %{buildroot}%{_bindir}
@@ -280,7 +284,7 @@ ln -fs %{_buildroot}%{_libexecdir}/swift/usr/bin/swift %{_buildroot}/usr/bin/swi
 %files
 %license swift/LICENSE.txt
 %{_bindir}/swift*
-%{_mandir}/man1/*
+#%{_mandir}/man1/*
 %{_libexecdir}/swift/
 #/usr/lib/swift-lldb/
 #/usr/lib/swift/Block/
