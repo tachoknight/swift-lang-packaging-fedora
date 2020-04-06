@@ -28,8 +28,6 @@ Source10:	      https://github.com/apple/indexstore-db/archive/swift-%{swifttag}
 Source11:	      https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	      https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
 Source13:	      https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
-#Source14:       swift-lang.conf
-#Source15:	swift-lang-runtime.conf
 Source16:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:		build-setup.patch
