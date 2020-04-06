@@ -5,13 +5,12 @@
 %global swiftgithash 2e3b1b3
 %global swiftgitdate 20200331
 %global swiftbuild swift-source
-%global __provides_exclude ^/usr/lib/swift-lldb/.*\\.so.*
 %global cmake_version 3.16.5
 
 
-Name:		swift-lang
+Name:		        swift-lang
 Version:        5.2.1
-Release:        0.1.%{swiftgitdate}git%{swiftgithash}%{?dist}
+Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -24,31 +23,23 @@ Source5:        https://github.com/apple/swift-package-manager/archive/swift-%{s
 Source6:       	https://github.com/apple/swift-llbuild/archive/swift-%{swifttag}.tar.gz#/llbuild.tar.gz
 Source7:       	https://github.com/apple/swift-cmark/archive/swift-%{swifttag}.tar.gz#/cmark.tar.gz
 Source8:       	https://github.com/apple/swift-xcode-playground-support/archive/swift-%{swifttag}.tar.gz#/swift-xcode-playground-support.tar.gz
-Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
-Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
-Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
+Source9:	      https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
+Source10:	      https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
+Source11:	      https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
+Source12:	      https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
+Source13:	      https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
 #Source14:       swift-lang.conf
 #Source15:	swift-lang-runtime.conf
 Source16:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch0:     	change-lldb-location.patch
-Patch1:		build-setup.patch
-Patch2:		clangloc.patch
-Patch3:		compiler-rt-fuzzer.patch
-Patch4:		swift-unwrapped.patch
-Patch5:		python3-2.patch
-Patch6:		linux-tests-python-3-2.patch
-Patch7:		lldb_python38_platform.patch
-#Patch8:		sourcekit-2.patch
-Patch9:		compiler-rt-sanitizer.patch
-Patch10:	build-setup-s390x.patch
-Patch11:	sourcekit-loc.patch
-Patch12:	glibcpthread.patch
-Patch13:	swift.patch
-Patch14:	llvm.patch
-Patch15:	indexstore.patch
+Patch0:		build-setup.patch
+Patch1:		compiler-rt-fuzzer.patch
+Patch2:		python3-2.patch
+Patch3:		linux-tests-python-3-2.patch
+Patch4:	  glibcpthread.patch
+Patch5:	  swift.patch
+Patch6:	  llvm.patch
+Patch7:	  indexstore.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -74,11 +65,10 @@ BuildRequires: 	/usr/bin/pathfix.py
 
 Requires:       glibc-devel
 Requires:       clang
-Requires:	ncurses-devel
-Requires:	ncurses-compat-libs
-#Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	      ncurses-devel
+Requires:	      ncurses-compat-libs
 
-Provides:	%{name} = %{version}-%{release}
+Provides:	      %{name} = %{version}-%{release}
 
 ExclusiveArch: 	x86_64 aarch64 
 
@@ -135,52 +125,27 @@ mv icu-release-61-2 icu
 # Swift Syntax on its own release (sigh)
 mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
-# This patch tells the Swift executable to look for its Swift-specific
-# lldb executable in /usr/libexec/swift-lldb, not in the same directory
-# as the swift executable (i.e. /usr/bin). 
-#%patch0 -p0
-
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
-%ifnarch s390x
-%patch1 -p0
-%else
-# Don't build ICU on s390x
-%patch10 -p0
-%endif
-
-# This changes the location of where the headers and libs are to keep lldb happy
-#%patch2 -p0
+%patch0 -p0
 
 # Fixes an issue with using std::thread in a vector in compiler-rt
-%patch3 -p0 
+%patch1 -p0 
  
-# Patch for handling optional issue with pthreads functions in Swift file
-# in the package mananger
-#%patch4 -p0
-
 # Python 3 is the new default so we need to make the python code work with it
-%patch5 -p0
-%patch6 -p0
-#%patch7 -p0 - already in the sources ... patch not needed at all :)
-#%patch8 -p0
-
-# New in Clang 9 is an assertion error of an array declared with a negative size
-#%patch9 -p0
-
-# Changes locations where sourcekit-lsp looks for things
-%patch11 -p0
+%patch2 -p0
+%patch3 -p0
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
-%patch12 -p0
+%patch4 -p0
 
 #
 # 5.2 patches
 # 
-%patch13 -p0
+%patch5 -p0
 
 # implicit include of cstdint
-%patch14 -p0
-%patch15 -p0
+%patch6 -p0
+%patch7 -p0
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
@@ -205,103 +170,12 @@ cp -r %{_builddir}/usr/* %{buildroot}%{_libexecdir}/swift
 mkdir -p %{buildroot}%{_bindir}
 ln -fs %{_libexecdir}/swift/bin/swift %{buildroot}%{_bindir}/swift 
 ln -fs %{_libexecdir}/swift/bin/swiftc %{buildroot}%{_bindir}/swiftc
-#mkdir -p %{buildroot}%{_bindir}
-#mkdir -p %{buildroot}/usr/lib
-#install -m 0755 %{_builddir}/usr/bin/swift %{buildroot}%{_bindir}
-#install -m 0755 %{_builddir}/usr/bin/swift-build %{buildroot}%{_bindir}
-#install -m 0755 %{_builddir}/usr/bin/swift-build-tool %{buildroot}%{_bindir}
-#install -m 0755 %{_builddir}/usr/bin/swift-demangle %{buildroot}%{_bindir}
-#install -m 0755 %{_builddir}/usr/bin/swift-package %{buildroot}%{_bindir}
-#install -m 0755 %{_builddir}/usr/bin/swift-run %{buildroot}%{_bindir}
-#install -m 0755 %{_builddir}/usr/bin/swift-test %{buildroot}%{_bindir}
-#install -m 0755 %{_builddir}/usr/bin/swift-api-digester %{buildroot}%{_bindir}
-#install -m 0644 %{_builddir}/usr/bin/swift-api-checker.py %{buildroot}%{_bindir}
-#ln -fs swift %{buildroot}/usr/bin/swift-autolink-extract
-#ln -fs swift %{buildroot}/usr/bin/swiftc
-#ln -fs swift %{buildroot}/usr/bin/swift-format
-
-#install -m 0755 %{_builddir}/usr/bin/sourcekit-lsp %{buildroot}%{_bindir}
-#install -m 0755 %{_builddir}/usr/bin/plutil %{buildroot}%{_bindir}
-
-#install -m 0755 %{_builddir}/usr/bin/lldb* %{buildroot}%{_libexecdir}/swift-lldb
-#install -m 0755 %{_builddir}/usr/bin/repl_swift %{buildroot}%{_libexecdir}/swift-lldb
-#install -m 0755 %{_builddir}/usr/bin/clangd %{buildroot}%{_libexecdir}/swift-lldb
-#install -m 0755 %{_builddir}/usr/bin/clang-7 %{buildroot}%{_libexecdir}/swift-lldb
-# This is not a "real" clang, but an ersatz Swift version - placed here so it
-# doesn't get in the way of the real one
-#ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang
-#ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang++
-#ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cl
-#ln -fs clang-7 %{buildroot}%{_libexecdir}/swift-lldb/clang-cpp
-
-# Why /usr/lib instead of %{_libdir}?
-# The Swift toolchain is *extermely* sensitive to locations of its files
-# (for example, the need for the patch above in the prep section) and 
-# has "lib" hardcoded in many, many places throughout all the projects that
-# make up the Swift toolchain. Since we use subdirectories for the
-# libraries, no actual .so files are dumped in /usr/lib.   
-#mkdir -p %{buildroot}/usr/lib/swift-lldb
-#cp %{_builddir}/usr/lib/libIndexStore.so.7svn %{buildroot}/usr/lib/swift-lldb
-#ln -fs libIndexStore.so.7svn %{buildroot}/usr/lib/swift-lldb/libIndexStore.so
-#cp %{_builddir}/usr/lib/liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb
-#ln -fs liblldb.so.7.0.0svn %{buildroot}/usr/lib/swift-lldb/liblldb.so.7svn
-#ln -fs liblldb.so.7svn %{buildroot}/usr/lib/swift-lldb/liblldb.so
-#cp %{_builddir}/usr/lib/libsourcekitdInProc.so %{buildroot}/usr/lib/swift-lldb
-#cp %{_builddir}/usr/lib/libswiftDemangle.so %{buildroot}/usr/lib/swift-lldb
-#ln -fs %{_bindir}/swift %{buildroot}%{_libexecdir}/swift-lldb/swift
-#cp %{_builddir}/usr/lib/libBlocksRuntime.so %{buildroot}/usr/lib/swift-lldb
-#cp %{_builddir}/usr/lib/libdispatch.so %{buildroot}/usr/lib/swift-lldb
-
-#mkdir -p %{buildroot}/usr/lib/swift
-#cp -r %{_builddir}/usr/lib/swift/* %{buildroot}/usr/lib/swift
-#rm %{buildroot}/usr/lib/swift/clang
-#cp -r %{_builddir}/usr/lib/clang %{buildroot}/usr/lib/swift
-#ln -fs /usr/lib/swift/clang/7.0.0/include %{buildroot}/usr/lib/swift/clang/include
-#ln -fs /usr/lib/swift/clang/7.0.0/lib %{buildroot}/usr/lib/swift/clang/lib
-#ln -fs /usr/lib/swift/clang/7.0.0/share %{buildroot}/usr/lib/swift/clang/share
-#ln -fs /usr/lib/swift %{buildroot}/usr/lib/swift-lldb/swift
-#chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftDispatch.so
-#chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundation.so
-#chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundationXML.so
-#chmod 0755 %{buildroot}/usr/lib/swift/linux/libXCTest.so
-#chmod 0755 %{buildroot}/usr/lib/swift/linux/libFoundationNetworking.so
-#chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftSwiftOnoneSupport.so
-#chmod 0755 %{buildroot}/usr/lib/swift/linux/libswiftRemoteMirror.so
-#chmod 0755 %{buildroot}/usr/lib/swift/pm/llbuild/libllbuild.so
-#chmod 0755 %{buildroot}/usr/lib/swift/pm/llbuild/libllbuildSwift.so
-
-#mkdir -p %{buildroot}/usr/lib/swift_static
-#cp -r %{_builddir}/usr/lib/swift_static/* %{buildroot}/usr/lib/swift_static
-
-#mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-#install -m 0644 %{SOURCE14} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang.conf
-#install -m 0644 %{SOURCE15} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swift-lang-runtime.conf
-
-#mkdir -p %{buildroot}%{_mandir}/man1
-#install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1
 
 
 %files
 %license swift/LICENSE.txt
 %{_bindir}/swift*
-#%{_mandir}/man1/*
 %{_libexecdir}/swift/
-#/usr/lib/swift-lldb/
-#/usr/lib/swift/Block/
-#/usr/lib/swift/CoreFoundation/
-#/usr/lib/swift/_InternalSwiftSyntaxParser/
-#/usr/lib/swift/clang/
-#/usr/lib/swift/dispatch/
-#/usr/lib/swift/migrator/
-#/usr/lib/swift/os/
-#/usr/lib/swift/pm/
-#/usr/lib/swift/shims/
-#/usr/lib/swift_static/
-#/usr/lib/swift/CFURLSessionInterface/
-#/usr/lib/swift/CFXMLInterface/
-#/usr/lib/swift/FrameworkABIBaseline/
-#%{_libexecdir}/swift/
-#%{_bindir}/sourcekit-lsp
 
 
 %post -p /sbin/ldconfig
@@ -309,6 +183,9 @@ ln -fs %{_libexecdir}/swift/bin/swiftc %{buildroot}%{_bindir}/swiftc
 
 
 %changelog
+* Mon Apr 06 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-1
+- Reorganized the package to place everything in a single location,
+  changed the versioning scheme, and removed a number of obsolete patches
 * Wed Apr 01 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-0.1.20200331git2e3b1b3
 - Updated to swift-5.2.1-RELEASE
 * Wed Mar 25 2020 Ron Olson <tachoknight@gmail.com> 5.2-0.10.20200324git443e9a4
