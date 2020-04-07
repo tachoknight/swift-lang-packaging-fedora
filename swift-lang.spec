@@ -63,10 +63,12 @@ BuildRequires: 	/usr/bin/pathfix.py
 
 Requires:       glibc-devel
 Requires:       clang
-Requires:	      ncurses-devel
-Requires:	      ncurses-compat-libs
+Requires:	ncurses-devel
+Requires:	ncurses-compat-libs
 
-Provides:	      %{name} = %{version}-%{release}
+Provides:	%{name} = %{version}-%{release}
+Obsoletes:	%{name} < %{version}-%{release}
+Obsoletes:      %{name}-runtime < %{version}-%{release}
 
 ExclusiveArch: 	x86_64 aarch64 
 
