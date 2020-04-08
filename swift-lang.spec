@@ -8,7 +8,7 @@
 %global cmake_version 3.16.5
 
 
-Name:		        swift-lang
+Name:		swift-lang
 Version:        5.2.1
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
@@ -23,21 +23,21 @@ Source5:        https://github.com/apple/swift-package-manager/archive/swift-%{s
 Source6:       	https://github.com/apple/swift-llbuild/archive/swift-%{swifttag}.tar.gz#/llbuild.tar.gz
 Source7:       	https://github.com/apple/swift-cmark/archive/swift-%{swifttag}.tar.gz#/cmark.tar.gz
 Source8:       	https://github.com/apple/swift-xcode-playground-support/archive/swift-%{swifttag}.tar.gz#/swift-xcode-playground-support.tar.gz
-Source9:	      https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
-Source10:	      https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
-Source11:	      https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:	      https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:	      https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
+Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
+Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
+Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
+Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
+Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
 Source16:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:		build-setup.patch
 Patch1:		compiler-rt-fuzzer.patch
 Patch2:		python3-2.patch
 Patch3:		linux-tests-python-3-2.patch
-Patch4:	  glibcpthread.patch
-Patch5:	  swift.patch
-Patch6:	  llvm.patch
-Patch7:	  indexstore.patch
+Patch4:	  	glibcpthread.patch
+Patch5:	  	swift.patch
+Patch6:	  	llvm.patch
+Patch7:	  	indexstore.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -171,10 +171,16 @@ mkdir -p %{buildroot}%{_bindir}
 ln -fs %{_libexecdir}/swift/bin/swift %{buildroot}%{_bindir}/swift 
 ln -fs %{_libexecdir}/swift/bin/swiftc %{buildroot}%{_bindir}/swiftc
 ln -fs %{_libexecdir}/swift/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
+mkdir -p %{buildroot}%{_mandir}
+ln -fs %{_libexecdir}/swift/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
+
 
 %files
 %license swift/LICENSE.txt
-%{_bindir}/swift*
+%{_bindir}/swift
+%{_bindir}/swiftc
+%{_bindir}/sourcekit-lsp
+%{_mandir}/man1/swift.1
 %{_libexecdir}/swift/
 
 
