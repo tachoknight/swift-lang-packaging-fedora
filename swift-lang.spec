@@ -170,7 +170,7 @@ cp -r %{_builddir}/usr/* %{buildroot}%{_libexecdir}/swift
 mkdir -p %{buildroot}%{_bindir}
 ln -fs %{_libexecdir}/swift/bin/swift %{buildroot}%{_bindir}/swift 
 ln -fs %{_libexecdir}/swift/bin/swiftc %{buildroot}%{_bindir}/swiftc
-
+ln -fs %{_libexecdir}/swift/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
 
 %files
 %license swift/LICENSE.txt
