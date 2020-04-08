@@ -171,8 +171,8 @@ mkdir -p %{buildroot}%{_bindir}
 ln -fs %{_libexecdir}/swift/bin/swift %{buildroot}%{_bindir}/swift 
 ln -fs %{_libexecdir}/swift/bin/swiftc %{buildroot}%{_bindir}/swiftc
 ln -fs %{_libexecdir}/swift/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
-mkdir -p %{buildroot}%{_mandir}
-ln -fs %{_libexecdir}/swift/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
+mkdir -p %{buildroot}%{_mandir}/man1
+cp %{_libexecdir}/swift/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %files
@@ -180,7 +180,7 @@ ln -fs %{_libexecdir}/swift/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/s
 %{_bindir}/swift
 %{_bindir}/swiftc
 %{_bindir}/sourcekit-lsp
-%{_mandir}/man1/swift.1
+%{_mandir}/man1/swift.1.gz
 %{_libexecdir}/swift/
 
 
