@@ -1,5 +1,5 @@
---- compiler-rt/lib/fuzzer/FuzzerDriver.cpp.orig	2019-02-13 14:24:24.239239031 -0600
-+++ compiler-rt/lib/fuzzer/FuzzerDriver.cpp	2019-02-13 14:28:18.525530281 -0600
+--- llvm-project/compiler-rt/lib/fuzzer/FuzzerDriver.cpp.orig	2019-02-13 14:24:24.239239031 -0600
++++ llvm-project/compiler-rt/lib/fuzzer/FuzzerDriver.cpp	2019-02-13 14:28:18.525530281 -0600
 @@ -248,13 +248,16 @@
    Command Cmd(Args);
    Cmd.removeFlag("jobs");

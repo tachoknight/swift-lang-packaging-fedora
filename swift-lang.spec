@@ -62,7 +62,8 @@ BuildRequires:  openssl-devel
 BuildRequires: 	/usr/bin/pathfix.py
 
 Requires:       glibc-devel
-Requires:       clang
+Requires:	binutils-gold
+Requires:	gcc
 Requires:	ncurses-devel
 Requires:	ncurses-compat-libs
 
@@ -111,14 +112,7 @@ mv sourcekit-lsp-swift-%{swifttag} sourcekit-lsp
 
 mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
-# Apple did some reorganization of the various components and what
-# used to be separate subprojects are now symlinks into llvm-project
-ln -s llvm-project/llvm llvm
-ln -s llvm-project/lldb lldb
-ln -s llvm-project/libcxx libcxx
-ln -s llvm-project/compiler-rt compiler-rt
-ln -s llvm-project/clang-tools-extra clang-tools-extra
-ln -s llvm-project/clang clang
+
 # ICU 
 mv icu-release-61-2 icu
 
