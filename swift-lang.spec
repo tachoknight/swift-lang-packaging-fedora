@@ -9,7 +9,7 @@
 
 
 Name:		swift-lang
-Version:        5.2.1
+Version:	5.2.1
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -166,7 +166,7 @@ ln -fs %{_libexecdir}/swift/bin/swift %{buildroot}%{_bindir}/swift
 ln -fs %{_libexecdir}/swift/bin/swiftc %{buildroot}%{_bindir}/swiftc
 ln -fs %{_libexecdir}/swift/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
 mkdir -p %{buildroot}%{_mandir}/man1
-cp %{_libexecdir}/swift/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
+cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %files
