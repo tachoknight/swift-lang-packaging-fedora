@@ -109,7 +109,6 @@ mv swift-package-manager-swift-%{swifttag} swiftpm
 mv swift-swift-%{swifttag} swift
 mv swift-xcode-playground-support-swift-%{swifttag} swift-xcode-playground-support
 mv sourcekit-lsp-swift-%{swifttag} sourcekit-lsp
-
 mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
 
