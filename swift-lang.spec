@@ -37,6 +37,7 @@ Patch5:	  	swift.patch
 Patch6:	  	llvm.patch
 Patch7:	  	indexstore.patch
  
+BuildRequires:  cmake
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  pkgconfig
