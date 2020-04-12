@@ -9,7 +9,7 @@
 
 Name:		  swift-lang
 Version:  5.2.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Apple's Swift programming language
 License:  ASL 2.0 and Unicode
 URL:      https://swift.org
@@ -186,6 +186,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Sun Apr 12 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-2
+- Added s390x architecture and F30-specific requires
 * Mon Apr 06 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-1
 - Reorganized the package to place everything in a single location,
   changed the versioning scheme, and removed a number of obsolete patches
