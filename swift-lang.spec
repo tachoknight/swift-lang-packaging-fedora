@@ -59,8 +59,6 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires: 	/usr/bin/pathfix.py
-# Just for debugging in the chroot
-BuildRequires:  vim
 
 Requires:       glibc-devel
 Requires:	binutils-gold
