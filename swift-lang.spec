@@ -5,7 +5,6 @@
 %global swiftgithash 2e3b1b3
 %global swiftgitdate 20200331
 %global swiftbuild swift-source
-%global cmake_version 3.16.5
 
 
 Name:		swift-lang
@@ -28,7 +27,6 @@ Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.g
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
 Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
-Source16:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:		build-setup.patch
 Patch1:		compiler-rt-fuzzer.patch
@@ -39,7 +37,9 @@ Patch5:	  	swift.patch
 Patch6:	  	llvm.patch
 Patch7:	  	indexstore.patch
 Patch8:		build-setup-s390x.patch
+Patch9:		ibm-identifier.patch
  
+BuildRequires:  cmake
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  pkgconfig
@@ -58,9 +58,9 @@ BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
-BuildRequires:	make
-BuildRequires:  openssl-devel
 BuildRequires: 	/usr/bin/pathfix.py
+# Just for debugging in the chroot
+BuildRequires:  vim
 
 Requires:       glibc-devel
 Requires:	binutils-gold
@@ -90,11 +90,6 @@ correct programs easier for the developer.
 %prep
 
 # Now we handle our own CMake (sigh)
-%setup -q -c -n cmake -a 16
-mkdir cmake-build
-cd cmake-build
-../cmake-%{cmake_version}/bootstrap && make
-
 
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
 # The Swift build script requires directories to be named
@@ -120,7 +115,12 @@ mv icu-release-61-2 icu
 mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
+%ifnarch s390x
 %patch0 -p0
+%else
+# Couple other things for s390x
+%patch8 -p0
+%endif
 
 # Fixes an issue with using std::thread in a vector in compiler-rt
 %patch1 -p0 
@@ -141,9 +141,9 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %patch6 -p0
 %patch7 -p0
 
-# Specific s390x patches
+# s390x-specific patches
 %ifarch s390x
-%patch8 -p0
+%patch9 -p0
 %endif
 
 # Fix python to python3 
@@ -156,8 +156,6 @@ export VERBOSE=1
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
-# And for CMake, which we built first
-export PATH=$PWD/../cmake/cmake-build/bin:$PATH
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
