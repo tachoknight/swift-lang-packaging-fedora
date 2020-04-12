@@ -2,14 +2,12 @@
 %global swifttag 5.2.1-RELEASE
 # Swift syntax seems to only be updated on major releases
 %global swiftsyntax 5.2.1-RELEASE
-%global swiftgithash 2e3b1b3
-%global swiftgitdate 20200331
 %global swiftbuild swift-source
-
+%global cmake_version 3.16.5
 
 Name:		  swift-lang
 Version:  5.2.1
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Apple's Swift programming language
 License:  ASL 2.0 and Unicode
 URL:      https://swift.org
@@ -27,6 +25,7 @@ Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.g
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
 Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
+Source14: https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:		build-setup.patch
 Patch1:		compiler-rt-fuzzer.patch
@@ -39,7 +38,6 @@ Patch7:	  indexstore.patch
 Patch8:		build-setup-s390x.patch
 Patch9:		ibm-identifier.patch
  
-BuildRequires:  cmake
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  pkgconfig
@@ -59,6 +57,8 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires: 	/usr/bin/pathfix.py
+BuildRequires:  make
+BuildRequires:  openssl-devel
 
 Requires:   glibc-devel
 %if 0%{?fedora} >= 31
@@ -90,6 +90,14 @@ correct programs easier for the developer.
 
 
 %prep
+# Now we build our own CMake because the one in EPEL8 is too old and
+# we can safely build it for all platforms (though will add some time
+# to the whole build process)
+%setup -q -c -n cmake -a 14
+mkdir cmake-build
+cd cmake-build
+../cmake-%{cmake_version}/bootstrap && make
+
 
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
 # The Swift build script requires directories to be named
@@ -156,6 +164,8 @@ export VERBOSE=1
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
+# And for CMake, which we built first
+export PATH=$PWD/../cmake/cmake-build/bin:$PATH
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
@@ -186,6 +196,9 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Sun Apr 12 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-3
+- Put CMake back as a build step because the version in EPEL 8 is too
+  old
 * Sun Apr 12 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-2
 - Added s390x architecture and F30-specific requires
 * Mon Apr 06 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-1
