@@ -1,0 +1,11 @@
+--- swiftpm/Sources/Build/Triple.swift.orig	2020-04-11 19:16:00.451437120 +0000
++++ swiftpm/Sources/Build/Triple.swift	2020-04-11 19:17:33.091437120 +0000
+@@ -135,7 +135,7 @@
+     public static let x86_64Linux = try! Triple("x86_64-unknown-linux-gnu")
+     public static let i686Linux = try! Triple("i686-unknown-linux")
+     public static let ppc64leLinux = try! Triple("powerpc64le-unknown-linux")
+-    public static let s390xLinux = try! Triple("s390x-unknown-linux")
++    public static let s390xLinux = try! Triple("s390x-ibm-linux")
+     public static let arm64Linux = try! Triple("aarch64-unknown-linux-gnu")
+     public static let armLinux = try! Triple("armv7-unknown-linux-gnueabihf")
+     public static let armAndroid = try! Triple("armv7a-unknown-linux-androideabi")

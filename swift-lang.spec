@@ -36,6 +36,8 @@ Patch4:	  	glibcpthread.patch
 Patch5:	  	swift.patch
 Patch6:	  	llvm.patch
 Patch7:	  	indexstore.patch
+Patch8:		build-setup-s390x.patch
+Patch9:		ibm-identifier.patch
  
 BuildRequires:  cmake
 BuildRequires:  clang
@@ -68,7 +70,7 @@ Provides:	%{name} = %{version}-%{release}
 Obsoletes:	%{name} < %{version}-%{release}
 Obsoletes:      %{name}-runtime < %{version}-%{release}
 
-ExclusiveArch: 	x86_64 aarch64 
+ExclusiveArch: 	x86_64 aarch64 s390x
 
 
 %description
@@ -109,7 +111,12 @@ mv icu-release-61-2 icu
 mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
+%ifnarch s390x
 %patch0 -p0
+%else
+# Couple other things for s390x
+%patch8 -p0
+%endif
 
 # Fixes an issue with using std::thread in a vector in compiler-rt
 %patch1 -p0 
@@ -129,6 +136,11 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 # implicit include of cstdint
 %patch6 -p0
 %patch7 -p0
+
+# s390x-specific patches
+%ifarch s390x
+%patch9 -p0
+%endif
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py

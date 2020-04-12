@@ -1,0 +1,32 @@
+--- swift/utils/build-presets.ini.orig	2020-04-11 22:32:29.178121900 +0000
++++ swift/utils/build-presets.ini	2020-04-11 22:33:41.148121900 +0000
+@@ -736,18 +736,15 @@
+ llbuild
+ swiftpm
+ xctest
+-libicu
+ libcxx
+ 
+ dash-dash
+ 
+-build-ninja
+ install-swift
+ install-lldb
+ install-llbuild
+ install-swiftpm
+ install-xctest
+-install-libicu
+ install-prefix=/usr
+ install-libcxx
+ install-sourcekit-lsp
+@@ -758,10 +755,8 @@
+ # Executes the lit tests for the installable package that is created
+ # Assumes the swift-integration-tests repo is checked out
+ 
+-test-installable-package
+ 
+ # Build the benchmarks against the toolchain.
+-toolchain-benchmarks
+ 
+ # Path to the root of the installation filesystem.
+ install-destdir=%(install_destdir)s
