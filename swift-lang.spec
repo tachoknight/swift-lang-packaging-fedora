@@ -60,8 +60,12 @@ BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires: 	/usr/bin/pathfix.py
 
-Requires: glibc-devel
+Requires:   glibc-devel
+%if 0%{?fedora} >= 31
 Requires:	binutils-gold
+%else
+Requires:	binutils
+%endif
 Requires:	gcc
 Requires:	ncurses-devel
 Requires:	ncurses-compat-libs
