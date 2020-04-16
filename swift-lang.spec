@@ -1,13 +1,13 @@
 %global debug_package %{nil}
-%global swifttag 5.2.1-RELEASE
+%global swifttag 5.2.2-RELEASE
 # Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.2.1-RELEASE
+%global swiftsyntax 5.2.2-RELEASE
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 
 Name:		  swift-lang
-Version:  5.2.1
-Release:  3%{?dist}
+Version:  5.2.2
+Release:  1%{?dist}
 Summary:  Apple's Swift programming language
 License:  ASL 2.0 and Unicode
 URL:      https://swift.org
@@ -196,6 +196,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Wed Apr 15 2020 Ron Olson <tachoknight@gmail.com> 5.2.2-1
+- Updated to swift-5.2.2-RELEASE
 * Sun Apr 12 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-3
 - Put CMake back as a build step because the version in EPEL 8 is too
   old
