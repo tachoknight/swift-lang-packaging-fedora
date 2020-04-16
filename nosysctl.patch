@@ -1,0 +1,12 @@
+--- ./swift-corelibs-foundation/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c.orig	2020-04-16 18:45:49.133260989 -0500
++++ ./swift-corelibs-foundation/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c	2020-04-16 18:46:21.547420799 -0500
+@@ -17,9 +17,6 @@
+ 
+ #if (TARGET_OS_MAC || TARGET_OS_LINUX || TARGET_OS_BSD) && !TARGET_OS_CYGWIN
+ #include <dirent.h>
+-#if !TARGET_OS_ANDROID
+-#include <sys/sysctl.h>
+-#endif
+ #include <sys/mman.h>
+ #endif
+ 

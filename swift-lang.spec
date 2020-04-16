@@ -37,6 +37,7 @@ Patch6:	  llvm.patch
 Patch7:	  indexstore.patch
 Patch8:		build-setup-s390x.patch
 Patch9:		ibm-identifier.patch
+Patch10:	nosysctl.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -153,6 +154,9 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %ifarch s390x
 %patch9 -p0
 %endif
+
+# sys/sysctl.h has been removed
+%patch10 -p0
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
