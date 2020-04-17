@@ -7,7 +7,7 @@
 
 Name:		  swift-lang
 Version:  5.2.2
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Apple's Swift programming language
 License:  ASL 2.0 and Unicode
 URL:      https://swift.org
@@ -200,6 +200,9 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Fri Apr 17 2020 Ron Olson <tachoknight@gmail.com> 5.2.2-2
+- Added patch to remove use of sys/sysctl.h as it was removed
+  in Rawhide (future F33)
 * Wed Apr 15 2020 Ron Olson <tachoknight@gmail.com> 5.2.2-1
 - Updated to swift-5.2.2-RELEASE
 * Sun Apr 12 2020 Ron Olson <tachoknight@gmail.com> 5.2.1-3
