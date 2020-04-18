@@ -18,7 +18,7 @@ diff -Naur swift-corelibs-foundation-orig/CoreFoundation/PlugIn.subproj/CFBundle
  #if TARGET_OS_MAC || TARGET_OS_LINUX
  #include <unistd.h>
 -#if !TARGET_OS_ANDROID
-+#if TARGET_OS_MAC || TARGET_OS_LINUX
++#if TARGET_OS_MAC || TARGET_OS_BSD
  #include <sys/sysctl.h>
  #endif
  #include <sys/stat.h>
