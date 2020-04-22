@@ -1,13 +1,13 @@
 %global debug_package %{nil}
-%global swifttag 5.2.2-RELEASE
+%global 5.3-DEVELOPMENT-SNAPSHOT-2020-04-21-a
 # Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.2.2-RELEASE
+%global swiftsyntax 5.3-DEVELOPMENT-SNAPSHOT-2020-04-21-a
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 
 Name:		  swift-lang
-Version:  5.2.2
-Release:  2%{?dist}
+Version:  5.3
+Release:  1%{?dist}
 Summary:  Apple's Swift programming language
 License:  ASL 2.0 and Unicode
 URL:      https://swift.org
