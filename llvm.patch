@@ -1,11 +1,11 @@
---- llvm-project/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h.orig	2020-01-29 10:02:44.222689214 -0600
-+++ llvm-project/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h	2020-01-29 10:03:02.007354450 -0600
-@@ -16,6 +16,8 @@
- #include "llvm/Demangle/DemangleConfig.h"
- #include "llvm/Demangle/StringView.h"
- #include <array>
-+#include <cstdint>
-+#include <string>
+diff -Naur llvm-project-orig/clang-tools-extra/clangd/Shutdown.cpp llvm-project/clang-tools-extra/clangd/Shutdown.cpp
+--- llvm-project-orig/clang-tools-extra/clangd/Shutdown.cpp	2020-04-20 16:06:02.000000000 -0500
++++ llvm-project/clang-tools-extra/clangd/Shutdown.cpp	2020-04-23 12:35:36.247095797 -0500
+@@ -10,6 +10,7 @@
  
- namespace llvm {
- namespace itanium_demangle {
+ #include <atomic>
+ #include <thread>
++#include <cstdlib>
+ 
+ namespace clang {
+ namespace clangd {
