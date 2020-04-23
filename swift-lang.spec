@@ -160,6 +160,7 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
+pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 %build
 export VERBOSE=1
