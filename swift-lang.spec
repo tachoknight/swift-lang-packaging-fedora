@@ -59,10 +59,13 @@ BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
+BuildRequires:  python3-six
 BuildRequires: 	/usr/bin/pathfix.py
 %if 0%{?el8}
 BuildRequires:  make
 BuildRequires:  openssl-devel
+%else
+BuildRequires: 	cmake
 %endif
 
 Requires:   glibc-devel
