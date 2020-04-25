@@ -161,9 +161,9 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %patch7 -p0
 
 # s390x-specific patches
-%ifarch s390x
-%patch9 -p0
-%endif
+#%ifarch s390x
+#%patch9 -p0
+#%endif
 
 
 # Fix python to python3 
