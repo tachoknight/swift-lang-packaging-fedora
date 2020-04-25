@@ -1,15 +1,3 @@
-diff -Naur swift-corelibs-foundation-orig/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c swift-corelibs-foundation/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c
---- swift-corelibs-foundation-orig/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c	2020-03-18 02:25:12.000000000 -0500
-+++ swift-corelibs-foundation/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c	2020-04-18 12:54:00.130921751 -0500
-@@ -17,7 +17,7 @@
- 
- #if (TARGET_OS_MAC || TARGET_OS_LINUX || TARGET_OS_BSD) && !TARGET_OS_CYGWIN
- #include <dirent.h>
--#if !TARGET_OS_ANDROID
-+#if TARGET_OS_MAC || TARGET_OS_BSD
- #include <sys/sysctl.h>
- #endif
- #include <sys/mman.h>
 diff -Naur swift-corelibs-foundation-orig/CoreFoundation/PlugIn.subproj/CFBundle_Resources.c swift-corelibs-foundation/CoreFoundation/PlugIn.subproj/CFBundle_Resources.c
 --- swift-corelibs-foundation-orig/CoreFoundation/PlugIn.subproj/CFBundle_Resources.c	2020-03-18 02:25:12.000000000 -0500
 +++ swift-corelibs-foundation/CoreFoundation/PlugIn.subproj/CFBundle_Resources.c	2020-04-18 12:53:44.299349245 -0500

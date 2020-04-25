@@ -37,6 +37,7 @@ Patch1:		compiler-rt-fuzzer.patch
 Patch3:		linux-tests-python-3-2.patch
 Patch4:	  glibcpthread.patch
 Patch5:		llvm.patch
+Patch6:		nosysctl.patch
 Patch7:	  indexstore.patch
 Patch8:		build-setup-s390x.patch
 Patch9:		ibm-identifier.patch
@@ -60,6 +61,7 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:  python3-six
+BuildRequires:	python27
 BuildRequires: 	/usr/bin/pathfix.py
 %if 0%{?el8}
 BuildRequires:  make
@@ -151,6 +153,9 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # Implicit include of <cstdlib> in LLVM
 %patch5 -p0
+
+# sys/sysctl.h has been removed
+%patch6 -p0
 
 # implicit include of cstdint
 %patch7 -p0
