@@ -3,9 +3,8 @@
 # Swift syntax seems to only be updated on major releases
 %global swiftsyntax 5.3-DEVELOPMENT-SNAPSHOT-2020-04-21-a
 %global swiftbuild swift-source
-%if 0%{?el8}
 %global cmake_version 3.16.5
-%endif
+
 
 Name:		  swift-lang
 Version:  5.3
@@ -27,9 +26,7 @@ Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.g
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
 Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
-%if 0%{?el8}
 Source14: https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
-%endif
 
 Patch0:		swift-build-setup.patch
 Patch1:		compiler-rt-fuzzer.patch
