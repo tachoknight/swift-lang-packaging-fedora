@@ -30,7 +30,6 @@ Source14: https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/c
 
 Patch0:		swift-build-setup.patch
 Patch1:		compiler-rt-fuzzer.patch
-#Patch2:		python3-2.patch
 Patch3:		linux-tests-python-3-2.patch
 Patch4:	  glibcpthread.patch
 Patch5:		llvm.patch
@@ -141,7 +140,6 @@ mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 %patch1 -p0 
  
 # Python 3 is the new default so we need to make the python code work with it
-#%patch2 -p0
 %patch3 -p0
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
