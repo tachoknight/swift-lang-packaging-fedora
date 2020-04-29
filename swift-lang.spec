@@ -1,13 +1,13 @@
 %global debug_package %{nil}
-%global swifttag 5.2.2-RELEASE
+%global swifttag 5.2.3-RELEASE
 # Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.2.2-RELEASE
+%global swiftsyntax 5.2.3-RELEASE
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 
 Name:		  swift-lang
-Version:  5.2.2
-Release:  2%{?dist}
+Version:  5.2.3
+Release:  1%{?dist}
 Summary:  Apple's Swift programming language
 License:  ASL 2.0 and Unicode
 URL:      https://swift.org
@@ -200,6 +200,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Wed Apr 29 2020 Ron Olson <tachoknight@gmail.com> 5.2.3-1
+- Updated to swift-5.2.3-RELEASE
 * Fri Apr 17 2020 Ron Olson <tachoknight@gmail.com> 5.2.2-2
 - Added patch to remove use of sys/sysctl.h as it was removed
   in Rawhide (future F33)
