@@ -75,7 +75,7 @@ Provides:	  %{name} = %{version}-%{release}
 Obsoletes:  %{name} < %{version}-%{release}
 Obsoletes:  %{name}-runtime < %{version}-%{release}
 
-ExclusiveArch: 	x86_64 aarch64 s390x
+ExclusiveArch: 	x86_64 aarch64 
 
 
 %description
