@@ -1,5 +1,7 @@
 #!/bin/bash
 
+VERSION=32
+
 MYDIR=$PWD
 
 START_TS=`date`
@@ -14,9 +16,9 @@ pushd $HOME/rpmbuild/SPECS
 spectool -g -R ./swift-lang.spec
 # Now do the actual build
 #mock --init --clean -r fedora-31-s390x --spec=swift-lang.spec --sources=../SOURCES --resultdir=$MYDIR/mock-results --buildsrpm --rebuild --rpmbuild-opts=--noclean --no-cleanup-after 2>&1 
-mock --init --clean -r fedora-31-s390x --spec=swift-lang.spec --sources=../SOURCES --resultdir=$MYDIR/mock-results --buildsrpm 
+mock --init --clean -r fedora-$VERSION-s390x --spec=swift-lang.spec --sources=../SOURCES --resultdir=$MYDIR/mock-results --buildsrpm 
 pushd $MYDIR/mock-results
-mock -r fedora-31-s390x rebuild ./swift-lang-5.2.2-1.fc31.src.rpm
+mock -r fedora-$VERSION-s390x rebuild `find . -name *.src.rpm`
 popd
 
 echo Started:_____$START_TS
