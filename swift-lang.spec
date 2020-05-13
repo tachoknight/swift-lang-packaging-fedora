@@ -4,7 +4,7 @@
 %global swiftsyntax 5.3-DEVELOPMENT-SNAPSHOT-2020-05-11-a
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
-
+%global icu_version 67-1
 
 Name:		  swift-lang
 Version:  5.3
@@ -24,7 +24,7 @@ Source8:  https://github.com/apple/swift-xcode-playground-support/archive/swift-
 Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
 Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
+Source12:	https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
 Source14: https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
@@ -123,7 +123,7 @@ mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
 
 # ICU 
-mv icu-release-61-2 icu
+mv icu-release-%{icu_version} icu
 
 # Swift Syntax on its own release (sigh)
 mv swift-syntax-swift-%{swiftsyntax} swift-syntax
