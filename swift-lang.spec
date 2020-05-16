@@ -4,7 +4,7 @@
 %global cmake_version 3.16.5
 %global icu_version 67-1
 
-Name:		    swift-lang
+Name:		swift-lang
 Version:        5.3
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
@@ -116,12 +116,10 @@ mv swift-xcode-playground-support-swift-%{swifttag} swift-xcode-playground-suppo
 mv sourcekit-lsp-swift-%{swifttag} sourcekit-lsp
 mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
+mv swift-syntax-swift-%{swifttag} swift-syntax
 
 # ICU 
 mv icu-release-%{icu_version} icu
-
-# Swift Syntax on its own release (sigh)
-mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
 %ifnarch s390x
