@@ -1,46 +1,42 @@
 %global debug_package %{nil}
 %global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-05-11-a
-# Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.3-DEVELOPMENT-SNAPSHOT-2020-05-11-a
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 %global icu_version 67-1
 
-Name:		  swift-lang
-Version:  5.3
-Release:  1%{?dist}
-Summary:  Apple's Swift programming language
-License:  ASL 2.0 and Unicode
-URL:      https://swift.org
-Source0:  https://github.com/apple/swift/archive/swift-%{swifttag}.tar.gz#/swift.tar.gz
-Source1:  https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{swifttag}.tar.gz#/corelibs-libdispatch.tar.gz
-Source2:  https://github.com/apple/swift-corelibs-foundation/archive/swift-%{swifttag}.tar.gz#/corelibs-foundation.tar.gz
-Source3:  https://github.com/apple/swift-integration-tests/archive/swift-%{swifttag}.tar.gz#/swift-integration-tests.tar.gz
-Source4:  https://github.com/apple/swift-corelibs-xctest/archive/swift-%{swifttag}.tar.gz#/corelibs-xctest.tar.gz
-Source5:  https://github.com/apple/swift-package-manager/archive/swift-%{swifttag}.tar.gz#/package-manager.tar.gz
-Source6:  https://github.com/apple/swift-llbuild/archive/swift-%{swifttag}.tar.gz#/llbuild.tar.gz
-Source7:  https://github.com/apple/swift-cmark/archive/swift-%{swifttag}.tar.gz#/cmark.tar.gz
-Source8:  https://github.com/apple/swift-xcode-playground-support/archive/swift-%{swifttag}.tar.gz#/swift-xcode-playground-support.tar.gz
-Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
-Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
-Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:	https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
-Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
-Source14: https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+Name:		    swift-lang
+Version:        5.3
+Release:        1%{?dist}
+Summary:        Apple's Swift programming language
+License:        ASL 2.0 and Unicode
+URL:            https://swift.org
+Source0:        https://github.com/apple/swift/archive/swift-%{swifttag}.tar.gz#/swift.tar.gz
+Source1:        https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{swifttag}.tar.gz#/corelibs-libdispatch.tar.gz
+Source2:        https://github.com/apple/swift-corelibs-foundation/archive/swift-%{swifttag}.tar.gz#/corelibs-foundation.tar.gz
+Source3:        https://github.com/apple/swift-integration-tests/archive/swift-%{swifttag}.tar.gz#/swift-integration-tests.tar.gz
+Source4:        https://github.com/apple/swift-corelibs-xctest/archive/swift-%{swifttag}.tar.gz#/corelibs-xctest.tar.gz
+Source5:        https://github.com/apple/swift-package-manager/archive/swift-%{swifttag}.tar.gz#/package-manager.tar.gz
+Source6:        https://github.com/apple/swift-llbuild/archive/swift-%{swifttag}.tar.gz#/llbuild.tar.gz
+Source7:        https://github.com/apple/swift-cmark/archive/swift-%{swifttag}.tar.gz#/cmark.tar.gz
+Source8:        https://github.com/apple/swift-xcode-playground-support/archive/swift-%{swifttag}.tar.gz#/swift-xcode-playground-support.tar.gz
+Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
+Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
+Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
+Source12:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
+Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
+Source14:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch0:		swift-build-setup.patch
-Patch1:		compiler-rt-fuzzer.patch
-Patch3:		linux-tests-python-3-2.patch
-Patch4:	  glibcpthread.patch
-Patch5:		llvm.patch
-Patch6:		nosysctl.patch
-Patch7:	  indexstore.patch
-Patch8:		build-setup-s390x.patch
+Patch0:		    swift-build-setup.patch
+Patch1:		    compiler-rt-fuzzer.patch
+Patch3:		    linux-tests-python-3-2.patch
+Patch4:	  	    glibcpthread.patch
+Patch5:		    llvm.patch
+Patch6:		    nosysctl.patch
+Patch7:	  	    indexstore.patch
+Patch8:		    build-setup-s390x.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
-BuildRequires:  pkgconfig
-BuildRequires:  perl-podlators
 BuildRequires:  rsync
 BuildRequires:  python3
 BuildRequires:  python3-devel
@@ -49,7 +45,6 @@ BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
 BuildRequires:  libblocksruntime-static
-BuildRequires:  libatomic-static
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
@@ -65,19 +60,19 @@ BuildRequires:  openssl-devel
 BuildRequires: 	cmake
 %endif
 
-Requires:   glibc-devel
+Requires:       glibc-devel
 %if 0%{?fedora} >= 31
-Requires:	binutils-gold
+Requires:	    binutils-gold
 %else
-Requires:	binutils
+Requires:	    binutils
 %endif
-Requires:	gcc
-Requires:	ncurses-devel
-Requires:	ncurses-compat-libs
+Requires:	    gcc
+Requires:	    ncurses-devel
+Requires:	    ncurses-compat-libs
 
-Provides:	  %{name} = %{version}-%{release}
-Obsoletes:  %{name} < %{version}-%{release}
-Obsoletes:  %{name}-runtime < %{version}-%{release}
+Provides:	    %{name} = %{version}-%{release}
+Obsoletes:  	%{name} < %{version}-%{release}
+Obsoletes:  	%{name}-runtime < %{version}-%{release}
 
 ExclusiveArch: 	x86_64 aarch64 s390x
 
