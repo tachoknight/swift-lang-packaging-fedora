@@ -50,6 +50,7 @@ BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
+BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:	python27
 BuildRequires: 	/usr/bin/pathfix.py
