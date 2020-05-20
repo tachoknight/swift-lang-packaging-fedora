@@ -1,10 +1,10 @@
 %global debug_package %{nil}
-%global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-05-11-a
+%global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-05-19-a
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 %global icu_version 67-1
 
-Name:		swift-lang
+Name:           swift-lang
 Version:        5.3
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
@@ -26,21 +26,21 @@ Source12:       https://github.com/unicode-org/icu/archive/release-%{icu_version
 Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source14:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch0:		    swift-build-setup.patch
-Patch1:		    compiler-rt-fuzzer.patch
-Patch3:		    linux-tests-python-3-2.patch
-Patch4:	  	    glibcpthread.patch
-Patch5:		    llvm.patch
-Patch6:		    nosysctl.patch
-Patch7:	  	    indexstore.patch
-Patch8:		    build-setup-s390x.patch
+Patch0:         swift-build-setup.patch
+Patch1:         compiler-rt-fuzzer.patch
+Patch3:         linux-tests-python-3-2.patch
+Patch4:         glibcpthread.patch
+Patch5:         llvm.patch
+Patch6:         nosysctl.patch
+Patch7:         indexstore.patch
+Patch8:         build-setup-s390x.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
 BuildRequires:  python3
 BuildRequires:  python3-devel
-BuildRequires:	python3-distro
+BuildRequires:  python3-distro
 BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
@@ -52,30 +52,30 @@ BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
-BuildRequires:	python27
-BuildRequires: 	/usr/bin/pathfix.py
+BuildRequires:  python27
+BuildRequires:  /usr/bin/pathfix.py
 %if 0%{?el8}
 BuildRequires:  make
 BuildRequires:  openssl-devel
 %else
-BuildRequires: 	cmake
+BuildRequires:  cmake
 %endif
 
 Requires:       glibc-devel
 %if 0%{?fedora} >= 31
-Requires:	    binutils-gold
+Requires:       binutils-gold
 %else
-Requires:	    binutils
+Requires:       binutils
 %endif
-Requires:	    gcc
-Requires:	    ncurses-devel
-Requires:	    ncurses-compat-libs
+Requires:       gcc
+Requires:       ncurses-devel
+Requires:       ncurses-compat-libs
 
-Provides:	    %{name} = %{version}-%{release}
-Obsoletes:  	%{name} < %{version}-%{release}
-Obsoletes:  	%{name}-runtime < %{version}-%{release}
+Provides:       %{name} = %{version}-%{release}
+Obsoletes:      %{name} < %{version}-%{release}
+Obsoletes:      %{name}-runtime < %{version}-%{release}
 
-ExclusiveArch: 	x86_64 aarch64 s390x
+ExclusiveArch:  x86_64 aarch64 s390x
 
 
 %description
