@@ -1,43 +1,43 @@
 %global debug_package %{nil}
-%global swifttag 5.2.3-RELEASE
+%global swifttag 5.2.4-RELEASE
 # Swift syntax seems to only be updated on major releases
-%global swiftsyntax 5.2.3-RELEASE
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
+%global swiftsyntax 5.2.3-RELEASE
 
-Name:		  swift-lang
-Version:  5.2.3
-Release:  1%{?dist}
-Summary:  Apple's Swift programming language
-License:  ASL 2.0 and Unicode
-URL:      https://swift.org
-Source0:  https://github.com/apple/swift/archive/swift-%{swifttag}.tar.gz#/swift.tar.gz
-Source1:  https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{swifttag}.tar.gz#/corelibs-libdispatch.tar.gz
-Source2:  https://github.com/apple/swift-corelibs-foundation/archive/swift-%{swifttag}.tar.gz#/corelibs-foundation.tar.gz
-Source3:  https://github.com/apple/swift-integration-tests/archive/swift-%{swifttag}.tar.gz#/swift-integration-tests.tar.gz
-Source4:  https://github.com/apple/swift-corelibs-xctest/archive/swift-%{swifttag}.tar.gz#/corelibs-xctest.tar.gz
-Source5:  https://github.com/apple/swift-package-manager/archive/swift-%{swifttag}.tar.gz#/package-manager.tar.gz
-Source6:  https://github.com/apple/swift-llbuild/archive/swift-%{swifttag}.tar.gz#/llbuild.tar.gz
-Source7:  https://github.com/apple/swift-cmark/archive/swift-%{swifttag}.tar.gz#/cmark.tar.gz
-Source8:  https://github.com/apple/swift-xcode-playground-support/archive/swift-%{swifttag}.tar.gz#/swift-xcode-playground-support.tar.gz
-Source9:	https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
-Source10:	https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
-Source11:	https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:	https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:	https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
-Source14: https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+Name:           swift-lang
+Version:        5.2.4
+Release:        1%{?dist}
+Summary:        Apple's Swift programming language
+License:        ASL 2.0 and Unicode
+URL:            https://swift.org
+Source0:        https://github.com/apple/swift/archive/swift-%{swifttag}.tar.gz#/swift.tar.gz
+Source1:        https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{swifttag}.tar.gz#/corelibs-libdispatch.tar.gz
+Source2:        https://github.com/apple/swift-corelibs-foundation/archive/swift-%{swifttag}.tar.gz#/corelibs-foundation.tar.gz
+Source3:        https://github.com/apple/swift-integration-tests/archive/swift-%{swifttag}.tar.gz#/swift-integration-tests.tar.gz
+Source4:        https://github.com/apple/swift-corelibs-xctest/archive/swift-%{swifttag}.tar.gz#/corelibs-xctest.tar.gz
+Source5:        https://github.com/apple/swift-package-manager/archive/swift-%{swifttag}.tar.gz#/package-manager.tar.gz
+Source6:        https://github.com/apple/swift-llbuild/archive/swift-%{swifttag}.tar.gz#/llbuild.tar.gz
+Source7:        https://github.com/apple/swift-cmark/archive/swift-%{swifttag}.tar.gz#/cmark.tar.gz
+Source8:        https://github.com/apple/swift-xcode-playground-support/archive/swift-%{swifttag}.tar.gz#/swift-xcode-playground-support.tar.gz
+Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
+Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
+Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
+Source12:       https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
+Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
+Source14:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch0:		build-setup.patch
-Patch1:		compiler-rt-fuzzer.patch
-Patch2:		python3-2.patch
-Patch3:		linux-tests-python-3-2.patch
-Patch4:	  glibcpthread.patch
-Patch5:	  swift.patch
-Patch6:	  llvm.patch
-Patch7:	  indexstore.patch
-Patch8:		build-setup-s390x.patch
-Patch9:		ibm-identifier.patch
-Patch10:	nosysctl.patch
+Patch0:         build-setup.patch
+Patch1:         compiler-rt-fuzzer.patch
+Patch2:         python3-2.patch
+Patch3:         linux-tests-python-3-2.patch
+Patch4:         glibcpthread.patch
+Patch5:         swift.patch
+Patch6:         llvm.patch
+Patch7:         indexstore.patch
+Patch8:         build-setup-s390x.patch
+Patch9:         ibm-identifier.patch
+Patch10:        nosysctl.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -46,7 +46,7 @@ BuildRequires:  perl-podlators
 BuildRequires:  rsync
 BuildRequires:  python3
 BuildRequires:  python3-devel
-BuildRequires:	python3-distro
+BuildRequires:  python3-distro
 BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
@@ -57,25 +57,25 @@ BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
-BuildRequires: 	/usr/bin/pathfix.py
+BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  make
 BuildRequires:  openssl-devel
 
-Requires:   glibc-devel
+Requires:       glibc-devel
 %if 0%{?fedora} >= 31
-Requires:	binutils-gold
+Requires:       binutils-gold
 %else
-Requires:	binutils
+Requires:       binutils
 %endif
-Requires:	gcc
-Requires:	ncurses-devel
-Requires:	ncurses-compat-libs
+Requires:       gcc
+Requires:       ncurses-devel
+Requires:       ncurses-compat-libs
 
-Provides:	  %{name} = %{version}-%{release}
-Obsoletes:  %{name} < %{version}-%{release}
-Obsoletes:  %{name}-runtime < %{version}-%{release}
+Provides:       %{name} = %{version}-%{release}
+Obsoletes:      %{name} < %{version}-%{release}
+Obsoletes:      %{name}-runtime < %{version}-%{release}
 
-ExclusiveArch: 	x86_64 aarch64 
+ExclusiveArch:  x86_64 aarch64 
 
 
 %description
@@ -116,12 +116,10 @@ mv swift-xcode-playground-support-swift-%{swifttag} swift-xcode-playground-suppo
 mv sourcekit-lsp-swift-%{swifttag} sourcekit-lsp
 mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
+mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # ICU 
 mv icu-release-61-2 icu
-
-# Swift Syntax on its own release (sigh)
-mv swift-syntax-swift-%{swiftsyntax} swift-syntax
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
 %ifnarch s390x
@@ -200,6 +198,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Wed May 20 2020 Ron Olson <tachoknight@gmail.com> 5.2.4-1
+- Updated to swift-5.2.4-RELEASE
 * Wed Apr 29 2020 Ron Olson <tachoknight@gmail.com> 5.2.3-1
 - Updated to swift-5.2.3-RELEASE
 * Fri Apr 17 2020 Ron Olson <tachoknight@gmail.com> 5.2.2-2
