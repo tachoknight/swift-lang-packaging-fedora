@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-06-09-a
+%global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-06-18-a
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 %global icu_version 67-1
@@ -30,7 +30,6 @@ Patch0:         swift-build-setup.patch
 Patch1:         compiler-rt-fuzzer.patch
 Patch3:         linux-tests-python-3-2.patch
 Patch4:         glibcpthread.patch
-Patch5:         llvm.patch
 Patch6:         nosysctl.patch
 Patch7:         indexstore.patch
 Patch8:         build-setup-s390x.patch
@@ -138,9 +137,6 @@ mv icu-release-%{icu_version} icu
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
 %patch4 -p0
-
-# Implicit include of <cstdlib> in LLVM
-%patch5 -p0
 
 # sys/sysctl.h has been removed
 %patch6 -p0
