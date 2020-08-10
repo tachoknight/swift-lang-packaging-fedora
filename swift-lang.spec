@@ -1,12 +1,12 @@
 %global debug_package %{nil}
-%global swifttag 5.2.4-RELEASE
+%global swifttag 5.2.5-RELEASE
 # Swift syntax seems to only be updated on major releases
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
-%global swiftsyntax 5.2.3-RELEASE
+%global swiftsyntax 5.2.4-RELEASE
 
 Name:           swift-lang
-Version:        5.2.4
+Version:        5.2.5
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -198,6 +198,14 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Mon Aug 10 2020 Ron Olson <tachoknight@gmail.com> 5.2.5-1
+- Updated to swift-5.2.5-RELEASE
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 5.2.4-2
+- Rebuilt for Python 3.9
+
 * Wed May 20 2020 Ron Olson <tachoknight@gmail.com> 5.2.4-1
 - Updated to swift-5.2.4-RELEASE
 * Wed Apr 29 2020 Ron Olson <tachoknight@gmail.com> 5.2.3-1
