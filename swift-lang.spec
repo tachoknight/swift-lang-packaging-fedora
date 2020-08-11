@@ -3,7 +3,6 @@
 # Swift syntax seems to only be updated on major releases
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
-%global swiftsyntax 5.2.4-RELEASE
 
 Name:           swift-lang
 Version:        5.2.5
@@ -24,7 +23,7 @@ Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:       https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
-Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swiftsyntax}.zip#/swift-syntax.tar.gz
+Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source14:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:         build-setup.patch
@@ -116,7 +115,7 @@ mv swift-xcode-playground-support-swift-%{swifttag} swift-xcode-playground-suppo
 mv sourcekit-lsp-swift-%{swifttag} sourcekit-lsp
 mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
-mv swift-syntax-swift-%{swiftsyntax} swift-syntax
+mv swift-syntax-swift-%{swifttag} swift-syntax
 
 # ICU 
 mv icu-release-61-2 icu
@@ -202,10 +201,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 - Updated to swift-5.2.5-RELEASE
 * Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
 * Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 5.2.4-2
 - Rebuilt for Python 3.9
-
 * Wed May 20 2020 Ron Olson <tachoknight@gmail.com> 5.2.4-1
 - Updated to swift-5.2.4-RELEASE
 * Wed Apr 29 2020 Ron Olson <tachoknight@gmail.com> 5.2.3-1
