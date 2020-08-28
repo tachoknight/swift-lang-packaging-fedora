@@ -53,12 +53,9 @@ BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:  python27
 BuildRequires:  /usr/bin/pathfix.py
-%if 0%{?el8}
 BuildRequires:  make
 BuildRequires:  openssl-devel
-%else
 BuildRequires:  cmake
-%endif
 
 Requires:       glibc-devel
 %if 0%{?fedora} >= 31
