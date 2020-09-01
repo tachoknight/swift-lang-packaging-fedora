@@ -84,6 +84,9 @@ def commitChanges(versionName):
     commitMsg = 'Updated to ' + versionName
 
     repo.index.commit(commitMsg)
+    # Since we're already in the git repo, we don't
+    # need anything fancy which the gitpython uses
+    os.system('git push')
     
 
 if __name__ == "__main__": 
