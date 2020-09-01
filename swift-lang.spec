@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.2.5-RELEASE
+%global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-08-31-a
 # Swift syntax seems to only be updated on major releases
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
