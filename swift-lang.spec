@@ -1,15 +1,17 @@
 %global debug_package %{nil}
-%global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-08-31-a
-# Swift syntax seems to only be updated on major releases
+%global swifttag 5.3-RELEASE
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
+%global icu_version 67-1
+
 
 Name:           swift-lang
-Version:        5.2.5
+Version:        5.3
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
+
 Source0:        https://github.com/apple/swift/archive/swift-%{swifttag}.tar.gz#/swift.tar.gz
 Source1:        https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{swifttag}.tar.gz#/corelibs-libdispatch.tar.gz
 Source2:        https://github.com/apple/swift-corelibs-foundation/archive/swift-%{swifttag}.tar.gz#/corelibs-foundation.tar.gz
@@ -22,26 +24,21 @@ Source8:        https://github.com/apple/swift-xcode-playground-support/archive/
 Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:       https://github.com/unicode-org/icu/archive/release-61-2.tar.gz
+Source12:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source14:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch0:         build-setup.patch
+Patch0:         swift-build-setup.patch
 Patch1:         compiler-rt-fuzzer.patch
-Patch2:         python3-2.patch
 Patch3:         linux-tests-python-3-2.patch
 Patch4:         glibcpthread.patch
-Patch5:         swift.patch
-Patch6:         llvm.patch
+Patch6:         nosysctl.patch
 Patch7:         indexstore.patch
 Patch8:         build-setup-s390x.patch
-Patch9:         ibm-identifier.patch
-Patch10:        nosysctl.patch
+Patch9:         llvm-indexstore.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
-BuildRequires:  pkgconfig
-BuildRequires:  perl-podlators
 BuildRequires:  rsync
 BuildRequires:  python3
 BuildRequires:  python3-devel
@@ -50,15 +47,18 @@ BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
 BuildRequires:  libblocksruntime-static
-BuildRequires:  libatomic-static
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
+BuildRequires:  perl-podlators
+BuildRequires:  python3-six
+BuildRequires:  python27
 BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  make
 BuildRequires:  openssl-devel
+BuildRequires:  cmake
 
 Requires:       glibc-devel
 %if 0%{?fedora} >= 31
@@ -73,6 +73,7 @@ Requires:       ncurses-compat-libs
 Provides:       %{name} = %{version}-%{release}
 Obsoletes:      %{name} < %{version}-%{release}
 Obsoletes:      %{name}-runtime < %{version}-%{release}
+
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -90,6 +91,7 @@ correct programs easier for the developer.
 
 
 %prep
+%if 0%{?el8}
 # Now we build our own CMake because the one in EPEL8 is too old and
 # we can safely build it for all platforms (though will add some time
 # to the whole build process)
@@ -97,7 +99,7 @@ correct programs easier for the developer.
 mkdir cmake-build
 cd cmake-build
 ../cmake-%{cmake_version}/bootstrap && make
-
+%endif
 
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
 # The Swift build script requires directories to be named
@@ -118,7 +120,7 @@ mv llvm-project-swift-%{swifttag} llvm-project
 mv swift-syntax-swift-%{swifttag} swift-syntax
 
 # ICU 
-mv icu-release-61-2 icu
+mv icu-release-%{icu_version} icu
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
 %ifnarch s390x
@@ -132,31 +134,23 @@ mv icu-release-61-2 icu
 %patch1 -p0 
  
 # Python 3 is the new default so we need to make the python code work with it
-%patch2 -p0
 %patch3 -p0
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
 %patch4 -p0
 
-#
-# 5.2 patches
-# 
-%patch5 -p0
+# sys/sysctl.h has been removed
+%patch6 -p0
 
 # implicit include of cstdint
-%patch6 -p0
 %patch7 -p0
 
-# s390x-specific patches
-%ifarch s390x
+# Issue with enum declaration building with Clang 11
 %patch9 -p0
-%endif
-
-# sys/sysctl.h has been removed
-%patch10 -p0
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
+pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 %build
 export VERBOSE=1
@@ -165,8 +159,10 @@ export VERBOSE=1
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
+%if 0%{?el8}
 # And for CMake, which we built first
 export PATH=$PWD/../cmake/cmake-build/bin:$PATH
+%endif
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
@@ -197,12 +193,16 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Thu Sep 17 2020 Ron Olson <tachoknight@gmail.com> 5.3-1
+- Updated to swift-5.3-RELEASE
 * Mon Aug 10 2020 Ron Olson <tachoknight@gmail.com> 5.2.5-1
 - Updated to swift-5.2.5-RELEASE
 * Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 5.2.4-2
 - Rebuilt for Python 3.9
+
 * Wed May 20 2020 Ron Olson <tachoknight@gmail.com> 5.2.4-1
 - Updated to swift-5.2.4-RELEASE
 * Wed Apr 29 2020 Ron Olson <tachoknight@gmail.com> 5.2.3-1

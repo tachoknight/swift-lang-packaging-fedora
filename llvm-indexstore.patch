@@ -1,0 +1,17 @@
+--- llvm-project/clang/include/indexstore/indexstore.h.orig	2020-08-30 20:56:38.552235207 -0500
++++ llvm-project/clang/include/indexstore/indexstore.h	2020-08-30 20:58:02.746863308 -0500
+@@ -98,9 +98,11 @@
+ 
+ #define INDEXSTORE_OPTIONS_ATTRS INDEXSTORE_OPEN_ENUM_ATTR INDEXSTORE_FLAG_ENUM_ATTR
+ 
+-#if defined(__has_extension)
+-#if __has_extension(cxx_strong_enums) || __has_feature(objc_fixed_enum)
+-# define INDEXSTORE_OPTIONS(_type, _name) enum INDEXSTORE_OPTIONS_ATTRS _name : _type _name; enum INDEXSTORE_OPTIONS_ATTRS _name : _type
++#if __has_feature(objc_fixed_enum)
++#ifdef __cplusplus
++# define INDEXSTORE_OPTIONS(_type, _name) enum INDEXSTORE_OPTIONS_ATTRS _name : _type
++#else
++# define INDEXSTORE_OPTIONS(_type, _name) enum _name : _type; typedef enum _name _name; enum INDEXSTORE_OPTIONS_ATTRS _name : _type
+ #endif
+ #endif
+ 
