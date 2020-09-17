@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a
+%global swifttag 5.3-RELEASE
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 %global icu_version 67-1
@@ -11,6 +11,7 @@ Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
+
 Source0:        https://github.com/apple/swift/archive/swift-%{swifttag}.tar.gz#/swift.tar.gz
 Source1:        https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{swifttag}.tar.gz#/corelibs-libdispatch.tar.gz
 Source2:        https://github.com/apple/swift-corelibs-foundation/archive/swift-%{swifttag}.tar.gz#/corelibs-foundation.tar.gz
@@ -192,6 +193,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Mon Sep 17 2020 Ron Olson <tachoknight@gmail.com> 5.3-1
+- Updated to swift-5.3-RELEASE
 * Mon Aug 10 2020 Ron Olson <tachoknight@gmail.com> 5.2.5-1
 - Updated to swift-5.2.5-RELEASE
 * Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-3
