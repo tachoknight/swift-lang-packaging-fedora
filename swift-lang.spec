@@ -4,6 +4,7 @@
 %global cmake_version 3.16.5
 %global icu_version 67-1
 
+
 Name:           swift-lang
 Version:        5.3
 Release:        1%{?dist}
@@ -72,7 +73,8 @@ Provides:       %{name} = %{version}-%{release}
 Obsoletes:      %{name} < %{version}-%{release}
 Obsoletes:      %{name}-runtime < %{version}-%{release}
 
-ExclusiveArch:  x86_64 aarch64 s390x
+
+ExclusiveArch:  x86_64 aarch64 
 
 
 %description
@@ -190,6 +192,18 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Mon Aug 10 2020 Ron Olson <tachoknight@gmail.com> 5.2.5-1
+- Updated to swift-5.2.5-RELEASE
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 5.2.4-2
+- Rebuilt for Python 3.9
+
+* Wed May 20 2020 Ron Olson <tachoknight@gmail.com> 5.2.4-1
+- Updated to swift-5.2.4-RELEASE
+* Wed Apr 29 2020 Ron Olson <tachoknight@gmail.com> 5.2.3-1
+- Updated to swift-5.2.3-RELEASE
 * Fri Apr 17 2020 Ron Olson <tachoknight@gmail.com> 5.2.2-2
 - Added patch to remove use of sys/sysctl.h as it was removed
   in Rawhide (future F33)
