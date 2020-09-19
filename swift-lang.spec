@@ -193,7 +193,7 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
-* Mon Sep 17 2020 Ron Olson <tachoknight@gmail.com> 5.3-1
+* Thu Sep 17 2020 Ron Olson <tachoknight@gmail.com> 5.3-1
 - Updated to swift-5.3-RELEASE
 * Mon Aug 10 2020 Ron Olson <tachoknight@gmail.com> 5.2.5-1
 - Updated to swift-5.2.5-RELEASE
