@@ -3,3 +3,9 @@ cnb-build-output.txt
 mock-results/
 
 /justbuild.sh~
+/swift-lang.spec.bak
+/check-for-latest.sh~
+/last-release.txt~
+/swift-lang.spec~
+/find-latest.py~
+/last-release.txt.bak
