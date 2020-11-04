@@ -36,7 +36,7 @@ Patch6:         nosysctl.patch
 Patch7:         indexstore.patch
 Patch8:         build-setup-s390x.patch
 Patch9:         llvm-indexstore.patch
-Path10:         oldamd.patch
+Patch10:        oldamd.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
