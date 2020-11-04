@@ -36,6 +36,7 @@ Patch6:         nosysctl.patch
 Patch7:         indexstore.patch
 Patch8:         build-setup-s390x.patch
 Patch9:         llvm-indexstore.patch
+Path10:         oldamd.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -147,6 +148,9 @@ mv icu-release-%{icu_version} icu
 
 # Issue with enum declaration building with Clang 11
 %patch9 -p0
+
+# For older AMD processors
+%patch10 -p0
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
