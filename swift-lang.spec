@@ -1,12 +1,12 @@
 %global debug_package %{nil}
-%global swifttag 5.3-DEVELOPMENT-SNAPSHOT-2020-11-11-a
+%global swifttag 5.3.1-RELEASE
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 %global icu_version 67-1
 
 
 Name:           swift-lang
-Version:        5.3
+Version:        5.3.1
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -197,6 +197,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Fri Nov 13 2020 Ron Olson <tachoknight@gmail.com> 5.3.1-1
+- Updated to swift-5.3.1-RELEASE
 * Thu Sep 17 2020 Ron Olson <tachoknight@gmail.com> 5.3-1
 - Updated to swift-5.3-RELEASE
 * Mon Aug 10 2020 Ron Olson <tachoknight@gmail.com> 5.2.5-1
