@@ -1,12 +1,12 @@
 %global debug_package %{nil}
-%global swifttag 5.3.1-RELEASE
+%global swifttag 5.3.2-RELEASE
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
-%global icu_version 67-1
+%global icu_version 68-2
 
 
 Name:           swift-lang
-Version:        5.3.1
+Version:        5.3.2
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -37,6 +37,7 @@ Patch7:         indexstore.patch
 Patch8:         build-setup-s390x.patch
 Patch9:         llvm-indexstore.patch
 Patch10:        oldamd.patch
+Patch11:        %{name}-gcc11.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -152,6 +153,9 @@ mv icu-release-%{icu_version} icu
 # For older AMD processors
 %patch10 -p0
 
+# For gcc-11
+%patch11 -p1
+
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
@@ -197,6 +201,11 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Tue Dec 22 2020 Ron Olson <tachoknight@gmail.com> 5.3.2-1
+- Updated to swift-5.3.2-RELEASE
+* Fri Dec 04 2020 Jeff Law <law@redhat.com> 5.3.1-2
+- Fix missing #include for gcc-11
+
 * Fri Nov 13 2020 Ron Olson <tachoknight@gmail.com> 5.3.1-1
 - Updated to swift-5.3.1-RELEASE
 * Thu Sep 17 2020 Ron Olson <tachoknight@gmail.com> 5.3-1
