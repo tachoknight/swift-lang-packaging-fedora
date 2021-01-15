@@ -1,12 +1,12 @@
 %global debug_package %{nil}
 %global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-01-11-a
 %global swiftbuild swift-source
-%global cmake_version 3.16.5
+%global cmake_version 3.19.3
 %global icu_version 68-2
 
 
 Name:           swift-lang
-Version:        5.3.2
+Version:        5.4
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -24,19 +24,16 @@ Source8:        https://github.com/apple/swift-xcode-playground-support/archive/
 Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
-Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
-Source14:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
+Source13:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
+Source14:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
+Source15:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:         swift-for-fedora.patch
 Patch1:         compiler-rt-fuzzer.patch
 Patch3:         linux-tests-python-3-2.patch
 Patch4:         glibcpthread.patch
-#Patch6:         nosysctl.patch
-#Patch7:         indexstore.patch
 Patch8:         build-setup-s390x.patch
-#Patch9:         llvm-indexstore.patch
-#Patch10:        oldamd.patch
 Patch11:        %{name}-gcc11.patch
  
 BuildRequires:  clang
@@ -103,7 +100,7 @@ cd cmake-build
 ../cmake-%{cmake_version}/bootstrap && make
 %endif
 
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -120,17 +117,13 @@ mv sourcekit-lsp-swift-%{swifttag} sourcekit-lsp
 mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
 mv swift-syntax-swift-%{swifttag} swift-syntax
+mv swift-tools-support-core-swift-%{swifttag} swift-tools-support-core
 
 # ICU 
 mv icu-release-%{icu_version} icu
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
-%ifnarch s390x
 %patch0 -p0
-%else
-# Couple other things for s390x
-%patch8 -p0
-%endif
 
 # Fixes an issue with using std::thread in a vector in compiler-rt
 %patch1 -p0 
@@ -140,18 +133,6 @@ mv icu-release-%{icu_version} icu
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
 %patch4 -p0
-
-# sys/sysctl.h has been removed
-#%patch6 -p0
-
-# implicit include of cstdint
-#%patch7 -p0
-
-# Issue with enum declaration building with Clang 11
-#%patch9 -p0
-
-# For older AMD processors
-#%patch10 -p0
 
 # For gcc-11
 %patch11 -p1
