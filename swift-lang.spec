@@ -28,15 +28,15 @@ Source12:       https://github.com/unicode-org/icu/archive/release-%{icu_version
 Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source14:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch0:         swift-build-setup.patch
+Patch0:         swift-for-fedora.patch
 Patch1:         compiler-rt-fuzzer.patch
 Patch3:         linux-tests-python-3-2.patch
 Patch4:         glibcpthread.patch
-Patch6:         nosysctl.patch
-Patch7:         indexstore.patch
+#Patch6:         nosysctl.patch
+#Patch7:         indexstore.patch
 Patch8:         build-setup-s390x.patch
-Patch9:         llvm-indexstore.patch
-Patch10:        oldamd.patch
+#Patch9:         llvm-indexstore.patch
+#Patch10:        oldamd.patch
 Patch11:        %{name}-gcc11.patch
  
 BuildRequires:  clang
@@ -142,16 +142,16 @@ mv icu-release-%{icu_version} icu
 %patch4 -p0
 
 # sys/sysctl.h has been removed
-%patch6 -p0
+#%patch6 -p0
 
 # implicit include of cstdint
-%patch7 -p0
+#%patch7 -p0
 
 # Issue with enum declaration building with Clang 11
-%patch9 -p0
+#%patch9 -p0
 
 # For older AMD processors
-%patch10 -p0
+#%patch10 -p0
 
 # For gcc-11
 %patch11 -p1
