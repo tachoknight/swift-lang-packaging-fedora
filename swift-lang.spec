@@ -3,6 +3,7 @@
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
+%global yams_version 4.0.3
 
 
 Name:           swift-lang
@@ -28,6 +29,7 @@ Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-
 Source13:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source14:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source15:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+Source16:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 
 Patch0:         swift-for-fedora.patch
 Patch1:         compiler-rt-fuzzer.patch
@@ -100,7 +102,7 @@ cd cmake-build
 ../cmake-%{cmake_version}/bootstrap && make
 %endif
 
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -121,6 +123,9 @@ mv swift-tools-support-core-swift-%{swifttag} swift-tools-support-core
 
 # ICU 
 mv icu-release-%{icu_version} icu
+
+# Yams
+mv Yams-%{yams_version} yams
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
 %patch0 -p0
