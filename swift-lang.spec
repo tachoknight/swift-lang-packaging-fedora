@@ -3,7 +3,8 @@
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
-%global yams_version 4.0.3
+%global yams_version 3.0.1
+%global sap_version 0.3.0
 
 
 Name:           swift-lang
@@ -26,10 +27,11 @@ Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
-Source13:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
-Source14:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
-Source15:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
-Source16:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
+Source13:	https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
+Source14:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
+Source15:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
+Source16:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 
 Patch0:         swift-for-fedora.patch
 Patch1:         compiler-rt-fuzzer.patch
@@ -102,7 +104,7 @@ cd cmake-build
 ../cmake-%{cmake_version}/bootstrap && make
 %endif
 
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -120,6 +122,7 @@ mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
 mv swift-syntax-swift-%{swifttag} swift-syntax
 mv swift-tools-support-core-swift-%{swifttag} swift-tools-support-core
+mv swift-argument-parser-%{sap_version} swift-argument-parser
 
 # ICU 
 mv icu-release-%{icu_version} icu
