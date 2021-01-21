@@ -31,8 +31,8 @@ Source13:	    https://github.com/apple/swift-argument-parser/archive/%{sap_versi
 Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.tar.gz#/swift-driver.tar.gz
 Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
-Source17:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
-Source18:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
+Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
+Source18:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:         swift-for-fedora.patch
 Patch1:         compiler-rt-fuzzer.patch
@@ -99,13 +99,13 @@ correct programs easier for the developer.
 # Now we build our own CMake because the one in EPEL8 is too old and
 # we can safely build it for all platforms (though will add some time
 # to the whole build process)
-%setup -q -c -n cmake -a 14
+%setup -q -c -n cmake -a 18
 mkdir cmake-build
 cd cmake-build
 ../cmake-%{cmake_version}/bootstrap && make
 %endif
 
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
