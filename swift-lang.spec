@@ -36,10 +36,9 @@ Source18:       https://github.com/Kitware/CMake/releases/download/v%{cmake_vers
 
 Patch0:         swift-for-fedora.patch
 Patch1:         compiler-rt-fuzzer.patch
-Patch3:         linux-tests-python-3-2.patch
-Patch4:         glibcpthread.patch
-Patch8:         build-setup-s390x.patch
-Patch11:        %{name}-gcc11.patch
+Patch2:         linux-tests-python-3-2.patch
+Patch3:         glibcpthread.patch
+Patch4:        %{name}-gcc11.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -139,13 +138,13 @@ mv Yams-%{yams_version} yams
 %patch1 -p0 
  
 # Python 3 is the new default so we need to make the python code work with it
-%patch3 -p0
+%patch2 -p0
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
-%patch4 -p0
+%patch3 -p0
 
 # For gcc-11
-%patch11 -p1
+%patch4 -p1
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
