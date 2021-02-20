@@ -48,7 +48,8 @@ BuildRequires:  python3-distro
 BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
-BuildRequires:  libblocksruntime-static
+#BuildRequires:  libblocksruntime-static
+BuildRequires:  libdispatch-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
