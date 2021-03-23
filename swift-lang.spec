@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-01-23-a
+%global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-03-22-a
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
@@ -191,7 +191,7 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
-* Thu Jan 21 2020 Ron Olson <tachoknight@gmail.com> 5.4-1
+* Thu Jan 21 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
 - First working version of Swift 5.4
 * Tue Dec 22 2020 Ron Olson <tachoknight@gmail.com> 5.3.2-1
 - Updated to swift-5.3.2-RELEASE
