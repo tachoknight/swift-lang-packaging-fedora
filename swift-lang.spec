@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-03-22-a
+%global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-03-25-a
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
@@ -49,7 +49,7 @@ BuildRequires:  python3-distro
 BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
-BuildRequires:  libblocksruntime-static
+BuildRequires:  libdispatch-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
