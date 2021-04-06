@@ -48,7 +48,7 @@ BuildRequires:  python3-distro
 BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
-BuildRequires:  libblocksruntime-static
+BuildRequires:  libdispatch-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
@@ -201,8 +201,12 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
-* Tue Apr 6 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
+* Tue Apr 06 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
 - Updated to swift-5.4-DEVELOPMENT-SNAPSHOT-2021-03-25-a
+* Thu Jan 28 2021 Ron Olson <tachoknight@gmail.com> 5.3.3-1
+- Updated to swift-5.3.3-RELEASE
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 * Tue Dec 22 2020 Ron Olson <tachoknight@gmail.com> 5.3.2-1
 - Updated to swift-5.3.2-RELEASE
 * Fri Dec 04 2020 Jeff Law <law@redhat.com> 5.3.1-2
