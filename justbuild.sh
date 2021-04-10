@@ -4,6 +4,9 @@ MYDIR=$PWD
 
 START_TS=`date`
 
+# Make sure we're up to date (works best in containers)
+dnf -y update
+
 rm -rf $HOME/rpmbuild
 rm $MYDIR/build-output.txt
 mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
