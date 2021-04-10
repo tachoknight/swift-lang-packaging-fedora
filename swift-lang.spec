@@ -1,8 +1,10 @@
 %global debug_package %{nil}
 %global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-03-25-a
 %global swiftbuild swift-source
-%global cmake_version 3.16.5
+%global cmake_version 3.19.3
 %global icu_version 68-2
+%global yams_version 3.0.1
+%global sap_version 0.3.0
 
 
 Name:           swift-lang
@@ -24,20 +26,19 @@ Source8:        https://github.com/apple/swift-xcode-playground-support/archive/
 Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}.tar.gz#/sourcekit-lsp.tar.gz
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
-Source12:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
-Source13:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
-Source14:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
+Source13:	    https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
+Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.tar.gz#/swift-driver.tar.gz
+Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
+Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
+Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
+Source18:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch0:         swift-build-setup.patch
+Patch0:         swift-for-fedora.patch
 Patch1:         compiler-rt-fuzzer.patch
-Patch3:         linux-tests-python-3-2.patch
-Patch4:         glibcpthread.patch
-Patch6:         nosysctl.patch
-Patch7:         indexstore.patch
-Patch8:         build-setup-s390x.patch
-Patch9:         llvm-indexstore.patch
-Patch10:        oldamd.patch
-Patch11:        %{name}-gcc11.patch
+Patch2:         linux-tests-python-3-2.patch
+Patch3:         glibcpthread.patch
+Patch4:         %{name}-gcc11.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -97,13 +98,13 @@ correct programs easier for the developer.
 # Now we build our own CMake because the one in EPEL8 is too old and
 # we can safely build it for all platforms (though will add some time
 # to the whole build process)
-%setup -q -c -n cmake -a 14
+%setup -q -c -n cmake -a 18
 mkdir cmake-build
 cd cmake-build
 ../cmake-%{cmake_version}/bootstrap && make
 %endif
 
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -120,41 +121,30 @@ mv sourcekit-lsp-swift-%{swifttag} sourcekit-lsp
 mv indexstore-db-swift-%{swifttag} indexstore-db
 mv llvm-project-swift-%{swifttag} llvm-project
 mv swift-syntax-swift-%{swifttag} swift-syntax
+mv swift-tools-support-core-swift-%{swifttag} swift-tools-support-core
+mv swift-argument-parser-%{sap_version} swift-argument-parser
+mv swift-driver-swift-%{swifttag} swift-driver
 
 # ICU 
 mv icu-release-%{icu_version} icu
 
+# Yams
+mv Yams-%{yams_version} yams
+
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
-%ifnarch s390x
 %patch0 -p0
-%else
-# Couple other things for s390x
-%patch8 -p0
-%endif
 
 # Fixes an issue with using std::thread in a vector in compiler-rt
 %patch1 -p0 
  
 # Python 3 is the new default so we need to make the python code work with it
-%patch3 -p0
+%patch2 -p0
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
-%patch4 -p0
-
-# sys/sysctl.h has been removed
-%patch6 -p0
-
-# implicit include of cstdint
-%patch7 -p0
-
-# Issue with enum declaration building with Clang 11
-%patch9 -p0
-
-# For older AMD processors
-%patch10 -p0
+%patch3 -p0
 
 # For gcc-11
-%patch11 -p1
+%patch4 -p1
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
@@ -207,6 +197,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 - Updated to swift-5.3.3-RELEASE
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+* Thu Jan 21 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
+- First working version of Swift 5.4
 * Tue Dec 22 2020 Ron Olson <tachoknight@gmail.com> 5.3.2-1
 - Updated to swift-5.3.2-RELEASE
 * Fri Dec 04 2020 Jeff Law <law@redhat.com> 5.3.1-2
