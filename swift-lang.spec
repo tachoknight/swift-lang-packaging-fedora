@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-01-23-a
+%global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-03-25-a
 %global swiftbuild swift-source
 %global cmake_version 3.16.5
 %global icu_version 68-2
