@@ -4,14 +4,14 @@ MYDIR=$PWD
 
 START_TS=`date`
 
-rm -rf /home/rolson/rpmbuild
+rm -rf $HOME/rpmbuild
 rm $MYDIR/build-output.txt
-mkdir -p /home/rolson/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-cp $PWD/*.patch /home/rolson/rpmbuild/SOURCES
-cp $PWD/*.conf /home/rolson/rpmbuild/SOURCES
-cp $PWD/swift-lang.spec /home/rolson/rpmbuild/SPECS
+mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+cp $PWD/*.patch $HOME/rpmbuild/SOURCES
+cp $PWD/*.conf $HOME/rpmbuild/SOURCES
+cp $PWD/swift-lang.spec $HOME/rpmbuild/SPECS
 
-pushd /home/rolson/rpmbuild/SPECS
+pushd $HOME/rpmbuild/SPECS
 spectool -g -R ./swift-lang.spec
 # Get the dependencies
 dnf builddep -y ./swift-lang.spec
