@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.4-DEVELOPMENT-SNAPSHOT-2021-03-25-a
+%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-04-19-a
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
@@ -8,7 +8,7 @@
 
 
 Name:           swift-lang
-Version:        5.4
+Version:        5.5
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -138,7 +138,7 @@ mv Yams-%{yams_version} yams
 %patch1 -p0 
  
 # Python 3 is the new default so we need to make the python code work with it
-%patch2 -p0
+#%patch2 -p0
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
 %patch3 -p0
@@ -191,6 +191,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Wed Apr 21 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
+- Updated to swift-5.5-DEVELOPMENT-SNAPSHOT-2021-04-19-a
 * Tue Apr 06 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
 - Updated to swift-5.4-DEVELOPMENT-SNAPSHOT-2021-03-25-a
 * Thu Jan 28 2021 Ron Olson <tachoknight@gmail.com> 5.3.3-1
