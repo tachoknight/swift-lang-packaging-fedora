@@ -8,7 +8,7 @@
 
 
 Name:           swift-lang
-Version:        5.5
+Version:        5.4
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -191,7 +191,6 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
-=======
 * Tue Apr 27 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
 - Updated to swift-5.4-RELEASE
 * Tue Apr 06 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
