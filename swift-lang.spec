@@ -195,6 +195,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 - Updated to swift-5.4-RELEASE
 * Tue Apr 06 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
 - Updated to swift-5.4-DEVELOPMENT-SNAPSHOT-2021-03-25-a
+* Tue Mar 30 2021 Jonathan Wakely <jwakely@redhat.com> - 5.3.3-2
+- Rebuilt for removed libstdc++ symbol (#1937698)
 * Thu Jan 28 2021 Ron Olson <tachoknight@gmail.com> 5.3.3-1
 - Updated to swift-5.3.3-RELEASE
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-2
