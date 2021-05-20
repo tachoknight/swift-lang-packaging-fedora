@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.4-RELEASE
+%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-05-18-a
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
 %global yams_version 3.0.1
 %global sap_version 0.3.0
-
+%global swift_crypto_version 1.1.6
 
 Name:           swift-lang
-Version:        5.4
+Version:        5.5
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -27,18 +27,20 @@ Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
-Source13:	https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
+Source13:	    https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
 Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.tar.gz#/swift-driver.tar.gz
 Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
-Source18:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz
+# Only necessary for EPEL-8
+Source19:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:         swift-for-fedora.patch
-Patch1:         compiler-rt-fuzzer.patch
-Patch2:         linux-tests-python-3-2.patch
-Patch3:         glibcpthread.patch
-Patch4:         %{name}-gcc11.patch
+#Patch1:         compiler-rt-fuzzer.patch
+#Patch2:         linux-tests-python-3-2.patch
+#Patch3:         glibcpthread.patch
+#Patch4:         %{name}-gcc11.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -59,24 +61,16 @@ BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:  python27
 BuildRequires:  /usr/bin/pathfix.py
+BuildRequires:  cmake
+# For building CMake for EPEL-8
 BuildRequires:  make
 BuildRequires:  openssl-devel
-BuildRequires:  cmake
 
 Requires:       glibc-devel
-%if 0%{?fedora} >= 31
 Requires:       binutils-gold
-%else
-Requires:       binutils
-%endif
 Requires:       gcc
 Requires:       ncurses-devel
 Requires:       ncurses-compat-libs
-
-Provides:       %{name} = %{version}-%{release}
-Obsoletes:      %{name} < %{version}-%{release}
-Obsoletes:      %{name}-runtime < %{version}-%{release}
-
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -98,13 +92,13 @@ correct programs easier for the developer.
 # Now we build our own CMake because the one in EPEL8 is too old and
 # we can safely build it for all platforms (though will add some time
 # to the whole build process)
-%setup -q -c -n cmake -a 18
+%setup -q -c -n cmake -a 19
 mkdir cmake-build
 cd cmake-build
 ../cmake-%{cmake_version}/bootstrap && make
 %endif
 
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -124,6 +118,7 @@ mv swift-syntax-swift-%{swifttag} swift-syntax
 mv swift-tools-support-core-swift-%{swifttag} swift-tools-support-core
 mv swift-argument-parser-%{sap_version} swift-argument-parser
 mv swift-driver-swift-%{swifttag} swift-driver
+mv swift-crypto-{%swift-crypto-version} swift-crypto
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -135,16 +130,16 @@ mv Yams-%{yams_version} yams
 %patch0 -p0
 
 # Fixes an issue with using std::thread in a vector in compiler-rt
-%patch1 -p0 
+#%patch1 -p0 
  
 # Python 3 is the new default so we need to make the python code work with it
 #%patch2 -p0
 
 # Fixes compiler issue with glibc and pthreads after 2.5.0.9000
-%patch3 -p0
+#%patch3 -p0
 
 # For gcc-11
-%patch4 -p1
+#%patch4 -p1
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
