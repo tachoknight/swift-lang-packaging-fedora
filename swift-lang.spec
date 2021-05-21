@@ -27,7 +27,7 @@ Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
-Source13:	    https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
+Source13:	https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
 Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.tar.gz#/swift-driver.tar.gz
 Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
@@ -37,10 +37,6 @@ Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_
 Source19:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:         swift-for-fedora.patch
-#Patch1:         compiler-rt-fuzzer.patch
-#Patch2:         linux-tests-python-3-2.patch
-#Patch3:         glibcpthread.patch
-#Patch4:         %{name}-gcc11.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -118,7 +114,7 @@ mv swift-syntax-swift-%{swifttag} swift-syntax
 mv swift-tools-support-core-swift-%{swifttag} swift-tools-support-core
 mv swift-argument-parser-%{sap_version} swift-argument-parser
 mv swift-driver-swift-%{swifttag} swift-driver
-mv swift-crypto-{%swift-crypto-version} swift-crypto
+mv swift-crypto-%{swift_crypto_version} swift-crypto
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -128,18 +124,6 @@ mv Yams-%{yams_version} yams
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
 %patch0 -p0
-
-# Fixes an issue with using std::thread in a vector in compiler-rt
-#%patch1 -p0 
- 
-# Python 3 is the new default so we need to make the python code work with it
-#%patch2 -p0
-
-# Fixes compiler issue with glibc and pthreads after 2.5.0.9000
-#%patch3 -p0
-
-# For gcc-11
-#%patch4 -p1
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
@@ -186,6 +170,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Fri May 21 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
+- First version of Swift 5.5 - 5.5-DEVELOPMENT-SNAPSHOT-2021-05-18-a
 * Tue Apr 27 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
 - Updated to swift-5.4-RELEASE
 * Tue Apr 06 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
