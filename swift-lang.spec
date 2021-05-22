@@ -133,9 +133,11 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/h
 export VERBOSE=1
 # We may not have /usr/bin/python, so we roll our own
 # because the build script expects there to be one.
+%if 0%{?fedora} < 34
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
+%endif
 %if 0%{?el8}
 # And for CMake, which we built first
 export PATH=$PWD/../cmake/cmake-build/bin:$PATH
