@@ -59,8 +59,10 @@ BuildRequires:  python27
 BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  cmake
 # For building CMake for EPEL-8
+%if 0%{?el8}
 BuildRequires:  make
 BuildRequires:  openssl-devel
+%endif
 
 Requires:       glibc-devel
 Requires:       binutils-gold
@@ -131,13 +133,14 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/h
 
 %build
 export VERBOSE=1
-# We may not have /usr/bin/python, so we roll our own
-# because the build script expects there to be one.
+# Before Fedora 34, we may not have /usr/bin/python, so we 
+# roll our own because the build script expects there to be one.
 %if 0%{?fedora} < 34
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
 %endif
+# EPEL-8 requires our own special version of CMake (sigh)
 %if 0%{?el8}
 # And for CMake, which we built first
 export PATH=$PWD/../cmake/cmake-build/bin:$PATH
