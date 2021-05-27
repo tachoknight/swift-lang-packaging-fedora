@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.4-RELEASE
+%global swifttag 5.4.1-RELEASE
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
@@ -8,7 +8,7 @@
 
 
 Name:           swift-lang
-Version:        5.4
+Version:        5.4.1
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -27,7 +27,7 @@ Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
-Source13:	https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
+Source13:	    https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
 Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.tar.gz#/swift-driver.tar.gz
 Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
@@ -191,6 +191,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Thu May 27 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-1
+- Updated to swift-5.4.1-RELEASE
 * Tue Apr 27 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
 - Updated to swift-5.4-RELEASE
 * Tue Apr 06 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
