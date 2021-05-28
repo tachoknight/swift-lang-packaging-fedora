@@ -39,6 +39,8 @@ Patch1:         compiler-rt-fuzzer.patch
 Patch2:         linux-tests-python-3-2.patch
 Patch3:         glibcpthread.patch
 Patch4:         %{name}-gcc11.patch
+Patch5:         pc-circular-dependencies.patch
+Patch6:         pc-circular-dependencies-optimization.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -145,6 +147,12 @@ mv Yams-%{yams_version} yams
 
 # For gcc-11
 %patch4 -p1
+
+# Fixes swift build crashing when there is a circular dependency between PkgConfig files
+%patch5 -p1
+
+# Cache PkgConfig and avoid reparsing multiple time the same file.
+%patch6 -p1
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
