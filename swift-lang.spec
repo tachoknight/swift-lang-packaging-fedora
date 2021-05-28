@@ -39,6 +39,8 @@ Patch1:         compiler-rt-fuzzer.patch
 Patch2:         linux-tests-python-3-2.patch
 Patch3:         glibcpthread.patch
 Patch4:         %{name}-gcc11.patch
+Patch5:         pc-circular-dependencies.patch
+Patch6:         pc-circular-dependencies-optimization.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -146,6 +148,12 @@ mv Yams-%{yams_version} yams
 # For gcc-11
 %patch4 -p1
 
+# Fixes swift build crashing when there is a circular dependency between PkgConfig files
+%patch5 -p1
+
+# Cache PkgConfig and avoid reparsing multiple time the same file.
+%patch6 -p1
+
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
@@ -191,6 +199,12 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Tue Apr 06 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
+- Updated to swift-5.4-DEVELOPMENT-SNAPSHOT-2021-03-25-a
+* Thu Jan 28 2021 Ron Olson <tachoknight@gmail.com> 5.3.3-1
+- Updated to swift-5.3.3-RELEASE
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 * Thu Jan 21 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
 - First working version of Swift 5.4
 * Tue Dec 22 2020 Ron Olson <tachoknight@gmail.com> 5.3.2-1
