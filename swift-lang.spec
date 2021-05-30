@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-05-18-a
+%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-05-26-a
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
@@ -34,7 +34,9 @@ Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.
 Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz
 # Only necessary for EPEL-8
+%if 0%{?el8}
 Source19:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+%endif
 
 Patch0:         swift-for-fedora.patch
  
@@ -55,9 +57,9 @@ BuildRequires:  libicu-devel
 BuildRequires:  ninja-build
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
-BuildRequires:  python27
 BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  cmake
+BuildRequires:	python-unversioned-command
 # For building CMake for EPEL-8
 %if 0%{?el8}
 BuildRequires:  make
