@@ -19,7 +19,7 @@ diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_common_i
    _(EQL_GETMASTRCFG, WRITE, struct_ifreq_sz);
 diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
 --- llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp	2021-05-28 10:17:04.000000000 -0500
-+++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp	2021-05-31 08:21:25.556658161 -0500
++++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp	2021-05-31 12:30:07.414710413 -0500
 @@ -143,7 +143,6 @@
  # include <sys/procfs.h>
  #endif
@@ -28,7 +28,15 @@ diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform
  #include <linux/if_eql.h>
  #include <linux/if_plip.h>
  #include <linux/lp.h>
-@@ -823,15 +822,6 @@
+@@ -459,7 +458,6 @@
+ 
+ #if SANITIZER_GLIBC
+   unsigned struct_ax25_parms_struct_sz = sizeof(struct ax25_parms_struct);
+-  unsigned struct_cyclades_monitor_sz = sizeof(struct cyclades_monitor);
+ #if EV_VERSION > (0x010000)
+   unsigned struct_input_keymap_entry_sz = sizeof(struct input_keymap_entry);
+ #else
+@@ -823,15 +821,6 @@
  #endif // SANITIZER_LINUX
  
  #if SANITIZER_LINUX && !SANITIZER_ANDROID
@@ -46,8 +54,16 @@ diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform
    unsigned IOCTL_EQL_GETMASTRCFG = EQL_GETMASTRCFG;
 diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h
 --- llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h	2021-05-28 10:17:04.000000000 -0500
-+++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h	2021-05-31 08:21:47.321955044 -0500
-@@ -1328,15 +1328,6 @@
++++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h	2021-05-31 12:30:40.568693281 -0500
+@@ -983,7 +983,6 @@
+ 
+ #if SANITIZER_LINUX && !SANITIZER_ANDROID
+ extern unsigned struct_ax25_parms_struct_sz;
+-extern unsigned struct_cyclades_monitor_sz;
+ extern unsigned struct_input_keymap_entry_sz;
+ extern unsigned struct_ipx_config_data_sz;
+ extern unsigned struct_kbdiacrs_sz;
+@@ -1328,15 +1327,6 @@
  #endif  // SANITIZER_LINUX
  
  #if SANITIZER_LINUX && !SANITIZER_ANDROID
