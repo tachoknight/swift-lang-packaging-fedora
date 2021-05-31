@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-05-26-a
+%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-05-29-a
 %global swiftbuild swift-source
 %global cmake_version 3.19.3
 %global icu_version 68-2
@@ -39,6 +39,7 @@ Source19:       https://github.com/Kitware/CMake/releases/download/v%{cmake_vers
 %endif
 
 Patch0:         swift-for-fedora.patch
+Patch1:		nocyclades.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -128,6 +129,9 @@ mv Yams-%{yams_version} yams
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
 %patch0 -p0
+
+# Remove Cyclades as it has been removed from the Linux kernel
+%patch0 -p1
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
