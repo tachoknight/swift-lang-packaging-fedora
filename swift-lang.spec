@@ -131,7 +131,7 @@ mv Yams-%{yams_version} yams
 %patch0 -p0
 
 # Remove Cyclades as it has been removed from the Linux kernel
-%patch0 -p1
+%patch1 -p0
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
