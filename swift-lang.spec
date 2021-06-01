@@ -136,7 +136,7 @@ mv Yams-%{yams_version} yams
 %patch1 -p0
 
 # Fixes swift build crashing when there is a circular dependency between PkgConfig files
-%patch2 -p1
+#%patch2 -p1
 
 # Cache PkgConfig and avoid reparsing multiple time the same file.
 %patch3 -p1
