@@ -27,7 +27,7 @@ Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
-Source13:	https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
+Source13:       https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
 Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.tar.gz#/swift-driver.tar.gz
 Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
@@ -39,7 +39,9 @@ Source19:       https://github.com/Kitware/CMake/releases/download/v%{cmake_vers
 %endif
 
 Patch0:         swift-for-fedora.patch
-Patch1:		nocyclades.patch
+Patch1:         nocyclades.patch
+Patch2:         pc-circular-dependencies.patch
+Patch3:         pc-circular-dependencies-optimization.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -133,6 +135,13 @@ mv Yams-%{yams_version} yams
 # Remove Cyclades as it has been removed from the Linux kernel
 %patch1 -p0
 
+# Fixes swift build crashing when there is a circular dependency between PkgConfig files
+%patch2 -p1
+
+# Cache PkgConfig and avoid reparsing multiple time the same file.
+%patch3 -p1
+
+
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
@@ -181,6 +190,10 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
+- Added patch to remove Cyclades from LLVM
+* Mon May 28 2021 Jesús Abelardo Saldívar Aguilar <jasaldivara@gmail.com> 5.5-1
+- Added patches to fix circular dependency on PkgConfig
 * Fri May 21 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
 - First version of Swift 5.5 - 5.5-DEVELOPMENT-SNAPSHOT-2021-05-18-a
 * Tue Apr 27 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
