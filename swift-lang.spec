@@ -205,7 +205,7 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 %changelog
 * Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-1
 - Added patch to remove Cyclades from LLVM
-* Mon May 28 2021 Jesús Abelardo Saldívar Aguilar <jasaldivara@gmail.com> 5.4.1-1
+* Fri May 28 2021 Jesús Abelardo Saldívar Aguilar <jasaldivara@gmail.com> 5.4.1-1
 - Added patches to fix circular dependency on PkgConfig
 * Thu May 27 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-1
 - Updated to swift-5.4.1-RELEASE
