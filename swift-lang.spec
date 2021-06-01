@@ -9,7 +9,7 @@
 
 Name:           swift-lang
 Version:        5.4.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -41,6 +41,7 @@ Patch3:         glibcpthread.patch
 Patch4:         %{name}-gcc11.patch
 Patch5:         pc-circular-dependencies.patch
 Patch6:         pc-circular-dependencies-optimization.patch
+Patch7:         nocyclades.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -154,6 +155,9 @@ mv Yams-%{yams_version} yams
 # Cache PkgConfig and avoid reparsing multiple time the same file.
 %patch6 -p1
 
+# Remove Cyclades from LLVM as it's been removed from the linux kernel
+%patch7 -p0
+
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
@@ -199,6 +203,10 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-3
+- Added patch to remove Cyclades from LLVM
+* Tue May 28 2021 Jesús Abelardo Saldívar Aguilar <jasaldivara@gmail.com> 5.4.1-2
+- Added patches to fix circular dependency on PkgConfig
 * Thu May 27 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-1
 - Updated to swift-5.4.1-RELEASE
 * Tue Apr 27 2021 Ron Olson <tachoknight@gmail.com> 5.4-1
