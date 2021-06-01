@@ -9,7 +9,7 @@
 
 Name:           swift-lang
 Version:        5.4.1
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -203,9 +203,9 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
-* Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-3
+* Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-1
 - Added patch to remove Cyclades from LLVM
-* Tue May 28 2021 Jesús Abelardo Saldívar Aguilar <jasaldivara@gmail.com> 5.4.1-2
+* Tue May 28 2021 Jesús Abelardo Saldívar Aguilar <jasaldivara@gmail.com> 5.4.1-1
 - Added patches to fix circular dependency on PkgConfig
 * Thu May 27 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-1
 - Updated to swift-5.4.1-RELEASE
