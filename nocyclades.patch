@@ -1,9 +1,9 @@
-diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc
---- llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc	2021-05-28 10:17:04.000000000 -0500
-+++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc	2021-05-31 08:19:34.794058378 -0500
-@@ -370,15 +370,6 @@
+diff --color -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc
+--- llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc	2021-05-06 16:48:03.000000000 -0500
++++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc	2021-06-01 11:22:41.912766994 -0500
+@@ -366,15 +366,6 @@
  
- #if SANITIZER_GLIBC
+ #if SANITIZER_LINUX && !SANITIZER_ANDROID
    // _(SIOCDEVPLIP, WRITE, struct_ifreq_sz); // the same as EQL_ENSLAVE
 -  _(CYGETDEFTHRESH, WRITE, sizeof(int));
 -  _(CYGETDEFTIMEOUT, WRITE, sizeof(int));
@@ -17,10 +17,10 @@ diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_common_i
    _(EQL_EMANCIPATE, WRITE, struct_ifreq_sz);
    _(EQL_ENSLAVE, WRITE, struct_ifreq_sz);
    _(EQL_GETMASTRCFG, WRITE, struct_ifreq_sz);
-diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
---- llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp	2021-05-28 10:17:04.000000000 -0500
-+++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp	2021-05-31 12:30:07.414710413 -0500
-@@ -143,7 +143,6 @@
+diff --color -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
+--- llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp	2021-05-06 16:48:03.000000000 -0500
++++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp	2021-06-01 11:24:41.465542878 -0500
+@@ -130,7 +130,6 @@
  # include <sys/procfs.h>
  #endif
  #include <sys/user.h>
@@ -28,15 +28,15 @@ diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform
  #include <linux/if_eql.h>
  #include <linux/if_plip.h>
  #include <linux/lp.h>
-@@ -459,7 +458,6 @@
+@@ -444,7 +443,6 @@
  
- #if SANITIZER_GLIBC
+ #if SANITIZER_LINUX && !SANITIZER_ANDROID
    unsigned struct_ax25_parms_struct_sz = sizeof(struct ax25_parms_struct);
 -  unsigned struct_cyclades_monitor_sz = sizeof(struct cyclades_monitor);
  #if EV_VERSION > (0x010000)
    unsigned struct_input_keymap_entry_sz = sizeof(struct input_keymap_entry);
  #else
-@@ -823,15 +821,6 @@
+@@ -810,15 +808,6 @@
  #endif // SANITIZER_LINUX
  
  #if SANITIZER_LINUX && !SANITIZER_ANDROID
@@ -52,10 +52,10 @@ diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform
    unsigned IOCTL_EQL_EMANCIPATE = EQL_EMANCIPATE;
    unsigned IOCTL_EQL_ENSLAVE = EQL_ENSLAVE;
    unsigned IOCTL_EQL_GETMASTRCFG = EQL_GETMASTRCFG;
-diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h
---- llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h	2021-05-28 10:17:04.000000000 -0500
-+++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h	2021-05-31 12:30:40.568693281 -0500
-@@ -983,7 +983,6 @@
+diff --color -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h
+--- llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h	2021-05-06 16:48:03.000000000 -0500
++++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h	2021-06-01 11:24:23.594426892 -0500
+@@ -981,7 +981,6 @@
  
  #if SANITIZER_LINUX && !SANITIZER_ANDROID
  extern unsigned struct_ax25_parms_struct_sz;
@@ -63,7 +63,7 @@ diff -Naur llvm-project-orig/compiler-rt/lib/sanitizer_common/sanitizer_platform
  extern unsigned struct_input_keymap_entry_sz;
  extern unsigned struct_ipx_config_data_sz;
  extern unsigned struct_kbdiacrs_sz;
-@@ -1328,15 +1327,6 @@
+@@ -1326,15 +1325,6 @@
  #endif  // SANITIZER_LINUX
  
  #if SANITIZER_LINUX && !SANITIZER_ANDROID
