@@ -1,7 +1,6 @@
 %global debug_package %{nil}
-%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-05-30-a
+%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-06-02-a
 %global swiftbuild swift-source
-%global cmake_version 3.19.3
 %global icu_version 68-2
 %global yams_version 3.0.1
 %global sap_version 0.3.0
@@ -33,10 +32,6 @@ Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz
-# Only necessary for EPEL-8
-%if 0%{?el8}
-Source19:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
-%endif
 
 Patch0:         swift-for-fedora.patch
 Patch1:         nocyclades.patch
@@ -63,11 +58,6 @@ BuildRequires:  python3-six
 BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  cmake
 BuildRequires:	python-unversioned-command
-# For building CMake for EPEL-8
-%if 0%{?el8}
-BuildRequires:  make
-BuildRequires:  openssl-devel
-%endif
 
 Requires:       glibc-devel
 Requires:       binutils-gold
@@ -91,15 +81,6 @@ correct programs easier for the developer.
 
 
 %prep
-%if 0%{?el8}
-# Now we build our own CMake because the one in EPEL8 is too old and
-# we can safely build it for all platforms (though will add some time
-# to the whole build process)
-%setup -q -c -n cmake -a 19
-mkdir cmake-build
-cd cmake-build
-../cmake-%{cmake_version}/bootstrap && make
-%endif
 
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18
 # The Swift build script requires directories to be named
@@ -155,11 +136,6 @@ mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
 %endif
-# EPEL-8 requires our own special version of CMake (sigh)
-%if 0%{?el8}
-# And for CMake, which we built first
-export PATH=$PWD/../cmake/cmake-build/bin:$PATH
-%endif
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
@@ -190,6 +166,8 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
 
 %changelog
+* Thu Jun 03 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
+- Removed special CMake stuff for EPEL 8
 * Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
 - Added patch to remove Cyclades from LLVM
 * Fri May 28 2021 Jesús Abelardo Saldívar Aguilar <jasaldivara@gmail.com> 5.5-1
