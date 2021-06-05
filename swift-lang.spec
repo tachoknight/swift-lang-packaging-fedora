@@ -35,8 +35,7 @@ Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_
 
 Patch0:         swift-for-fedora.patch
 Patch1:         nocyclades.patch
-Patch2:         pc-circular-dependencies.patch
-Patch3:         pc-circular-dependencies-optimization.patch
+Patch2:         pc-circular-dependencies-optimization.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -116,11 +115,8 @@ mv Yams-%{yams_version} yams
 # Remove Cyclades as it has been removed from the Linux kernel
 %patch1 -p0
 
-# Fixes swift build crashing when there is a circular dependency between PkgConfig files
-#%patch2 -p1
-
 # Cache PkgConfig and avoid reparsing multiple time the same file.
-%patch3 -p1
+%patch2 -p1
 
 
 # Fix python to python3 
