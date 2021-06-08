@@ -19,9 +19,11 @@ echo Cleaning $BUILD
 mock -r $BUILD --scrub=all
 
 pushd $HOME/rpmbuild/SPECS
-#spectool -g -R ./swift-lang.spec
+echo Now getting the sources...
+spectool -g -R ./swift-lang.spec
 # Now do the actual build
-mock --clean -r $BUILD --spec=swift-lang.spec --sources=../SOURCES --resultdir=$MYDIR/mock-results --buildsrpm --rebuild --rpmbuild-opts=--noclean --no-cleanup-after 2>&1 | tee $MYDIR/mock-results/build-output.txt
+echo Now gonna hopefully build it
+mock --clean -r $BUILD --enablerepo=local --spec=swift-lang.spec --sources=../SOURCES --resultdir=$MYDIR/mock-results --buildsrpm --rebuild --rpmbuild-opts=--noclean --no-cleanup-after 2>&1 | tee $MYDIR/mock-results/build-output.txt
 popd
 
 echo Started:_____$START_TS
