@@ -188,6 +188,10 @@ ln -fs %{_libexecdir}/swift/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-l
 mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 
+# This is to fix an issue with check-rpaths complaining about
+# how the Swift binaries use RPATH
+export QA_SKIP_RPATHS=1
+
 
 %files
 %license swift/LICENSE.txt
