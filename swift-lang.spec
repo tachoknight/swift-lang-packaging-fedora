@@ -27,7 +27,7 @@ Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
-Source13:	    https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
+Source13:	https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
 Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.tar.gz#/swift-driver.tar.gz
 Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
@@ -207,6 +207,10 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Thu Jun 10 2021 Ron Olson <tachoknight@gmail.com> - 5.4.1-1
+- Added fix for RPATH problems
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.4-2
+- Rebuilt for Python 3.10
 * Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.4.1-1
 - Added patch to remove Cyclades from LLVM
 * Fri May 28 2021 Jesús Abelardo Saldívar Aguilar <jasaldivara@gmail.com> 5.4.1-1
