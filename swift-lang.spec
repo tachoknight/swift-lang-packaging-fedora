@@ -80,7 +80,6 @@ correct programs easier for the developer.
 
 
 %prep
-
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
@@ -165,6 +164,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.4-2
+- Rebuilt for Python 3.10
 * Thu Jun 03 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
 - Removed special CMake stuff for EPEL 8
 * Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
