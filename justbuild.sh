@@ -17,7 +17,7 @@ cp $PWD/swift-lang.spec $HOME/rpmbuild/SPECS
 pushd $HOME/rpmbuild/SPECS
 spectool -g -R ./swift-lang.spec
 # Get the dependencies
-dnf builddep -y ./swift-lang.spec
+#dnf builddep -y ./swift-lang.spec
 # Now do the actual build
 rpmbuild -ba ./swift-lang.spec 2>&1 | tee $MYDIR/build-output.txt
 #rpmbuild -bc ./swift-lang.spec 2>&1 | tee $MYDIR/build-output.txt

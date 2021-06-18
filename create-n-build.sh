@@ -27,16 +27,17 @@ fi
 
 # Okay, we're gonna do this...
 
-rm -rf /home/rolson/rpmbuild
+rm -rf $HOME/rpmbuild
 rm $THISDIR/cnb-build-output.txt
-mkdir -p /home/rolson/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-cp $THISDIR/*.patch /home/rolson/rpmbuild/SOURCES
-cp $THISDIR/*.conf /home/rolson/rpmbuild/SOURCES
-cp $THISDIR/swift-lang.spec /home/rolson/rpmbuild/SPECS
+mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+cp $THISDIR/*.patch $HOME/rpmbuild/SOURCES
+cp $THISDIR/*.conf $HOME/rpmbuild/SOURCES
+cp $THISDIR/swift-lang.spec $HOME/rpmbuild/SPECS
 
-pushd /home/rolson/rpmbuild/SPECS
+pushd $HOME/rpmbuild/SPECS
 spectool -g -R ./swift-lang.spec
-# Get the dependencies
+# Get the dependencies (here for documentation about what to do, this
+# needs sudo to run)
 #dnf builddep -y ./swift-lang.spec
 # Now do the actual build
 rpmbuild -ba ./swift-lang.spec 2>&1 | tee $THISDIR/cnb-build-output.txt
@@ -49,7 +50,7 @@ git push
 
 # Now move it to fedorapeople
 ssh fedorapeople.org "rm ~/public_html/swift-lang/*$THISVERSION*.rpm"
-scp /home/rolson/rpmbuild/SRPMS/* fedorapeople.org:~/public_html/swift-lang
-scp /home/rolson/rpmbuild/RPMS/x86_64/* fedorapeople.org:~/public_html/swift-lang
-scp /home/rolson/rpmbuild/SPECS/* fedorapeople.org:~/public_html/swift-lang
+scp $HOME/rpmbuild/SRPMS/* fedorapeople.org:~/public_html/swift-lang
+scp $HOME/rpmbuild/RPMS/x86_64/* fedorapeople.org:~/public_html/swift-lang
+scp $HOME/rpmbuild/SPECS/* fedorapeople.org:~/public_html/swift-lang
 
