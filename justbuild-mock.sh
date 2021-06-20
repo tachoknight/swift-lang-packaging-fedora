@@ -4,8 +4,9 @@ MYDIR=$PWD
 
 START_TS=`date`
 
-BUILD=fedora-rawhide-x86_64
+#BUILD=fedora-rawhide-x86_64
 #BUILD=epel-8-x86_64
+BUILD=epelplayground-8-x86_64
 #BUILD=fedora-35-x86_64
 
 rm -rf $HOME/rpmbuild
