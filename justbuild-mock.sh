@@ -18,7 +18,7 @@ cp $PWD/*.patch $HOME/rpmbuild/SOURCES
 cp $PWD/swift-lang.spec $HOME/rpmbuild/SPECS
 
 #echo Cleaning $BUILD
-#mock -r $BUILD --scrub=all
+mock -r $BUILD --scrub=all
 
 pushd $HOME/rpmbuild/SPECS
 echo Now getting the sources...
