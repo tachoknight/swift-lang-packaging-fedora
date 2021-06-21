@@ -4,9 +4,9 @@ MYDIR=$PWD
 
 START_TS=`date`
 
-#BUILD=fedora-rawhide-x86_64
+BUILD=fedora-rawhide-x86_64
 #BUILD=epel-8-x86_64
-BUILD=epelplayground-8-x86_64
+#BUILD=epelplayground-8-x86_64
 #BUILD=fedora-35-x86_64
 
 rm -rf $HOME/rpmbuild
@@ -16,8 +16,8 @@ mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 cp $PWD/*.patch $HOME/rpmbuild/SOURCES
 cp $PWD/swift-lang.spec $HOME/rpmbuild/SPECS
 
-echo Cleaning $BUILD
-mock -r $BUILD --scrub=all
+#echo Cleaning $BUILD
+#mock -r $BUILD --scrub=all
 
 pushd $HOME/rpmbuild/SPECS
 echo Now getting the sources...
