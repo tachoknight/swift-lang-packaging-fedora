@@ -1,7 +1,6 @@
 %global debug_package %{nil}
 %global swifttag 5.4.1-RELEASE
 %global swiftbuild swift-source
-%global cmake_version 3.19.3
 %global icu_version 68-2
 %global yams_version 3.0.1
 %global sap_version 0.3.0
@@ -9,7 +8,7 @@
 
 Name:           swift-lang
 Version:        5.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -65,13 +64,12 @@ BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  cmake
+%if 0%{!?el8}
+BuildRequires:  python-unversioned-command
+%endif
 
 Requires:       glibc-devel
-%if 0%{?fedora} >= 31
 Requires:       binutils-gold
-%else
-Requires:       binutils
-%endif
 Requires:       gcc
 Requires:       ncurses-devel
 Requires:       ncurses-compat-libs
@@ -79,7 +77,6 @@ Requires:       ncurses-compat-libs
 Provides:       %{name} = %{version}-%{release}
 Obsoletes:      %{name} < %{version}-%{release}
 Obsoletes:      %{name}-runtime < %{version}-%{release}
-
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -97,16 +94,6 @@ correct programs easier for the developer.
 
 
 %prep
-%if 0%{?el8}
-# Now we build our own CMake because the one in EPEL8 is too old and
-# we can safely build it for all platforms (though will add some time
-# to the whole build process)
-%setup -q -c -n cmake -a 18
-mkdir cmake-build
-cd cmake-build
-../cmake-%{cmake_version}/bootstrap && make
-%endif
-
 %setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
@@ -164,14 +151,12 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/h
 
 %build
 export VERBOSE=1
-# We may not have /usr/bin/python, so we roll our own
-# because the build script expects there to be one.
+# Before Fedora 34, we may not have /usr/bin/python, so we
+# roll our own because the build script expects there to be one.
+%if 0%{?fedora} < 34 || 0%{?el8}
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
-%if 0%{?el8}
-# And for CMake, which we built first
-export PATH=$PWD/../cmake/cmake-build/bin:$PATH
 %endif
 
 # Here we go!
@@ -207,6 +192,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Jun 21 2021 Ron Olson <tachoknight@gmail.com> - 5.4.1-2
+- Changes for EPEL-8
 * Thu Jun 10 2021 Ron Olson <tachoknight@gmail.com> - 5.4.1-1
 - Added fix for RPATH problems
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.4-2
