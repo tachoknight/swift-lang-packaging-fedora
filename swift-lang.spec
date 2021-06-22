@@ -57,7 +57,7 @@ BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  cmake
-%if 0%{!?el8}
+%if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
 
