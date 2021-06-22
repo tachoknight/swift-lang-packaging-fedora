@@ -169,7 +169,6 @@ export QA_SKIP_RPATHS=1
 %changelog
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.4-2
 - Rebuilt for Python 3.10
-
 * Thu Jun 03 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
 - Removed special CMake stuff for EPEL 8
 * Tue Jun 01 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
