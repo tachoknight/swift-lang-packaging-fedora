@@ -31,7 +31,6 @@ Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.
 Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
-Source18:       https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:         swift-for-fedora.patch
 Patch1:         compiler-rt-fuzzer.patch
