@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.4.1-RELEASE
+%global swifttag 5.4.2-RELEASE
 %global swiftbuild swift-source
 %global icu_version 68-2
 %global yams_version 3.0.1
@@ -7,8 +7,8 @@
 
 
 Name:           swift-lang
-Version:        5.4.1
-Release:        2%{?dist}
+Version:        5.4.2
+Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -191,6 +191,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Jul 05 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-1
+- Updated to swift-5.4.2-RELEASE
 * Mon Jun 21 2021 Ron Olson <tachoknight@gmail.com> - 5.4.1-2
 - Changes for EPEL-8
 * Thu Jun 10 2021 Ron Olson <tachoknight@gmail.com> - 5.4.1-1
