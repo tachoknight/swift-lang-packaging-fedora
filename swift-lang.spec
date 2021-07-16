@@ -8,7 +8,7 @@
 
 Name:           swift-lang
 Version:        5.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -68,7 +68,11 @@ BuildRequires:  python-unversioned-command
 %endif
 
 Requires:       glibc-devel
+%if ! 0%{?el8}
+Requires:       binutils
+%else
 Requires:       binutils-gold
+%endif
 Requires:       gcc
 Requires:       ncurses-devel
 Requires:       ncurses-compat-libs
@@ -191,6 +195,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Thu Jul 15 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-2
+- Discovered that EPEL-8 doesn't have binutils-gold
 * Mon Jul 05 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-1
 - Updated to swift-5.4.2-RELEASE
 * Mon Jun 21 2021 Ron Olson <tachoknight@gmail.com> - 5.4.1-2
