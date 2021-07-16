@@ -69,9 +69,9 @@ BuildRequires:  python-unversioned-command
 
 Requires:       glibc-devel
 %if ! 0%{?el8}
-Requires:       binutils
-%else
 Requires:       binutils-gold
+%else
+Requires:       binutils
 %endif
 Requires:       gcc
 Requires:       ncurses-devel
