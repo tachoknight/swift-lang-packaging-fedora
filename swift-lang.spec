@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-09-04-a
+%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-09-05-a
 %global swiftbuild swift-source
 %global icu_version 68-2
 %global yams_version 3.0.1
