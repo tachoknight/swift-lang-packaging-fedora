@@ -1,10 +1,10 @@
 %global debug_package %{nil}
 %global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-09-13-a
 %global swiftbuild swift-source
-%global icu_version 68-2
+%global icu_version 65-1
 %global yams_version 4.0.2
 %global sap_version 0.4.3
-%global swift_crypto_version 1.1.6
+%global swift_crypto_version 1.1.5
 
 Name:           swift-lang
 Version:        5.5
