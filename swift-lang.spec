@@ -2,8 +2,8 @@
 %global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-09-13-a
 %global swiftbuild swift-source
 %global icu_version 68-2
-%global yams_version 3.0.1
-%global sap_version 0.3.0
+%global yams_version 4.0.2
+%global sap_version 0.4.3
 %global swift_crypto_version 1.1.6
 
 Name:           swift-lang
@@ -120,10 +120,10 @@ mv Yams-%{yams_version} yams
 # Cache PkgConfig and avoid reparsing multiple time the same file.
 %patch2 -p1
 
-
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
+
 
 %build
 export VERBOSE=1
