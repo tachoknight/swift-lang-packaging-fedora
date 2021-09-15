@@ -1,14 +1,14 @@
 %global debug_package %{nil}
-%global swifttag 5.4.2-RELEASE
+%global swifttag 5.4.3-RELEASE
 %global swiftbuild swift-source
-%global icu_version 68-2
-%global yams_version 3.0.1
-%global sap_version 0.3.0
+%global icu_version 65-1
+%global yams_version 4.0.2
+%global sap_version 0.4.1
 
 
 Name:           swift-lang
-Version:        5.4.2
-Release:        2%{?dist}
+Version:        5.4.3
+Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -195,6 +195,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Sep 15 2021 Ron Olson <tachoknight@gmail.com> - 5.4.3-1
+- Updated to swift-5.4.3-RELEASE
 * Thu Jul 15 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-2
 - Discovered that EPEL-8 doesn't have binutils-gold
 * Mon Jul 05 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-1
