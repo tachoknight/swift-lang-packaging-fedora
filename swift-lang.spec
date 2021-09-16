@@ -197,6 +197,8 @@ export QA_SKIP_RPATHS=1
 %changelog
 * Wed Sep 15 2021 Ron Olson <tachoknight@gmail.com> - 5.4.3-1
 - Updated to swift-5.4.3-RELEASE
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 * Thu Jul 15 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-2
 - Discovered that EPEL-8 doesn't have binutils-gold
 * Mon Jul 05 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-1
