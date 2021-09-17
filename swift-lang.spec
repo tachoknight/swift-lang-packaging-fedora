@@ -8,7 +8,7 @@
 
 Name:           swift-lang
 Version:        5.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -26,7 +26,7 @@ Source9:        https://github.com/apple/sourcekit-lsp/archive/swift-%{swifttag}
 Source10:       https://github.com/apple/indexstore-db/archive/swift-%{swifttag}.tar.gz#/indexstore-db.tar.gz
 Source11:       https://github.com/apple/llvm-project/archive/swift-%{swifttag}.tar.gz#/llvm-project.tar.gz
 Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swifttag}.tar.gz#/swift-tools-support-core.tar.gz
-Source13:	https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
+Source13:	    https://github.com/apple/swift-argument-parser/archive/%{sap_version}.tar.gz
 Source14:       https://github.com/apple/swift-driver/archive/swift-%{swifttag}.tar.gz#/swift-driver.tar.gz
 Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
@@ -40,6 +40,7 @@ Patch4:         %{name}-gcc11.patch
 Patch5:         pc-circular-dependencies.patch
 Patch6:         pc-circular-dependencies-optimization.patch
 Patch7:         nocyclades.patch
+Patch8:         unusedvariable.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -148,9 +149,13 @@ mv Yams-%{yams_version} yams
 # Remove Cyclades from LLVM as it's been removed from the linux kernel
 %patch7 -p0
 
+# Fixes unused variable causing an error with -Werror
+%patch8 -p0
+
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
+
 
 %build
 export VERBOSE=1
@@ -195,6 +200,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Sep 17 2021 Ron Olson <tachoknight@gmail.com> - 5.4.3-2
+- Added patch to allow building using Clang 13
 * Wed Sep 15 2021 Ron Olson <tachoknight@gmail.com> - 5.4.3-1
 - Updated to swift-5.4.3-RELEASE
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.2-3
