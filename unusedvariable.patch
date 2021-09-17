@@ -1,5 +1,17 @@
---- swift-corelibs-libdispatch/tests/bsdtestharness.c.orig	2021-09-17 14:11:59.853648231 -0500
-+++ swift-corelibs-libdispatch/tests/bsdtestharness.c	2021-09-17 14:12:38.859957323 -0500
+diff --color -Naur swift-corelibs-libdispatch-orig/src/BlocksRuntime/runtime.c swift-corelibs-libdispatch/src/BlocksRuntime/runtime.c
+--- swift-corelibs-libdispatch-orig/src/BlocksRuntime/runtime.c	2020-08-14 16:49:59.000000000 -0500
++++ swift-corelibs-libdispatch/src/BlocksRuntime/runtime.c	2021-09-17 18:40:21.684025320 -0500
+@@ -479,6 +479,7 @@
+         return; // stack or GC or global
+     }
+     refcount = byref->flags & BLOCK_REFCOUNT_MASK;
++    (void)refcount;
+ 	os_assert(refcount);
+     if (latching_decr_int_should_deallocate(&byref->flags)) {
+         if (byref->flags & BLOCK_BYREF_HAS_COPY_DISPOSE) {
+diff --color -Naur swift-corelibs-libdispatch-orig/tests/bsdtestharness.c swift-corelibs-libdispatch/tests/bsdtestharness.c
+--- swift-corelibs-libdispatch-orig/tests/bsdtestharness.c	2020-08-14 16:49:59.000000000 -0500
++++ swift-corelibs-libdispatch/tests/bsdtestharness.c	2021-09-17 18:39:05.679434477 -0500
 @@ -152,6 +152,7 @@
  	assert(pid > 0);
  
