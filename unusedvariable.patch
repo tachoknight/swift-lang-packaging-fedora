@@ -20,3 +20,16 @@ diff --color -Naur swift-corelibs-libdispatch-orig/tests/bsdtestharness.c swift-
  	int status;
  	struct rusage usage;
  	struct timeval tv_stop, tv_wall;
+diff --color -Naur swift-corelibs-libdispatch-orig/tests/dispatch_apply.c swift-corelibs-libdispatch/tests/dispatch_apply.c
+--- swift-corelibs-libdispatch-orig/tests/dispatch_apply.c	2020-08-14 16:49:59.000000000 -0500
++++ swift-corelibs-libdispatch/tests/dispatch_apply.c	2021-09-17 23:38:38.107488681 -0500
+@@ -56,7 +56,8 @@
+ 	(void)ignored;
+ 	/* prevent i and j been optimized out */
+ 	volatile uint64_t i = 0, j = 0;
+-
++    (void)i;
++    (void)j;
+ 	OSAtomicIncrement32(&busy_threads_started);
+ 
+ 	while(!all_done)
