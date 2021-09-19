@@ -36,6 +36,7 @@ Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_
 Patch0:         swift-for-fedora.patch
 Patch1:         nocyclades.patch
 Patch2:         pc-circular-dependencies-optimization.patch
+Patch3:		unusedvariable.patch
  
 BuildRequires:  clang
 BuildRequires:  swig
@@ -119,6 +120,9 @@ mv Yams-%{yams_version} yams
 
 # Cache PkgConfig and avoid reparsing multiple time the same file.
 %patch2 -p1
+
+# Temp patch to test libdispatch issue with clang 13
+%patch3 -p0
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
