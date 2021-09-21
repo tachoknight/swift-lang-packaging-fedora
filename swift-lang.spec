@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-09-18-a
+%global swifttag 5.5-RELEASE
 %global swiftbuild swift-source
 %global icu_version 65-1
 %global yams_version 4.0.2
@@ -157,6 +157,7 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 # how the Swift binaries use RPATH
 export QA_SKIP_RPATHS=1
 
+
 %files
 %license swift/LICENSE.txt
 %{_bindir}/swift
@@ -171,6 +172,22 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Sep 21 2021 Ron Olson <tachoknight@gmail.com> - 5.5-1
+- Updated to Swift 5.5-RELEASE
+* Fri Sep 17 2021 Ron Olson <tachoknight@gmail.com> - 5.4.3-2
+- Added patch to allow building using Clang 13
+* Wed Sep 15 2021 Ron Olson <tachoknight@gmail.com> - 5.4.3-1
+- Updated to swift-5.4.3-RELEASE
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+* Thu Jul 15 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-2
+- Discovered that EPEL-8 doesn't have binutils-gold
+* Mon Jul 05 2021 Ron Olson <tachoknight@gmail.com> - 5.4.2-1
+- Updated to swift-5.4.2-RELEASE
+* Mon Jun 21 2021 Ron Olson <tachoknight@gmail.com> - 5.4.1-2
+- Changes for EPEL-8
+* Thu Jun 10 2021 Ron Olson <tachoknight@gmail.com> - 5.4.1-1
+- Added fix for RPATH problems
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.4-2
 - Rebuilt for Python 3.10
 * Thu Jun 03 2021 Ron Olson <tachoknight@gmail.com> 5.5-1
