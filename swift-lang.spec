@@ -33,9 +33,8 @@ Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.
 Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz
 
-Patch0:         swift-for-fedora.patch
+Patch0:         build-presets.patch
 Patch1:         nocyclades.patch
-Patch2:         pc-circular-dependencies-optimization.patch
 Patch3:		unusedvariable.patch
  
 BuildRequires:  clang
@@ -118,9 +117,6 @@ mv Yams-%{yams_version} yams
 # Remove Cyclades as it has been removed from the Linux kernel
 %patch1 -p0
 
-# Cache PkgConfig and avoid reparsing multiple time the same file.
-%patch2 -p1
-
 # Temp patch to test libdispatch issue with clang 13
 %patch3 -p0
 
@@ -140,7 +136,7 @@ export PATH=$PWD/binforpython:$PATH
 %endif
 
 # Here we go!
-swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
+swift/utils/build-script --preset=buildbot_linux_fedora,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
 
 
 %install
