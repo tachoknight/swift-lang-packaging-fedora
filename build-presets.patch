@@ -1,6 +1,14 @@
 --- swift/utils/build-presets.ini-orig	2021-09-23 08:59:28.810313021 -0500
-+++ swift/utils/build-presets.ini	2021-09-29 09:01:46.876361262 -0500
-@@ -866,6 +866,60 @@
++++ swift/utils/build-presets.ini	2021-10-01 15:06:55.158508958 -0500
+@@ -785,7 +785,6 @@
+ libicu
+ libcxx
+ 
+-build-ninja
+ install-llvm
+ install-swift
+ install-lldb
+@@ -866,6 +865,65 @@
      buildbot_linux
      mixin_buildbot_linux,no_test
  
@@ -50,6 +58,11 @@
 +
 +# Path to the .tar.gz package we would create.
 +installable-package=%(installable_package)s
++
++# Executes the lit tests for the installable package that is created
++# Assumes the swift-integration-tests repo is checked out
++
++test-installable-package
 +
 +# This ensures the default module cache
 +# location is local to this run, allowing

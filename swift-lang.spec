@@ -69,6 +69,7 @@ Requires:       ncurses-compat-libs
 
 ExclusiveArch:  x86_64 aarch64 
 
+Provides: 	swiftlang = %{version}-%{release}
 
 %description
 Swift is a general-purpose programming language built using 
@@ -112,7 +113,7 @@ mv icu-release-%{icu_version} icu
 mv Yams-%{yams_version} yams
 
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
-#%patch0 -p0
+%patch0 -p0
 
 # Remove Cyclades as it has been removed from the Linux kernel
 %patch1 -p0
@@ -137,7 +138,7 @@ export PATH=$PWD/binforpython:$PATH
 
 # Here we go!
 #swift/utils/build-script --preset=buildbot_linux_fedora,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
-swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz --build-ninja=False
+swift/utils/build-script --preset=buildbot_linux install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
 
 
 
