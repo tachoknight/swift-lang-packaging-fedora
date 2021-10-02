@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-09-30-a
+%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-10-01-a
 %global swiftbuild swift-source
 %global icu_version 65-1
 %global yams_version 4.0.2
@@ -138,7 +138,7 @@ export PATH=$PWD/binforpython:$PATH
 
 # Here we go!
 #swift/utils/build-script --preset=buildbot_linux_fedora,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
-swift/utils/build-script --preset=buildbot_linux install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
+swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
 
 
 
