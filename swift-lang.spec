@@ -5,6 +5,7 @@
 %global yams_version 4.0.2
 %global sap_version 0.4.3
 %global swift_crypto_version 1.1.5
+%global ninja_version 1.10.2
 
 Name:           swift-lang
 Version:        5.5
@@ -32,6 +33,7 @@ Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version
 Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.zip#/swift-syntax.tar.gz
 Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz
+Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
 
 Patch0:         build-presets.patch
 Patch1:         nocyclades.patch
@@ -84,7 +86,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -112,8 +114,11 @@ mv icu-release-%{icu_version} icu
 # Yams
 mv Yams-%{yams_version} yams
 
+# Ninja
+mv ninja-%{ninja_version} ninja
+
 # Since we require ninja for building, there's no sense to rebuild it just for Swift
-%patch0 -p0
+#%patch0 -p0
 
 # Remove Cyclades as it has been removed from the Linux kernel
 %patch1 -p0
@@ -137,9 +142,7 @@ export PATH=$PWD/binforpython:$PATH
 %endif
 
 # Here we go!
-#swift/utils/build-script --preset=buildbot_linux_fedora,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-fedora.tar.gz
-
 
 
 %install
