@@ -54,7 +54,6 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
-BuildRequires:  ninja-build
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:  /usr/bin/pathfix.py
