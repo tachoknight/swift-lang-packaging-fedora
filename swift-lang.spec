@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global swifttag 5.5-DEVELOPMENT-SNAPSHOT-2021-10-17-a
+%global swifttag 5.5.1-RELEASE
 %global swiftbuild swift-source
 %global icu_version 65-1
 %global yams_version 4.0.2
@@ -8,7 +8,7 @@
 %global ninja_version 1.10.2
 
 Name:           swift-lang
-Version:        5.5
+Version:        5.5.1
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -173,6 +173,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Oct 27 2021 Ron Olson <tachoknight@gmail.com> - 5.5.1-1
+- Updated to Swift 5.5.1-RELEASE
 * Tue Sep 21 2021 Ron Olson <tachoknight@gmail.com> - 5.5-1
 - Updated to Swift 5.5-RELEASE
 * Fri Sep 17 2021 Ron Olson <tachoknight@gmail.com> - 5.4.3-2
