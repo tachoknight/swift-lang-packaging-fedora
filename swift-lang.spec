@@ -6,6 +6,7 @@
 %global sap_version 0.4.3
 %global swift_crypto_version 1.1.5
 %global ninja_version 1.10.2
+%global cmake_version 3.16.5
 
 Name:           swift-lang
 Version:        5.5.1
@@ -34,6 +35,7 @@ Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swifttag}.
 Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz
 Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
+Source20:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
 Patch0:         build-presets.patch
 Patch1:         nocyclades.patch
@@ -57,7 +59,6 @@ BuildRequires:  libicu-devel
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:  /usr/bin/pathfix.py
-BuildRequires:  cmake
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
@@ -85,7 +86,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -106,6 +107,7 @@ mv swift-tools-support-core-swift-%{swifttag} swift-tools-support-core
 mv swift-argument-parser-%{sap_version} swift-argument-parser
 mv swift-driver-swift-%{swifttag} swift-driver
 mv swift-crypto-%{swift_crypto_version} swift-crypto
+mv cmake-%{cmake_version} cmake
 
 # ICU 
 mv icu-release-%{icu_version} icu
