@@ -37,7 +37,6 @@ Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_
 Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
 Source20:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch0:         build-presets.patch
 Patch1:         nocyclades.patch
 Patch3:		unusedvariable.patch
  
@@ -117,9 +116,6 @@ mv Yams-%{yams_version} yams
 
 # Ninja
 mv ninja-%{ninja_version} ninja
-
-# Since we require ninja for building, there's no sense to rebuild it just for Swift
-#%patch0 -p0
 
 # Remove Cyclades as it has been removed from the Linux kernel
 %patch1 -p0
