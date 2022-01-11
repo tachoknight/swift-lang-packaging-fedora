@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # The version we're autobuilding
-CURRENT_VERSION = 'swift-5.5'
+CURRENT_VERSION = 'swift-5.6'
 
 def left(s, amount):
     return s[:amount]
