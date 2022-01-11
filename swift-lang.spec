@@ -37,9 +37,6 @@ Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_
 Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
 Source20:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
 
-Patch1:         nocyclades.patch
-Patch3:		unusedvariable.patch
- 
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
@@ -116,12 +113,6 @@ mv Yams-%{yams_version} yams
 
 # Ninja
 mv ninja-%{ninja_version} ninja
-
-# Remove Cyclades as it has been removed from the Linux kernel
-%patch1 -p0
-
-# Temp patch to test libdispatch issue with clang 13
-%patch3 -p0
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
