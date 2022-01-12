@@ -6,10 +6,16 @@
 %global sap_version 0.4.3
 %global swift_crypto_version 1.1.5
 %global ninja_version 1.10.2
-%global cmake_version 3.16.5
+%global cmake_version 3.19.6
+%global swift_atomics_version 1.0.2
+%global swift_collections_version 1.0.1
+%global swift_numerics_version 1.0.1
+%global swift_system_version 1.1.1
+%global swift_nio_version 2.31.2
+%global swift_nio_ssl_version 2.15.0
 
 Name:           swift-lang
-Version:        5.5.2
+Version:        5.6
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -36,6 +42,19 @@ Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz
 Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
 Source20:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
+Source21:	https://github.com/apple/swift-atomics/archive/refs/tags/%{swift_atomics_version}.zip
+Source22:	https://github.com/apple/swift-collections/archive/refs/tags/%{swift_collections_version}.zip#/swift-collections.zip
+Source23:	https://github.com/apple/swift-numerics/archive/refs/tags/%{swift_numerics_version}.zip#/swift-numerics.zip
+Source24:	https://github.com/apple/swift-system/archive/refs/tags/%{swift_system_version}.zip#/swift-system.zip
+Source25:       https://github.com/apple/swift-stress-tester/archive/swift-%{swifttag}.tar.gz#/swift-stress-tester.tar.gz
+Source26:       https://github.com/apple/swift-docc/archive/swift-%{swifttag}.tar.gz#/swift-docc.tar.gz
+Source27:       https://github.com/apple/swift-lmdb/archive/swift-%{swifttag}.tar.gz#/swift-lmdb.tar.gz
+Source28:       https://github.com/apple/swift-docc-render-artifact/archive/swift-%{swifttag}.tar.gz#/swift-docc-render-artifact.tar.gz
+Source29:       https://github.com/apple/swift-docc-symbolkit/archive/swift-%{swifttag}.tar.gz#/swift-docc-symbolkit.tar.gz
+Source30:       https://github.com/apple/swift-markdown/archive/swift-%{swifttag}.tar.gz#/swift-markdown.tar.gz
+Source31:	https://github.com/apple/swift-nio/archive/refs/tags/%{swift_nio_version}.zip#/swift-nio.zip
+Source32:	https://github.com/apple/swift-nio-ssl/archive/refs/tags/%{swift_nio_ssl_version}.zip#/swift-nio-ssl.zip
+
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -82,7 +101,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -104,6 +123,18 @@ mv swift-argument-parser-%{sap_version} swift-argument-parser
 mv swift-driver-swift-%{swifttag} swift-driver
 mv swift-crypto-%{swift_crypto_version} swift-crypto
 mv cmake-%{cmake_version} cmake
+mv swift-atomics-%{swift_atomics_version} swift-atomics
+mv swift-numerics-%{swift_numerics_version} swift-numerics
+mv swift-collections-%{swift_collections_version} swift-collections
+mv swift-system-%{swift_system_version} swift-system
+mv swift-nio-%{swift_nio_version} swift-nio
+mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
+mv swift-stress-tester-swift-%{swifttag} swift-stress-tester
+mv swift-docc-swift-%{swifttag} swift-docc
+mv swift-lmdb-swift-%{swifttag} swift-lmdb
+mv swift-docc-render-artifact-swift-%{swifttag} swift-docc-render-artifact
+mv swift-docc-symbolkit-swift-%{swifttag} swift-docc-symbolkit
+mv swift-markdown-swift-%{swifttag} swift-markdown
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -162,6 +193,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Jan 12 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
+- First build of Swift-5.6
 * Tue Dec 14 2021 Ron Olson <tachoknight@gmail.com> - 5.5.2-1
 - Updated to Swift 5.5.2-RELEASE
 * Wed Oct 27 2021 Ron Olson <tachoknight@gmail.com> - 5.5.1-1
