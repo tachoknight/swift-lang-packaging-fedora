@@ -13,6 +13,7 @@
 %global swift_system_version 1.1.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
+%global swift_cmark_gfm_branch release/5.6-gfm 
 
 Name:           swift-lang
 Version:        5.6
@@ -101,7 +102,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -144,6 +145,12 @@ mv Yams-%{yams_version} yams
 
 # Ninja
 mv ninja-%{ninja_version} ninja
+
+# Special for swift-cmark-gfm which is on its own branch of the swift-cmark repo
+git clone https://github.com/apple/swift-cmark.git swift-cmark-gfm
+pushd swift-cmark-gfm
+git checkout %{swift_cmark_gfm_branch}
+popd
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
