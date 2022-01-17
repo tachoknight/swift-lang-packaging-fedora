@@ -56,6 +56,7 @@ Source30:       https://github.com/apple/swift-markdown/archive/swift-%{swifttag
 Source31:	https://github.com/apple/swift-nio/archive/refs/tags/%{swift_nio_version}.zip#/swift-nio.zip
 Source32:	https://github.com/apple/swift-nio-ssl/archive/refs/tags/%{swift_nio_ssl_version}.zip#/swift-nio-ssl.zip
 
+Patch0:		temp-patches.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -155,6 +156,8 @@ popd
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
+
+%patch0 -p0
 
 
 %build
