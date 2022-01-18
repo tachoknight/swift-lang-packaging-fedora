@@ -157,7 +157,8 @@ popd
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
-#%patch0 -p0
+# Temp patch for testing building
+%patch0 -p0
 
 
 %build

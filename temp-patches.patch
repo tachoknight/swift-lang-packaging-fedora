@@ -1,11 +1,11 @@
-diff -Naur swift-orig/utils/build-presets.ini swift/utils/build-presets.ini
---- swift-orig/utils/build-presets.ini	2022-01-16 20:01:17.939502268 -0600
-+++ swift/utils/build-presets.ini	2022-01-16 20:02:58.528781444 -0600
-@@ -834,7 +834,6 @@
- install-prefix=/usr
- install-libcxx
- install-sourcekit-lsp
--install-swiftdocc
- build-swift-static-stdlib
- build-swift-static-sdk-overlay
- build-swift-stdlib-unittest-extra
+--- swift-docc/build-script-helper.py.orig	2022-01-18 12:34:07.014018324 -0600
++++ swift-docc/build-script-helper.py	2022-01-18 12:34:35.002731959 -0600
+@@ -261,7 +261,7 @@
+   if verbose:
+     print(' '.join([escape_cmd_arg(arg) for arg in cmd]))
+   return os.path.join(
+-    subprocess.check_output(cmd, env=env).strip(), 'docc')
++    subprocess.check_output(cmd, env=env).strip().decode(), 'docc')
+ 
+ def create_intermediate_directories(dir_path, verbose):
+   cmd = ["mkdir", "-p", dir_path]
