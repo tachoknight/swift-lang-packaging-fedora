@@ -58,6 +58,7 @@ Source32:	https://github.com/apple/swift-nio-ssl/archive/refs/tags/%{swift_nio_s
 
 Patch0:		temp-patches.patch
 
+BuildRequires:  git 
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
