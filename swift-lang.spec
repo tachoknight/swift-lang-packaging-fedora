@@ -55,10 +55,10 @@ Source29:       https://github.com/apple/swift-docc-symbolkit/archive/swift-%{sw
 Source30:       https://github.com/apple/swift-markdown/archive/swift-%{swifttag}.tar.gz#/swift-markdown.tar.gz
 Source31:	https://github.com/apple/swift-nio/archive/refs/tags/%{swift_nio_version}.zip#/swift-nio.zip
 Source32:	https://github.com/apple/swift-nio-ssl/archive/refs/tags/%{swift_nio_ssl_version}.zip#/swift-nio-ssl.zip
+Source33:	https://github.com/apple/swift-cmark/archive/refs/heads/%{swift_cmark_gfm_branch}.zip#/swift-cmark-gfm.zip
 
 Patch0:		temp-patches.patch
 
-BuildRequires:  git 
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
@@ -104,7 +104,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -138,6 +138,7 @@ mv swift-lmdb-swift-%{swifttag} swift-lmdb
 mv swift-docc-render-artifact-swift-%{swifttag} swift-docc-render-artifact
 mv swift-docc-symbolkit-swift-%{swifttag} swift-docc-symbolkit
 mv swift-markdown-swift-%{swifttag} swift-markdown
+mv swift-cmark-release-5.6-gfm swift-cmark-gfm
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -147,12 +148,6 @@ mv Yams-%{yams_version} yams
 
 # Ninja
 mv ninja-%{ninja_version} ninja
-
-# Special for swift-cmark-gfm which is on its own branch of the swift-cmark repo
-git clone https://github.com/apple/swift-cmark.git swift-cmark-gfm
-pushd swift-cmark-gfm
-git checkout %{swift_cmark_gfm_branch}
-popd
 
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
