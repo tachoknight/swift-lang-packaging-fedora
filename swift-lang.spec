@@ -80,6 +80,7 @@ BuildRequires:  /usr/bin/pathfix.py
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
+BuildRequires:	binutils-devel
 
 Requires:       glibc-devel
 Requires:       binutils-gold
