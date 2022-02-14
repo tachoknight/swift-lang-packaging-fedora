@@ -58,6 +58,7 @@ Source32:	https://github.com/apple/swift-nio-ssl/archive/refs/tags/%{swift_nio_s
 Source33:	https://github.com/apple/swift-cmark/archive/refs/heads/%{swift_cmark_gfm_branch}.zip#/swift-cmark-gfm.zip
 
 Patch0:		temp-patches.patch
+Patch1:		goldinclude.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -80,6 +81,7 @@ BuildRequires:  /usr/bin/pathfix.py
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
+BuildRequires:	binutils-devel
 
 Requires:       glibc-devel
 Requires:       binutils-gold
@@ -155,6 +157,9 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/h
 
 # Temp patch for testing building
 %patch0 -p0
+
+# Gold Linker issue with LLVM under Fedora 36
+%patch1 -p0
 
 
 %build

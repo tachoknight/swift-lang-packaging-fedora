@@ -1,0 +1,12 @@
+diff -Naur llvm-project-orig/llvm/cmake/config-ix.cmake llvm-project/llvm/cmake/config-ix.cmake
+--- llvm-project-orig/llvm/cmake/config-ix.cmake	2022-02-14 16:28:34.599578465 -0600
++++ llvm-project/llvm/cmake/config-ix.cmake	2022-02-14 16:30:08.863440853 -0600
+@@ -587,7 +587,7 @@
+ endif()
+ 
+ find_program(GOLD_EXECUTABLE NAMES ${LLVM_DEFAULT_TARGET_TRIPLE}-ld.gold ld.gold ${LLVM_DEFAULT_TARGET_TRIPLE}-ld ld DOC "The gold linker")
+-set(LLVM_BINUTILS_INCDIR "" CACHE PATH
++set(LLVM_BINUTILS_INCDIR "/usr/include" CACHE PATH
+ 	"PATH to binutils/include containing plugin-api.h for gold plugin.")
+ 
+ if(CMAKE_GENERATOR STREQUAL "Ninja")
