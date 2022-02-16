@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo Bulding SRPM | figlet
+echo Building SRPM | figlet
 
 MYDIR=$PWD
 
