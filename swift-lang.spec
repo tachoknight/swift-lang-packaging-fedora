@@ -1,22 +1,15 @@
 %global debug_package %{nil}
-%global swifttag 5.6-DEVELOPMENT-SNAPSHOT-2022-02-11-a
+%global swifttag 5.5.3-RELEASE
 %global swiftbuild swift-source
 %global icu_version 65-1
 %global yams_version 4.0.2
 %global sap_version 0.4.3
 %global swift_crypto_version 1.1.5
 %global ninja_version 1.10.2
-%global cmake_version 3.19.6
-%global swift_atomics_version 1.0.2
-%global swift_collections_version 1.0.1
-%global swift_numerics_version 1.0.1
-%global swift_system_version 1.1.1
-%global swift_nio_version 2.31.2
-%global swift_nio_ssl_version 2.15.0
-%global swift_cmark_gfm_branch release/5.6-gfm 
+%global cmake_version 3.16.5
 
 Name:           swift-lang
-Version:        5.6
+Version:        5.5.3
 Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
@@ -43,23 +36,10 @@ Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.zip
 Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz
 Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
 Source20:	https://github.com/Kitware/CMake/releases/download/v%{cmake_version}/cmake-%{cmake_version}.tar.gz
-Source21:	https://github.com/apple/swift-atomics/archive/refs/tags/%{swift_atomics_version}.zip
-Source22:	https://github.com/apple/swift-collections/archive/refs/tags/%{swift_collections_version}.zip#/swift-collections.zip
-Source23:	https://github.com/apple/swift-numerics/archive/refs/tags/%{swift_numerics_version}.zip#/swift-numerics.zip
-Source24:	https://github.com/apple/swift-system/archive/refs/tags/%{swift_system_version}.zip#/swift-system.zip
-Source25:       https://github.com/apple/swift-stress-tester/archive/swift-%{swifttag}.tar.gz#/swift-stress-tester.tar.gz
-Source26:       https://github.com/apple/swift-docc/archive/swift-%{swifttag}.tar.gz#/swift-docc.tar.gz
-Source27:       https://github.com/apple/swift-lmdb/archive/swift-%{swifttag}.tar.gz#/swift-lmdb.tar.gz
-Source28:       https://github.com/apple/swift-docc-render-artifact/archive/swift-%{swifttag}.tar.gz#/swift-docc-render-artifact.tar.gz
-Source29:       https://github.com/apple/swift-docc-symbolkit/archive/swift-%{swifttag}.tar.gz#/swift-docc-symbolkit.tar.gz
-Source30:       https://github.com/apple/swift-markdown/archive/swift-%{swifttag}.tar.gz#/swift-markdown.tar.gz
-Source31:	https://github.com/apple/swift-nio/archive/refs/tags/%{swift_nio_version}.zip#/swift-nio.zip
-Source32:	https://github.com/apple/swift-nio-ssl/archive/refs/tags/%{swift_nio_ssl_version}.zip#/swift-nio-ssl.zip
-Source33:	https://github.com/apple/swift-cmark/archive/refs/heads/%{swift_cmark_gfm_branch}.zip#/swift-cmark-gfm.zip
 
-Patch0:		temp-patches.patch
-Patch1:		goldinclude.patch
-
+Patch1:         nocyclades.patch
+Patch3:		unusedvariable.patch
+ 
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
@@ -81,7 +61,6 @@ BuildRequires:  /usr/bin/pathfix.py
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
-BuildRequires:	binutils-devel
 
 Requires:       glibc-devel
 Requires:       binutils-gold
@@ -106,7 +85,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33
+%setup -q -c -n %{swiftbuild} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -128,19 +107,6 @@ mv swift-argument-parser-%{sap_version} swift-argument-parser
 mv swift-driver-swift-%{swifttag} swift-driver
 mv swift-crypto-%{swift_crypto_version} swift-crypto
 mv cmake-%{cmake_version} cmake
-mv swift-atomics-%{swift_atomics_version} swift-atomics
-mv swift-numerics-%{swift_numerics_version} swift-numerics
-mv swift-collections-%{swift_collections_version} swift-collections
-mv swift-system-%{swift_system_version} swift-system
-mv swift-nio-%{swift_nio_version} swift-nio
-mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
-mv swift-stress-tester-swift-%{swifttag} swift-stress-tester
-mv swift-docc-swift-%{swifttag} swift-docc
-mv swift-lmdb-swift-%{swifttag} swift-lmdb
-mv swift-docc-render-artifact-swift-%{swifttag} swift-docc-render-artifact
-mv swift-docc-symbolkit-swift-%{swifttag} swift-docc-symbolkit
-mv swift-markdown-swift-%{swifttag} swift-markdown
-mv swift-cmark-release-5.6-gfm swift-cmark-gfm
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -151,15 +117,15 @@ mv Yams-%{yams_version} yams
 # Ninja
 mv ninja-%{ninja_version} ninja
 
+# Remove Cyclades as it has been removed from the Linux kernel
+%patch1 -p0
+
+# Temp patch to test libdispatch issue with clang 13
+%patch3 -p0
+
 # Fix python to python3 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
-
-# Temp patch for testing building
-%patch0 -p0
-
-# Gold Linker issue with LLVM under Fedora 36
-%patch1 -p0
 
 
 %build
@@ -205,8 +171,10 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Wed Jan 12 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
-- First build of Swift-5.6
+* Tue Feb 15 2022 Ron Olson <tachoknight@gmail.com> - 5.5.3-1
+- Updated to Swift 5.5.3-RELEASE
+* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 * Tue Dec 14 2021 Ron Olson <tachoknight@gmail.com> - 5.5.2-1
 - Updated to Swift 5.5.2-RELEASE
 * Wed Oct 27 2021 Ron Olson <tachoknight@gmail.com> - 5.5.1-1
