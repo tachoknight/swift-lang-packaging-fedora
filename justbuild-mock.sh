@@ -4,9 +4,8 @@ MYDIR=$PWD
 
 START_TS=`date`
 
-BUILD=fedora-rawhide-`uname -i`
-#BUILD=centos-stream+epel-next-9-`uname -i`
-
+#BUILD=fedora-rawhide-`uname -i`
+BUILD=fedora-36-`uname -i`
 
 rm -rf $HOME/rpmbuild
 rm -rf $MYDIR/mock-results

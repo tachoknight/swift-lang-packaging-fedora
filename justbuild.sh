@@ -12,14 +12,14 @@ rm $MYDIR/build-output.txt
 mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 cp $PWD/*.patch $HOME/rpmbuild/SOURCES
 #cp $PWD/*.conf $HOME/rpmbuild/SOURCES
-cp $PWD/swift-lang.spec $HOME/rpmbuild/SPECS
+cp $PWD/swiftlang.spec $HOME/rpmbuild/SPECS
 
 pushd $HOME/rpmbuild/SPECS
-spectool -g -R ./swift-lang.spec
+spectool -g -R ./swiftlang.spec
 # Get the dependencies
-#dnf builddep -y ./swift-lang.spec
+#dnf builddep -y ./swiftlang.spec
 # Now do the actual build
-rpmbuild -ba ./swift-lang.spec 2>&1 | tee $MYDIR/build-output.txt
+rpmbuild -ba ./swiftlang.spec 2>&1 | tee $MYDIR/build-output.txt
 #rpmbuild -bc ./swift-lang.spec 2>&1 | tee $MYDIR/build-output.txt
 popd
 
