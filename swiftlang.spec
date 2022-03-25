@@ -80,7 +80,7 @@ BuildRequires:  libicu-devel
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:  /usr/bin/pathfix.py
-BuildRequires:  cmake
+#BuildRequires:  cmake
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
@@ -173,6 +173,13 @@ mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
 %endif
+
+# Adding specific flags to the build
+export CXXFLAGS="%{optflags} -fPIC -DXYZZY"
+export CFLAGS="%{optflags} -fPIC -Dxyzzy"
+export LDFLAGS="%{optflags} -fPIE -Dplugh"
+#export CMAKE_CXX_FLAGS="-fPIC -DFLUBBO"
+#export CMAKE_C_FLAGS="-fPIC -DFLOOMS"
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_assertions,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
