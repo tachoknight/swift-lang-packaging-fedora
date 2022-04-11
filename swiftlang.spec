@@ -1,7 +1,9 @@
 %global debug_package %{nil}
+%undefine _auto_set_build_flags
+
 %global linux_version fedora
-%global swift_version 5.6-RELEASE
-%global package_version 5.6.0
+%global swift_version 5.6.1-RELEASE
+%global package_version 5.6.1
 %global swift_source_location swift-source
 %global sap_version 0.4.3
 %global icu_version 65-1
@@ -215,6 +217,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Apr 11 2022 Ron Olson <tachoknight@gmail.com> - 5.6.1-1
+- Updated to 5.6.1-RELEASE
 * Sun Mar 20 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
 - Updated to 5.6.0-RELEASE
 * Tue Mar 08 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
