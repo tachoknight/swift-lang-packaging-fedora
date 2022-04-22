@@ -18,6 +18,7 @@
 %global swift_system_version 1.1.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
+%global swift_cmark_gfm_branch release/5.6-gfm 
 
 Name:           swiftlang
 Version:        %{package_version}
@@ -48,7 +49,7 @@ Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_
 Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
 Source20:       https://github.com/KitWare/CMake/archive/refs/tags/v%{cmake_version}.tar.gz#/cmake.tar.gz
 Source21:       https://github.com/apple/swift-atomics/archive/%{swift_atomics_version}.tar.gz#/swift-atomics.tar.gz
-Source22:       https://github.com/apple/swift-cmark/archive/swift-%{swift_version}-gfm.tar.gz#/swift-cmark-gfm.tar.gz
+Source22:       https://github.com/apple/swift-cmark/archive/refs/heads/%{swift_cmark_gfm_branch}.zip#/swift-cmark-gfm.zip
 Source23:       https://github.com/apple/swift-docc/archive/swift-%{swift_version}.tar.gz#/swift-docc.tar.gz
 Source24:       https://github.com/apple/swift-docc-render-artifact/archive/swift-%{swift_version}.tar.gz#/swift-docc-render-artifact.tar.gz
 Source25:       https://github.com/apple/swift-docc-symbolkit/archive/swift-%{swift_version}.tar.gz#/swift-docc-symbolkit.tar.gz
@@ -134,7 +135,7 @@ mv swift-driver-swift-%{swift_version} swift-driver
 mv swift-crypto-%{swift_crypto_version} swift-crypto
 mv CMake-%{cmake_version} cmake
 mv swift-atomics-%{swift_atomics_version} swift-atomics
-mv swift-cmark-swift-%{swift_version}-gfm swift-cmark-gfm
+#mv swift-cmark-swift-%{swift_version}-gfm swift-cmark-gfm
 mv swift-docc-swift-%{swift_version} swift-docc
 mv swift-docc-render-artifact-swift-%{swift_version} swift-docc-render-artifact
 mv swift-docc-symbolkit-swift-%{swift_version} swift-docc-symbolkit
@@ -146,6 +147,7 @@ mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
 mv swift-format-swift-%{swift_version} swift-format
 mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
+mv swift-cmark-release-5.6-gfm swift-cmark-gfm
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -176,12 +178,6 @@ ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
 %endif
 
-# Adding specific flags to the build
-export CXXFLAGS="%{optflags} -fPIC -DXYZZY"
-export CFLAGS="%{optflags} -fPIC -Dxyzzy"
-export LDFLAGS="%{optflags} -fPIE -Dplugh"
-#export CMAKE_CXX_FLAGS="-fPIC -DFLUBBO"
-#export CMAKE_C_FLAGS="-fPIC -DFLOOMS"
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_assertions,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
@@ -223,12 +219,12 @@ export QA_SKIP_RPATHS=1
 - Updated to Swift 5.6.1-RELEASE
 * Wed Mar 30 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
 - Updated to Swift 5.6-RELEASE
-* Wed Jan 12 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
-- First build of Swift-5.6
 * Tue Feb 15 2022 Ron Olson <tachoknight@gmail.com> - 5.5.3-1
 - Updated to Swift 5.5.3-RELEASE
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+* Wed Jan 12 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
+- First build of Swift-5.6
 * Tue Dec 14 2021 Ron Olson <tachoknight@gmail.com> - 5.5.2-1
 - Updated to Swift 5.5.2-RELEASE
 * Wed Oct 27 2021 Ron Olson <tachoknight@gmail.com> - 5.5.1-1
