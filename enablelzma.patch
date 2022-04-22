@@ -1,0 +1,11 @@
+--- swift/utils/build-script-impl.orig	2022-04-12 11:12:59.832022240 -0500
++++ swift/utils/build-script-impl	2022-04-12 11:13:19.694223857 -0500
+@@ -2272,7 +2272,7 @@
+                     -DLLDB_ENABLE_CURSES=ON
+                     -DLLDB_ENABLE_LIBEDIT=ON
+                     -DLLDB_ENABLE_PYTHON=ON
+-                    -DLLDB_ENABLE_LZMA=OFF
++                    -DLLDB_ENABLE_LZMA=ON
+                     -DLLDB_ENABLE_LUA=OFF
+                     -DLLDB_INCLUDE_TESTS:BOOL=$(false_true ${BUILD_TOOLCHAIN_ONLY})
+                     -DLLDB_TEST_USER_ARGS="${DOTEST_ARGS}"

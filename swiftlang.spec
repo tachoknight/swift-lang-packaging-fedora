@@ -1,7 +1,9 @@
 %global debug_package %{nil}
+%undefine _auto_set_build_flags
+
 %global linux_version fedora
-%global swift_version 5.6-RELEASE
-%global package_version 5.6.0
+%global swift_version 5.6.1-RELEASE
+%global package_version 5.6.1
 %global swift_source_location swift-source
 %global sap_version 0.4.3
 %global icu_version 65-1
@@ -59,9 +61,10 @@ Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_vers
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
-Patch0:         temp-patches.patch
-Patch1:         goldinclude.patch
- 
+Patch0:		temp-patches.patch
+Patch1:		goldinclude.patch
+Patch2:		enablelzma.patch
+
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
@@ -90,7 +93,6 @@ Requires:       glibc-devel
 Requires:       binutils-gold
 Requires:       gcc
 Requires:       ncurses-devel
-Requires:       ncurses-compat-libs
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -160,9 +162,8 @@ mv ninja-%{ninja_version} ninja
 # Gold Linker issue with LLVM under Fedora 36
 %patch1 -p0
 
-# Fix python to python3 
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
+# Enable LZMA
+%patch2 -p0
 
 
 %build
@@ -215,9 +216,14 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Sun Mar 20 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
-- Updated to 5.6.0-RELEASE
-* Tue Mar 08 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
+* Thu Apr 21 2022 Ron Olson <tachoknight@gmail.com> - 5.6.1-2
+- Removed ncurses-compat-libs as a runtime dependency as it 
+  has been removed from Fedora Rawhide
+* Mon Apr 11 2022 Ron Olson <tachoknight@gmail.com> - 5.6.1-1
+- Updated to Swift 5.6.1-RELEASE
+* Wed Mar 30 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
+- Updated to Swift 5.6-RELEASE
+* Wed Jan 12 2022 Ron Olson <tachoknight@gmail.com> - 5.6-1
 - First build of Swift-5.6
 * Tue Feb 15 2022 Ron Olson <tachoknight@gmail.com> - 5.5.3-1
 - Updated to Swift 5.5.3-RELEASE
