@@ -20,7 +20,7 @@ spectool -g -R ./swiftlang.spec
 #dnf builddep -y ./swiftlang.spec
 # Now do the actual build
 rpmbuild -ba ./swiftlang.spec 2>&1 | tee $MYDIR/build-output.txt
-#rpmbuild -bc ./swift-lang.spec 2>&1 | tee $MYDIR/build-output.txt
+#rpmbuild -bc ./swiftlang.spec 2>&1 | tee $MYDIR/build-output.txt
 popd
 
 echo Started:_____$START_TS

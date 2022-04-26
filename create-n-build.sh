@@ -8,16 +8,16 @@ pushd $THISDIR
 THISVERSION=`cat /etc/os-release | grep PLATFORM_ID | awk -F: '/platform:*/{print $2}' | cut -c 2- | rev | cut -c 2- | rev`
 echo Building on $THISVERSION of Fedora
 
-# First we want to capture the hash of the swift-lang.spec
+# First we want to capture the hash of the swiftlang.spec
 # file...
-bh=`md5sum ./swift-lang.spec`
+bh=`md5sum ./swiftlang.spec`
 
 # Now run the python program to check for updates
-# and modify the swift-lang.spec file accordingly
+# and modify the swiftlang.spec file accordingly
 ./nrc.py
 
 # Now hash the file again
-ah=`md5sum ./swift-lang.spec`
+ah=`md5sum ./swiftlang.spec`
 
 # And now only bother doing the rest of the script
 # if the hash was changed, otherwise exit
@@ -32,20 +32,20 @@ rm $THISDIR/cnb-build-output.txt
 mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 cp $THISDIR/*.patch $HOME/rpmbuild/SOURCES
 cp $THISDIR/*.conf $HOME/rpmbuild/SOURCES
-cp $THISDIR/swift-lang.spec $HOME/rpmbuild/SPECS
+cp $THISDIR/swiftlang.spec $HOME/rpmbuild/SPECS
 
 pushd $HOME/rpmbuild/SPECS
-spectool -g -R ./swift-lang.spec
+spectool -g -R ./swiftlang.spec
 # Get the dependencies (here for documentation about what to do, this
 # needs sudo to run)
-#dnf builddep -y ./swift-lang.spec
+#dnf builddep -y ./swiftlang.spec
 # Now do the actual build
-rpmbuild -ba ./swift-lang.spec 2>&1 | tee $THISDIR/cnb-build-output.txt
+rpmbuild -ba ./swiftlang.spec 2>&1 | tee $THISDIR/cnb-build-output.txt
 popd
 
 # And commit it to the nightly-builds branch
 #git checkout nightly-builds
-git commit -am "Updated to `awk '/%global swifttag *./{print $3}' ./swift-lang.spec`"
+git commit -am "Updated to `awk '/%global swifttag *./{print $3}' ./swiftlang.spec`"
 git push 
 
 # Now move it to fedorapeople

@@ -7,7 +7,7 @@
 %global swift_source_location swift-source
 %global sap_version 0.4.3
 %global icu_version 65-1
-%global yams_version 4.0.2
+%global yams_version 5.0.0
 %global swift_argument_parser_version 1.0.3
 %global swift_crypto_version 1.1.5
 %global ninja_version 1.10.2
@@ -19,6 +19,7 @@
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
 %global swift_cmark_gfm_branch release/5.6-gfm 
+%global swift_format_version 0.50600.1
 
 Name:           swiftlang
 Version:        %{package_version}
@@ -58,7 +59,7 @@ Source27:       https://github.com/apple/swift-numerics/archive/%{swift_numerics
 Source28:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
 Source29:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
 Source30:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
-Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
+Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
@@ -144,7 +145,7 @@ mv swift-numerics-%{swift_numerics_version} swift-numerics
 mv swift-system-%{swift_system_version} swift-system
 mv swift-nio-%{swift_nio_version} swift-nio
 mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
-mv swift-format-swift-%{swift_version} swift-format
+mv swift-format-%{swift_format_version} swift-format
 mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
 mv swift-cmark-release-5.6-gfm swift-cmark-gfm
@@ -163,10 +164,10 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Temp patch for testing building
-%patch0 -p0
+#%patch0 -p0
 
 # Gold Linker issue with LLVM under Fedora 36
-%patch1 -p0
+#%patch1 -p0
 
 # Enable LZMA
 %patch2 -p0
@@ -184,7 +185,7 @@ export PATH=$PWD/binforpython:$PATH
 
 
 # Here we go!
-swift/utils/build-script --preset=buildbot_linux,no_assertions,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
+swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
 
 %install
