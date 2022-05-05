@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # The version we're autobuilding
-CURRENT_VERSION = 'swift-5.6'
+CURRENT_VERSION = 'swift-5.7'
 
 def left(s, amount):
     return s[:amount]
@@ -70,7 +70,7 @@ def process(post, postDate):
     # First change the file date
     newTitle = post.title
     newTitle = newTitle.replace('swift-', '')
-    spec = changeData(spec, 'swifttag .*', 'swifttag ' + newTitle) 
+    spec = changeData(spec, 'swift_version .*', 'swift_version ' + newTitle) 
 
     nf = open('swiftlang.spec', 'w')
     nf.write(spec)
@@ -93,6 +93,7 @@ d = feedparser.parse("https://github.com/apple/swift/releases.atom")
 
 # We're gonna start from the top as that's the latest one
 
+print(f"Looking for Swift version {CURRENT_VERSION}")
 print("Ok, Gonna go through them...")
 for post in d.entries:    
     print(post.title)
