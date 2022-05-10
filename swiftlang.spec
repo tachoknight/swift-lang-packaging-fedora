@@ -92,7 +92,11 @@ BuildRequires:	python-unversioned-command
 %endif
 
 Requires:       glibc-devel
-Requires:       binutils-gold
+%if 0%{?rhel} && 0%{?rhel} == 8
+Requires:       binutils
+%else
+Requires:	binutils-gold
+%endif
 Requires:       gcc
 Requires:       ncurses-devel
 
