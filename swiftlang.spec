@@ -2,8 +2,8 @@
 %undefine _auto_set_build_flags
 
 %global linux_version fedora
-%global swift_version 5.7-DEVELOPMENT-SNAPSHOT-2022-06-13-a
-%global package_version 5.7
+%global swift_version 5.6.2-RELEASE
+%global package_version 5.6
 %global swift_source_location swift-source
 %global sap_version 0.4.3
 %global icu_version 65-1
@@ -221,10 +221,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Thu May 05 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1
-- First working version of Swift 5.7
-* Mon Apr 25 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1
-- First attempt to build swift-5.7
+* Sun Jun 18 2022 Ron Olson <tachoknight@gmail.com> - 5.6.2-1
+- Updated to Swift 5.6.1-RELEASE
 * Thu Apr 21 2022 Ron Olson <tachoknight@gmail.com> - 5.6.1-2
 - Removed ncurses-compat-libs as a runtime dependency as it 
   has been removed from Fedora Rawhide
