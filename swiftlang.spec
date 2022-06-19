@@ -221,7 +221,7 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Sun Jun 18 2022 Ron Olson <tachoknight@gmail.com> - 5.6.2-1
+* Sat Jun 18 2022 Ron Olson <tachoknight@gmail.com> - 5.6.2-1
 - Updated to Swift 5.6.1-RELEASE
 * Thu Apr 21 2022 Ron Olson <tachoknight@gmail.com> - 5.6.1-2
 - Removed ncurses-compat-libs as a runtime dependency as it 
