@@ -18,8 +18,8 @@
 %global swift_cmark_gfm_branch release/5.6-gfm 
 
 Name:           swift-lang
-Version:        5.6.1
-Release:        3%{?dist}
+Version:        5.6.2
+Release:        1%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -216,6 +216,8 @@ export QA_SKIP_RPATHS=1
 %changelog
 * Sun Jun 19 2022 Ron Olson <tachoknight@gmail.com> - 5.6.2-1
 - Updated to Swift 5.6.2-RELEASE
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 5.6.1-4
+- Rebuilt for Python 3.11
 * Tue May 10 2022 Ron Olson <tachoknight@gmail.com> - 5.6.1-3
 - Discovered that EPEL-8 doesn't have binutils-gold (again)
 * Thu Apr 21 2022 Ron Olson <tachoknight@gmail.com> - 5.6.1-2
