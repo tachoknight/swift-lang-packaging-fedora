@@ -30,7 +30,7 @@ def getGitTag(post):
     return [elem.string for elem in elems][0]
 
 def getSpecFileContents():
-    with open('swiftlang.spec', 'r') as f:
+    with open('swift-lang.spec', 'r') as f:
          return f.read()
 
 def changeData(f, textToFind, textToReplace):
@@ -72,7 +72,7 @@ def process(post, postDate):
     newTitle = newTitle.replace('swift-', '')
     spec = changeData(spec, 'swift_version .*', 'swift_version ' + newTitle) 
 
-    nf = open('swiftlang.spec', 'w')
+    nf = open('swift-lang.spec', 'w')
     nf.write(spec)
     nf.close()
 
