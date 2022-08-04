@@ -62,6 +62,7 @@ Source33:	https://github.com/apple/swift-cmark/archive/refs/heads/%{swift_cmark_
 Patch0:		temp-patches.patch
 Patch1:		goldinclude.patch
 Patch2:		enablelzma.patch
+Patch3:		fs.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -170,6 +171,8 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/h
 # Enable LZMA
 %patch2 -p0
 
+# Fix issues including linux/fs.h causing duplicate defintions
+%patch3 -p0
 
 %build
 export VERBOSE=1

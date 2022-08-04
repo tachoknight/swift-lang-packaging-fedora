@@ -1,0 +1,15 @@
+--- llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp.orig	2022-08-03 19:13:51.591055629 -0500
++++ llvm-project/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp	2022-08-03 19:13:56.112348435 -0500
+@@ -73,7 +73,11 @@
+ #include <sys/vt.h>
+ #include <linux/cdrom.h>
+ #include <linux/fd.h>
+-#include <linux/fs.h>
++//#include <linux/fs.h>
++#define FS_IOC_GETFLAGS                 _IOR('f', 1, long)
++#define FS_IOC_SETFLAGS                 _IOW('f', 2, long)
++#define FS_IOC_GETVERSION               _IOR('v', 1, long)
++#define FS_IOC_SETVERSION               _IOW('v', 2, long)
+ #include <linux/hdreg.h>
+ #include <linux/input.h>
+ #include <linux/ioctl.h>
