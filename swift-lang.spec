@@ -19,7 +19,7 @@
 
 Name:           swift-lang
 Version:        5.6.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Apple's Swift programming language
 License:        ASL 2.0 and Unicode
 URL:            https://swift.org
@@ -217,6 +217,12 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Thu Aug 04 2022 Ron Olson <tachoknight@gmail.com> - 5.6.2-3
+Fixed issue of building Swift with glibc 2.36 on Fedora 37
+
+* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
 * Sun Jun 19 2022 Ron Olson <tachoknight@gmail.com> - 5.6.2-1
 - Updated to Swift 5.6.2-RELEASE
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 5.6.1-4
