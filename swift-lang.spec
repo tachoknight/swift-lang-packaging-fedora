@@ -66,6 +66,7 @@ Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_ve
 Patch0:		temp-patches.patch
 Patch1:		goldinclude.patch
 Patch2:		enablelzma.patch
+Patch3:   fs.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -175,6 +176,10 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/h
 
 # Enable LZMA
 %patch2 -p0
+
+# Fix for glibc defining certain structs and enums twice that are flagged
+# as redefined when including linux/fs.h
+%patch3 -p0
 
 
 %build
