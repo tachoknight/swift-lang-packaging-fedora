@@ -2,7 +2,7 @@
 %undefine _auto_set_build_flags
 
 %global linux_version fedora
-%global swift_version 5.7-DEVELOPMENT-SNAPSHOT-2022-08-27-a
+%global swift_version 5.7-DEVELOPMENT-SNAPSHOT-2022-08-30-a
 %global package_version 5.7
 %global swift_source_location swift-source
 %global sap_version 0.4.3
