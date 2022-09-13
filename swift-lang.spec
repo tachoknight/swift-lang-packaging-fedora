@@ -2,7 +2,7 @@
 %undefine _auto_set_build_flags
 
 %global linux_version fedora
-%global swift_version 5.7-DEVELOPMENT-SNAPSHOT-2022-08-30-a
+%global swift_version 5.7-RELEASE
 %global package_version 5.7
 %global swift_source_location swift-source
 %global sap_version 0.4.3
@@ -66,7 +66,7 @@ Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_ve
 Patch0:		temp-patches.patch
 Patch1:		goldinclude.patch
 Patch2:		enablelzma.patch
-Patch3:   fs.patch
+Patch3:   	fs.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -90,6 +90,12 @@ BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:	binutils-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
+%endif
+
+# Gotta do something special for EPEL8 apparently
+# (9/12/22)
+%if 0%{?rhel} && 0%{?rhel} == 8
+BuildRequires:	gcc-toolset-11
 %endif
 
 Requires:       glibc-devel
@@ -226,6 +232,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Sep 13 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1
+- Updated to Swift 5.7-RELEASE
 * Thu May 05 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1
 - First working version of Swift 5.7
 * Mon Apr 25 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1
