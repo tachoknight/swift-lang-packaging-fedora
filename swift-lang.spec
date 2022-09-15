@@ -21,7 +21,7 @@
 %global swift_cmark_gfm_branch release/5.6-gfm 
 %global swift_format_version 0.50600.1
 
-Name:           swiftlang
+Name:           swift-lang
 Version:        %{package_version}
 Release:        1%{?dist}
 Summary:        The Swift programming language
@@ -86,7 +86,6 @@ BuildRequires:  libicu-devel
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:  /usr/bin/pathfix.py
-#BuildRequires:  cmake
 BuildRequires:	binutils-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
@@ -198,6 +197,10 @@ ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
 %endif
 
+%if 0%{?el8}
+# Enable GCC Toolset 11
+. /opt/rh/gcc-toolset-11/enable
+%endif
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
