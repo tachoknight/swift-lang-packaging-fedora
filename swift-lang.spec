@@ -67,6 +67,7 @@ Patch0:		temp-patches.patch
 Patch1:		goldinclude.patch
 Patch2:		enablelzma.patch
 Patch3:   	fs.patch
+Patch4:		unusedvars.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -146,7 +147,6 @@ mv swift-driver-swift-%{swift_version} swift-driver
 mv swift-crypto-%{swift_crypto_version} swift-crypto
 mv CMake-%{cmake_version} cmake
 mv swift-atomics-%{swift_atomics_version} swift-atomics
-#mv swift-cmark-swift-%{swift_version}-gfm swift-cmark-gfm
 mv swift-docc-swift-%{swift_version} swift-docc
 mv swift-docc-render-artifact-swift-%{swift_version} swift-docc-render-artifact
 mv swift-docc-symbolkit-swift-%{swift_version} swift-docc-symbolkit
@@ -173,18 +173,15 @@ mv ninja-%{ninja_version} ninja
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
-# Temp patch for testing building
-#%patch0 -p0
-
-# Gold Linker issue with LLVM under Fedora 36
-#%patch1 -p0
-
 # Enable LZMA
 %patch2 -p0
 
 # Fix for glibc defining certain structs and enums twice that are flagged
 # as redefined when including linux/fs.h
 %patch3 -p0
+
+# Fix for variable that is initialized and not used
+%patch4 -p0
 
 
 %build
