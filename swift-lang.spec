@@ -181,8 +181,12 @@ export VERBOSE=1
 # Before Fedora 34, we may not have /usr/bin/python, so we 
 # roll our own because the build script expects there to be one.
 %if 0%{?fedora} < 34 || 0%{?el8}
-mkdir $PWD/binforpython
-ln -s /usr/bin/python3 $PWD/binforpython/python
+
+if [ ! -d $PWD/binforpython ] ; then
+        mkdir -p $PWD/binforpython
+        ln -s /usr/bin/python3 $PWD/binforpython/python
+fi
+
 export PATH=$PWD/binforpython:$PATH
 %endif
 
