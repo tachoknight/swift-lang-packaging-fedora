@@ -23,7 +23,7 @@
 
 Name:           swift-lang
 Version:        %{package_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        The Swift programming language
 License:        Apache 2.0
 URL:            https://www.swift.org
@@ -63,8 +63,6 @@ Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
-Patch0:		temp-patches.patch
-Patch1:		goldinclude.patch
 Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
@@ -90,12 +88,6 @@ BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:	binutils-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
-%endif
-
-# Gotta do something special for EPEL8 apparently
-# (9/12/22)
-%if 0%{?rhel} && 0%{?rhel} == 8
-BuildRequires:	gcc-toolset-11
 %endif
 
 Requires:       glibc-devel
@@ -194,11 +186,6 @@ ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
 %endif
 
-%if 0%{?el8}
-# Enable GCC Toolset 11
-. /opt/rh/gcc-toolset-11/enable
-%endif
-
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
@@ -232,6 +219,11 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Sep 27 2022 Ron Olson <tachoknight@gmail.com> - 5.7-3
+- Resolves: rhbz#2130233
+* Tue Sep 27 2022 Ron Olson <tachoknight@gmail.com> - 5.7-2
+- Added patch to handle an initialized variable but not
+  used
 * Tue Sep 13 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1
 - Updated to Swift 5.7-RELEASE
 * Thu May 05 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1
