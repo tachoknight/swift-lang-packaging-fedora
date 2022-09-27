@@ -7,7 +7,7 @@
 # Also note that this is specific to Fedora-flavored containers.
 #
 
-dnf install -y rpm-build rpm-devel rpmdevtools vim epel-release
+dnf install -y rpm-build rpm-devel rpmdevtools vim epel-release figlet
 dnf install -y 'dnf-command(config-manager)'
 dnf config-manager --set-enabled epel
 dnf config-manager --set-enabled powertools
