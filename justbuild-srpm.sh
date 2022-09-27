@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo Building SRPM | figlet
+echo Building SRPM | figlet | lolcat
 
 MYDIR=$PWD
 

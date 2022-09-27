@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+echo Building Everything for Fedora `rpm -E %fedora` | figlet | lolcat
+
 MYDIR=$PWD
 
 START_TS=`date`
