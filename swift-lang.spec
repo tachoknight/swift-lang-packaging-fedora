@@ -98,6 +98,7 @@ Requires:	binutils-gold
 %endif
 Requires:       gcc
 Requires:       ncurses-devel
+Requires:	lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
