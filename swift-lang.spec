@@ -181,12 +181,10 @@ export VERBOSE=1
 # Before Fedora 34, we may not have /usr/bin/python, so we 
 # roll our own because the build script expects there to be one.
 %if 0%{?fedora} < 34 || 0%{?el8}
-
 if [ ! -d $PWD/binforpython ] ; then
-        mkdir -p $PWD/binforpython
-        ln -s /usr/bin/python3 $PWD/binforpython/python
+	mkdir -p $PWD/binforpython
+	ln -s /usr/bin/python3 $PWD/binforpython/python
 fi
-
 export PATH=$PWD/binforpython:$PATH
 %endif
 
@@ -223,6 +221,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Nov 01 2022 Ron Olson <tachoknight@gmail.com> - 5.7-4
+- Merged fix from Lumír Balhar to replace the pathfix.py tool
+  with the new way for Python 3.12
 * Tue Sep 27 2022 Ron Olson <tachoknight@gmail.com> - 5.7-3
 - Resolves: rhbz#2130233
 * Tue Sep 27 2022 Ron Olson <tachoknight@gmail.com> - 5.7-2
