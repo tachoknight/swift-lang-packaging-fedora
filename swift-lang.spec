@@ -2,7 +2,7 @@
 %undefine _auto_set_build_flags
 
 %global linux_version fedora
-%global swift_version 5.7-DEVELOPMENT-SNAPSHOT-2022-10-03-a
+%global swift_version 5.7.1-RELEASE
 %global package_version 5.7
 %global swift_source_location swift-source
 %global sap_version 0.4.3
@@ -221,6 +221,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Nov 02 2022 Ron Olson <tachoknight@gmail.com> - 5.7.1-1
+- Updated to Swift 5.7.1-RELEASE
+  Resolves: rhbz#2139320
 * Tue Nov 01 2022 Ron Olson <tachoknight@gmail.com> - 5.7-4
 - Merged fix from Lumír Balhar to replace the pathfix.py tool
   with the new way for Python 3.12
