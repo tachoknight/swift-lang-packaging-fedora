@@ -3,6 +3,7 @@
 
 %global linux_version fedora
 %global swift_version 5.7.1-RELEASE
+%global fedora_release 1
 %global package_version 5.7
 %global swift_source_location swift-source
 %global sap_version 0.4.3
@@ -23,7 +24,7 @@
 
 Name:           swift-lang
 Version:        %{package_version}
-Release:        3%{?dist}
+Release:        %{fedora_release}%{?dist}
 Summary:        The Swift programming language
 License:        Apache 2.0
 URL:            https://www.swift.org
