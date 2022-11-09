@@ -4,7 +4,7 @@
 %global linux_version fedora
 %global swift_version 5.7.1-RELEASE
 %global fedora_release 1
-%global package_version 5.7
+%global package_version 5.7.1
 %global swift_source_location swift-source
 %global sap_version 0.4.3
 %global icu_version 65-1
