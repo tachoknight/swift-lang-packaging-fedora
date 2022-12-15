@@ -15,7 +15,7 @@
 %global yams_version 5.0.1
 %global swift_argument_parser_version 1.0.3
 %global swift_crypto_version 1.1.5
-%global ninja_version 1.10.2
+%global ninja_version 1.11.1
 %global cmake_version 3.19.6
 %global swift_atomics_version 1.0.2
 %global swift_collections_version 1.0.1
@@ -23,8 +23,10 @@
 %global swift_system_version 1.1.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
-%global swift_cmark_gfm_branch release/5.6-gfm 
-%global swift_format_version 0.50600.1
+# HEY! Are you changing the version of the project below?
+# Make sure to change it in the %prep section as well in
+# the renaming part
+%global swift_cmark_gfm_branch release/5.7-gfm 
 
 Name:           swift-lang
 Version:        %{package_version}
@@ -64,7 +66,7 @@ Source27:       https://github.com/apple/swift-numerics/archive/%{swift_numerics
 Source28:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
 Source29:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
 Source30:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
-Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
+Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
@@ -152,10 +154,10 @@ mv swift-numerics-%{swift_numerics_version} swift-numerics
 mv swift-system-%{swift_system_version} swift-system
 mv swift-nio-%{swift_nio_version} swift-nio
 mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
-mv swift-format-%{swift_format_version} swift-format
+mv swift-format-swift-%{swift_version} swift-format
 mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
-mv swift-cmark-release-5.6-gfm swift-cmark-gfm
+mv swift-cmark-release-5.7-gfm swift-cmark-gfm
 
 # ICU 
 mv icu-release-%{icu_version} icu
