@@ -32,7 +32,7 @@ Name:           swift-lang
 Version:        %{package_version}
 Release:        %{fedora_release}%{?dist}
 Summary:        The Swift programming language
-License:        Apache 2.0
+License:        Apache-2.0
 URL:            https://www.swift.org
 
 Source0:        https://github.com/apple/swift/archive/refs/tags/swift-%{swift_version}.tar.gz#/swift.tar.gz
