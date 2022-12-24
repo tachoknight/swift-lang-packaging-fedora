@@ -4,7 +4,7 @@
 %global linux_version fedora
 
 # Make sure these are changed for every release!
-%global swift_version 5.7.2-RELEASE
+%global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2022-12-20-a
 %global fedora_release 2
 %global package_version 5.7.2
 
