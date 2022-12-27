@@ -5,12 +5,11 @@
 
 # Make sure these are changed for every release!
 %global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2022-12-20-a
-%global fedora_release 2
-%global package_version 5.7.2
+%global fedora_release 1
+%global package_version 5.8
 
 # Set to the right version per the json file
 %global swift_source_location swift-source
-%global sap_version 0.4.3
 %global icu_version 65-1
 %global yams_version 5.0.1
 %global swift_argument_parser_version 1.0.3
@@ -23,10 +22,10 @@
 %global swift_system_version 1.1.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
-# HEY! Are you changing the version of the project below?
-# Make sure to change it in the %prep section as well in
-# the renaming part
-%global swift_cmark_gfm_branch release/5.7-gfm 
+
+# Temporary I presume as the json file suggests there should
+# be eventually a release version of swift-format
+%global swift_format_version 0.50700.1
 
 Name:           swift-lang
 Version:        %{package_version}
@@ -57,7 +56,6 @@ Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_
 Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
 Source20:       https://github.com/KitWare/CMake/archive/refs/tags/v%{cmake_version}.tar.gz#/cmake.tar.gz
 Source21:       https://github.com/apple/swift-atomics/archive/%{swift_atomics_version}.tar.gz#/swift-atomics.tar.gz
-Source22:       https://github.com/apple/swift-cmark/archive/refs/heads/%{swift_cmark_gfm_branch}.zip#/swift-cmark-gfm.zip
 Source23:       https://github.com/apple/swift-docc/archive/swift-%{swift_version}.tar.gz#/swift-docc.tar.gz
 Source24:       https://github.com/apple/swift-docc-render-artifact/archive/swift-%{swift_version}.tar.gz#/swift-docc-render-artifact.tar.gz
 Source25:       https://github.com/apple/swift-docc-symbolkit/archive/swift-%{swift_version}.tar.gz#/swift-docc-symbolkit.tar.gz
@@ -66,7 +64,8 @@ Source27:       https://github.com/apple/swift-numerics/archive/%{swift_numerics
 Source28:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
 Source29:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
 Source30:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
-Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
+# Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
+Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
@@ -123,7 +122,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33
+%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -154,10 +153,10 @@ mv swift-numerics-%{swift_numerics_version} swift-numerics
 mv swift-system-%{swift_system_version} swift-system
 mv swift-nio-%{swift_nio_version} swift-nio
 mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
-mv swift-format-swift-%{swift_version} swift-format
+# mv swift-format-swift-%{swift_version} swift-format
+mv swift-format-%{swift_format_version} swift-format
 mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
-mv swift-cmark-release-5.7-gfm swift-cmark-gfm
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -177,10 +176,10 @@ mv ninja-%{ninja_version} ninja
 
 # Fix for glibc defining certain structs and enums twice that are flagged
 # as redefined when including linux/fs.h
-%patch3 -p0
+# %patch3 -p0
 
 # Fix for variable that is initialized and not used
-%patch4 -p0
+# %patch4 -p0
 
 
 %build
@@ -228,6 +227,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Dec 27 2022 Ron Olson <tachoknight@gmail.com> - 5.8-1
+- Cleanup and first attempt at getting 5.8 going
 * Fri Dec 16 2022 Ron Olson <tachoknight@gmail.com> - 5.7.2-2
 - SPDX migration
 * Wed Dec 14 2022 Ron Olson <tachoknight@gmail.com> - 5.7.2-1
