@@ -4,7 +4,7 @@
 %global linux_version fedora
 
 # Make sure these are changed for every release!
-%global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2022-12-20-a
+%global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2022-12-29-a
 %global fedora_release 1
 %global package_version 5.8
 
@@ -64,7 +64,7 @@ Source27:       https://github.com/apple/swift-numerics/archive/%{swift_numerics
 Source28:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
 Source29:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
 Source30:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
-# Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
+%dnl Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
 Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
@@ -153,7 +153,7 @@ mv swift-numerics-%{swift_numerics_version} swift-numerics
 mv swift-system-%{swift_system_version} swift-system
 mv swift-nio-%{swift_nio_version} swift-nio
 mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
-# mv swift-format-swift-%{swift_version} swift-format
+%dnl mv swift-format-swift-%{swift_version} swift-format
 mv swift-format-%{swift_format_version} swift-format
 mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
@@ -176,10 +176,10 @@ mv ninja-%{ninja_version} ninja
 
 # Fix for glibc defining certain structs and enums twice that are flagged
 # as redefined when including linux/fs.h
-# %patch3 -p0
+%dnl %patch3 -p0
 
 # Fix for variable that is initialized and not used
-# %patch4 -p0
+%dnl %patch4 -p0
 
 
 %build
