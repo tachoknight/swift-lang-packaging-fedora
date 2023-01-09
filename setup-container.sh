@@ -21,6 +21,7 @@ if [[ $FLAVOR == "Oracle"* ]]; then
 elif [[ $FLAVOR == "Fedora"* ]]; then
 	# Good ol' Fedora
         echo Oh, working with Fedora are we?
+	dnf install -y toilet lolcat
 else
 	# This should cover all the other flavors, like CentOS,
 	# Rocky, AlmaLinux, etc.
