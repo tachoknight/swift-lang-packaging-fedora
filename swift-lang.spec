@@ -181,13 +181,6 @@ mv ninja-%{ninja_version} ninja
 # Enable LZMA
 %patch2 -p0
 
-# Fix for glibc defining certain structs and enums twice that are flagged
-# as redefined when including linux/fs.h
-%dnl %patch3 -p0
-
-# Fix for variable that is initialized and not used
-%dnl %patch4 -p0
-
 
 %build
 export VERBOSE=1
