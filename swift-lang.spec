@@ -4,9 +4,9 @@
 %global linux_version fedora
 
 # Make sure these are changed for every release!
-%global swift_version 5.7.2-RELEASE
-%global fedora_release 2
-%global package_version 5.7.2
+%global swift_version 5.7.3-RELEASE
+%global fedora_release 1
+%global package_version 5.7.3
 
 # Set to the right version per the json file
 %global swift_source_location swift-source
@@ -228,6 +228,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Jan 20 2022 Ron Olson <tachoknight@gmail.com> - 5.7.3-1
+- Updated to Swift 5.7.3-RELEASE
+  Resolves: rhbz#2162626
 * Fri Dec 16 2022 Ron Olson <tachoknight@gmail.com> - 5.7.2-2
 - SPDX migration
 * Wed Dec 14 2022 Ron Olson <tachoknight@gmail.com> - 5.7.2-1
