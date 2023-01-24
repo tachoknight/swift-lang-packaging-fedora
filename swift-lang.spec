@@ -228,7 +228,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Fri Jan 20 2022 Ron Olson <tachoknight@gmail.com> - 5.7.3-1
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Fri Jan 20 2023 Ron Olson <tachoknight@gmail.com> - 5.7.3-1
 - Updated to Swift 5.7.3-RELEASE
   Resolves: rhbz#2162626
 * Fri Dec 16 2022 Ron Olson <tachoknight@gmail.com> - 5.7.2-2
