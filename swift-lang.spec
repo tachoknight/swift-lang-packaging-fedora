@@ -70,6 +70,7 @@ Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_vers
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
+Patch1:		uintptr.patch
 Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
@@ -171,6 +172,10 @@ mv ninja-%{ninja_version} ninja
 # Fix python to python3 
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
+
+# Fix for uintptr_t not being declared because the header wasn't
+# explicitly declared
+%patch1 -p0
 
 # Enable LZMA
 %patch2 -p0
