@@ -4,7 +4,7 @@
 %global linux_version fedora
 
 # Make sure these are changed for every release!
-%global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2023-01-13-a
+%global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2023-01-24-a
 %global fedora_release 1
 %global package_version 5.8
 
@@ -75,6 +75,7 @@ Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
+Patch1:		uintptr.patch
 Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
@@ -177,6 +178,9 @@ mv ninja-%{ninja_version} ninja
 # Fix python to python3 
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
+
+# Fix for uinit_ptr not being declared implicitly
+%patch1 -p0
 
 # Enable LZMA
 %patch2 -p0
