@@ -5,7 +5,7 @@
 
 # Make sure these are changed for every release!
 %global swift_version 5.7.3-RELEASE
-%global fedora_release 1
+%global fedora_release 2
 %global package_version 5.7.3
 
 # Set to the right version per the json file
@@ -233,6 +233,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Jan 25 2023 Ron Olson <tachoknight@gmail.com> - 5.7.3-2
+- Added patch for missing includes
+  Resolves: rhbz#2162626
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 * Fri Jan 20 2023 Ron Olson <tachoknight@gmail.com> - 5.7.3-1
