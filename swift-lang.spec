@@ -13,7 +13,7 @@
 %global icu_version 65-1
 %global yams_version 5.0.1
 %global swift_argument_parser_version 1.0.3
-%global swift_crypto_version 1.1.5
+%global swift_crypto_version 2.2.3
 %global ninja_version 1.11.1
 %global cmake_version 3.19.6
 %global swift_atomics_version 1.0.2
