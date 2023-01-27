@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo Building Everything for Fedora `rpm -E %fedora` | figlet | lolcat
+echo Building Everything for Fedora `rpm -E %fedora` | figlet -c -f pagga | lolcat
 
 MYDIR=$PWD
 
