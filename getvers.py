@@ -35,4 +35,4 @@ repos = ver_dict['repos']
 for key, val in repos.items():
     print(f"{key} - {val}")
 
-
+print(f"*** There are {len(repos)} parts to worry about ***")
