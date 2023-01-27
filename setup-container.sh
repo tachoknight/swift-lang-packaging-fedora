@@ -11,6 +11,7 @@
 FLAVOR=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`
 echo Working with $FLAVOR
 
+dnf update -y
 dnf install -y rpm-build rpm-devel rpmdevtools vim 
 dnf install -y 'dnf-command(config-manager)'
 
