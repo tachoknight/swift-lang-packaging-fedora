@@ -41,6 +41,6 @@ for key, val in repos.items():
     if key in spec_file_contents:
         print(f"\tFound {key} in spec file")
     else:
-        print(f"\tDID NOT find {key} in spec file")
+        print(f"\t!!!! DID NOT find {key} in spec file !!!!")
     
 print(f"*** There are {len(repos)} parts to worry about ***")
