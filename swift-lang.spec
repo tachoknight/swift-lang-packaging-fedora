@@ -3,7 +3,9 @@
 
 %global linux_version fedora
 
+#################################################
 # Make sure these are changed for every release!
+#################################################
 %global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2023-01-27-a
 %global fedora_release 1
 %global package_version 5.8
@@ -26,6 +28,7 @@
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
 %global swift_format_version 0.50700.1
+
 
 Name:           swift-lang
 Version:        %{package_version}
@@ -70,6 +73,7 @@ Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 Source34:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
+Source35:       https://github.com/apple/swift-llvm-bindings/archive/swift-%{swift_version}.tar.gz#/swift-llvm-bindings.tar.gz
 
 Patch1:		uintptr.patch
 Patch2:		enablelzma.patch
@@ -111,6 +115,7 @@ Requires:	lldb
 ExclusiveArch:  x86_64 aarch64 
 
 Provides: 	swiftlang = %{version}-%{release}
+
 
 %description
 Swift is a general-purpose programming language built using 
@@ -185,9 +190,9 @@ mv ninja-%{ninja_version} ninja
 
 %build
 export VERBOSE=1
-# Before Fedora 34, we may not have /usr/bin/python, so we 
+# EPEL8 may not have /usr/bin/python, so we 
 # roll our own because the build script expects there to be one.
-%if 0%{?fedora} < 34 || 0%{?el8}
+%if 0%{?el8}
 if [ ! -d $PWD/binforpython ] ; then
 	mkdir -p $PWD/binforpython
 	ln -s /usr/bin/python3 $PWD/binforpython/python
@@ -228,6 +233,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 * Tue Dec 27 2022 Ron Olson <tachoknight@gmail.com> - 5.8-1
 - Cleanup and first attempt at getting 5.8 going
 * Fri Dec 16 2022 Ron Olson <tachoknight@gmail.com> - 5.7.2-2
