@@ -22,7 +22,7 @@ if [[ $FLAVOR == "Oracle"* ]]; then
 elif [[ $FLAVOR == "Fedora"* ]]; then
 	# Good ol' Fedora
         echo Oh, working with Fedora are we?
-	dnf install -y figlet toilet lolcat
+	dnf install -y figlet lolcat
 else
 	# This should cover all the other flavors, like CentOS,
 	# Rocky, AlmaLinux, etc.
@@ -31,6 +31,7 @@ else
         dnf config-manager --set-enabled powertools
 fi
 
+dnf install -y the_silver_searcher
 
 # Now get the dependencies from the spec file
 dnf builddep -y ./swift-lang.spec
