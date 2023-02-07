@@ -73,7 +73,7 @@ Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 Source34:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
-Source35:       https://github.com/apple/swift-llvm-bindings/archive/swift-%{swift_version}.tar.gz#/swift-llvm-bindings.tar.gz
+%dnl Source35:       https://github.com/apple/swift-llvm-bindings/archive/swift-%{swift_version}.tar.gz#/swift-llvm-bindings.tar.gz
 
 Patch1:		uintptr.patch
 Patch2:		enablelzma.patch
