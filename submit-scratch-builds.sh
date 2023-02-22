@@ -6,6 +6,8 @@
 # they build correctly
 #
 
+START_TS=`date`
+
 export MYDIR=$PWD
 # Our current version of Fedora
 export FEDORA_VERSION=`rpm -E %fedora`
