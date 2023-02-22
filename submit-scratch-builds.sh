@@ -58,5 +58,7 @@ sleep 10s
 
 popd
 
+echo Check status at https://koji.fedoraproject.org/koji/tasks?owner=tachoknight&state=active&view=tree&method=all&order=-id
+
 echo Started:_____$START_TS
 echo Ended:_______`date`
