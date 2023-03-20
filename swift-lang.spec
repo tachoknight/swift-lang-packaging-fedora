@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2023-03-07-a
+%global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2023-03-17-a
 %global fedora_release 1
 %global package_version 5.8
 
@@ -205,7 +205,7 @@ export PATH=$PWD/binforpython:$PATH
 %endif
 
 # Here we go!
-swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
+swift/utils/build-script --bootstrapping=off --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
 
 %install
