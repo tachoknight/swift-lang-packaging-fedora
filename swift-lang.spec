@@ -205,7 +205,7 @@ export PATH=$PWD/binforpython:$PATH
 %endif
 
 # Here we go!
-swift/utils/build-script --bootstrapping=off --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
+swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
 
 %install
