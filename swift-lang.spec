@@ -183,7 +183,7 @@ mv ninja-%{ninja_version} ninja
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Fix for uinit_ptr not being declared implicitly
-%patch 1 -p0
+%dnl %patch 1 -p0
 
 # Enable LZMA
 %patch 2 -p0
