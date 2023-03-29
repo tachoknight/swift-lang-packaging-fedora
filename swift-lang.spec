@@ -8,7 +8,7 @@
 #################################################
 %global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-03-28-a
 %global fedora_release 1
-%global package_version 5.8
+%global package_version 5.9
 
 # Set to the right version per the json file
 %global swift_source_location swift-source
@@ -24,6 +24,8 @@
 %global swift_system_version 1.1.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
+%global swift_certificates_version 0.1.0
+%global swift_asn1_version 0.7.0
 
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
@@ -74,6 +76,9 @@ Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_versio
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 Source34:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
 %dnl Source35:       https://github.com/apple/swift-llvm-bindings/archive/swift-%{swift_version}.tar.gz#/swift-llvm-bindings.tar.gz
+Source35:       https://github.com/apple/swift-certificates/archive/%{swift_certificates_version}.tar.gz#/swift-certificates.tar.gz
+Source36:       https://github.com/apple/swift-asn1/archive/%{swift_asn1_version}.tar.gz#/swift-asn1.tar.gz
+
 
 Patch1:		uintptr.patch
 Patch2:		enablelzma.patch
@@ -131,7 +136,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34
+%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -168,6 +173,8 @@ mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
 mv swift-stress-tester-swift-%{swift_version} swift-stress-tester
 mv swift-experimental-string-processing-swift-%{swift_version} swift-experimental-string-processing
+mv swift-certificates-%{swift_certificates_version} swift-certificates
+mv swift-asn1-%{swift_asn1_version} swift-asn1
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -237,6 +244,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Mar 29 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
+- Cleanup and first attempt at getting 5.9 going though
+  5.8 hasn't been released yet
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 * Tue Dec 27 2022 Ron Olson <tachoknight@gmail.com> - 5.8-1
