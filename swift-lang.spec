@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.8-DEVELOPMENT-SNAPSHOT-2023-03-17-a
+%global swift_version 5.8-RELEASE
 %global fedora_release 1
 %global package_version 5.8
 
@@ -183,13 +183,13 @@ mv ninja-%{ninja_version} ninja
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Fix for uinit_ptr not being declared implicitly
-%patch 1 -p0
+%patch1 -p0
 
 # Enable LZMA
-%patch 2 -p0
+%patch2 -p0
 
 # Tests fail for some reason preventing the package from being built
-%patch 5 -p0
+%patch5 -p0
 
 
 %build
@@ -237,6 +237,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Mar 31 2023 Ron Olson <tachoknight@gmail.com> - 5.8-1
+- Updated to Swift 5.8-RELEASE
+  Resolves: rhbz#2183429
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 * Tue Dec 27 2022 Ron Olson <tachoknight@gmail.com> - 5.8-1
