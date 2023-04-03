@@ -189,14 +189,11 @@ mv ninja-%{ninja_version} ninja
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
-# Fix for uinit_ptr not being declared implicitly
-%dnl %patch 1 -p0
-
 # Enable LZMA
-%patch 2 -p0
+%patch -P2 -p0
 
 # Tests fail for some reason preventing the package from being built
-%patch 5 -p0
+%patch -P5 -p0
 
 
 %build
