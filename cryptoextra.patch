@@ -1,0 +1,7 @@
+--- ./swift-crypto/Sources/CMakeLists.txt.orig	2023-04-06 15:13:20.185240119 -0500
++++ ./swift-crypto/Sources/CMakeLists.txt	2023-04-06 15:13:45.591934059 -0500
+@@ -16,3 +16,4 @@
+ add_subdirectory(CCryptoBoringSSLShims)
+ add_subdirectory(CryptoBoringWrapper)
+ add_subdirectory(Crypto)
++add_subdirectory(_CryptoExtras)
