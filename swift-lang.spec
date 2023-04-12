@@ -85,7 +85,6 @@ Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
 Patch5:		no-test.patch
-Patch6:		cryptoextra.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -196,8 +195,6 @@ mv ninja-%{ninja_version} ninja
 # Tests fail for some reason preventing the package from being built
 %patch -P5 -p0
 
-# _CryptoExtras not included in CMakeList file?
-%dnl %patch -P6 -p0
 
 %build
 export VERBOSE=1
