@@ -29,7 +29,7 @@
 
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
-%global swift_format_version 0.50700.1
+%global swift_format_version 508.0.0
 
 
 Name:           swift-lang
