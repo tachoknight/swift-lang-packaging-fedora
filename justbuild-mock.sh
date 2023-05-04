@@ -4,9 +4,9 @@ MYDIR=$PWD
 
 START_TS=`date`
 
-BUILD=fedora-rawhide-`uname -i`
+#BUILD=fedora-rawhide-`uname -m`
 #BUILD=alma+epel-8-`uname -m`
-#BUILD=fedora-36-`uname -i`
+BUILD=fedora-38-`uname -m`
 
 rm -rf $HOME/rpmbuild
 rm -rf $MYDIR/mock-results
