@@ -1,11 +1,11 @@
---- swift/utils/build-script-impl.orig	2023-05-31 15:04:30.245799456 -0500
-+++ swift/utils/build-script-impl	2023-05-31 15:04:56.020482290 -0500
-@@ -2203,7 +2203,7 @@
+--- swift/utils/build-script-impl.orig	2023-06-05 14:16:42.981545978 -0500
++++ swift/utils/build-script-impl	2023-06-05 14:17:12.167470913 -0500
+@@ -2209,7 +2209,7 @@
                      -DLLDB_ENABLE_CURSES=ON
                      -DLLDB_ENABLE_LIBEDIT=ON
                      -DLLDB_ENABLE_PYTHON=ON
 -                    -DLLDB_ENABLE_LZMA=OFF
 +                    -DLLDB_ENABLE_LZMA=ON
                      -DLLDB_ENABLE_LUA=OFF
-                     -DLLDB_INCLUDE_TESTS:BOOL=$(false_true ${BUILD_TOOLCHAIN_ONLY})
+                     -DLLDB_INCLUDE_TESTS:BOOL="${should_configure_tests}"
                      -DLLDB_TEST_LIBCXX_ROOT_DIR:STRING="${libcxx_build_dir}"
