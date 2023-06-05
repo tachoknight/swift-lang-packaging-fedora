@@ -6,9 +6,9 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.8-RELEASE
+%global swift_version 5.8.1-RELEASE
 %global fedora_release 1
-%global package_version 5.8
+%global package_version 5.8.1
 
 # Set to the right version per the json file
 %global swift_source_location swift-source
@@ -237,6 +237,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Jun 02 2023 Ron Olson <tachoknight@gmail.com> - 5.8.1-1
+- Updated to Swift 5.8.1-RELEASE
+  Resolves: rhbz#2211845
 * Fri Mar 31 2023 Ron Olson <tachoknight@gmail.com> - 5.8-1
 - Updated to Swift 5.8-RELEASE
   Resolves: rhbz#2183429
