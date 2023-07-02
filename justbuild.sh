@@ -1,11 +1,13 @@
 #!/bin/bash
 
+SECONDS=0
 
 echo Building Everything for Fedora `rpm -E %fedora` | figlet -c -f mini | lolcat
 
 MYDIR=$PWD
 
 START_TS=`date`
+
 
 # Make sure we're up to date (works best in containers)
 dnf -y update
@@ -28,3 +30,7 @@ popd
 
 echo Started:_____$START_TS
 echo Ended:_______`date`
+
+# Now tell us how long it took
+duration=$SECONDS
+echo "$(($duration / 3600)) hours $(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
