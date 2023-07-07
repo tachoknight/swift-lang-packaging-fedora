@@ -85,6 +85,7 @@ Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
 Patch5:		no-test.patch
+Patch6:		strlcpy_issues.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -195,6 +196,8 @@ mv ninja-%{ninja_version} ninja
 # Tests fail for some reason preventing the package from being built
 %patch -P5 -p0
 
+# Glibc change in rawhide (f39)
+%patch -P6 -p0
 
 %build
 export VERBOSE=1
