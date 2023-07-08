@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-07-05-a
+%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-07-06-a
 %global fedora_release 1
 %global package_version 5.9
 
@@ -197,7 +197,7 @@ mv ninja-%{ninja_version} ninja
 %patch -P5 -p0
 
 # Glibc change in rawhide (f39)
-%patch -P6 -p0
+%dnl %patch -P6 -p0
 
 %build
 export VERBOSE=1
