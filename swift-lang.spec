@@ -24,8 +24,8 @@
 %global swift_system_version 1.1.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
-%global swift_certificates_version 0.4.0
-%global swift_asn1_version 0.8.0
+%global swift_certificates_version 0.4.1
+%global swift_asn1_version 0.7.0
 
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
@@ -197,7 +197,7 @@ mv ninja-%{ninja_version} ninja
 %patch -P5 -p0
 
 # Glibc change in rawhide (f39)
-%dnl %patch -P6 -p0
+%patch -P6 -p0
 
 %build
 export VERBOSE=1
