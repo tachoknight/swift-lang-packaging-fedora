@@ -196,8 +196,11 @@ mv ninja-%{ninja_version} ninja
 # Tests fail for some reason preventing the package from being built
 %patch -P5 -p0
 
-# Glibc change in rawhide (f39)
+# Glibc 2.38 added strlcat and strlcpy, which is in Fedora
+# 39 and later
+%if 0%{?fedora} >= 39
 %patch -P6 -p0
+%endif
 
 %build
 export VERBOSE=1
