@@ -86,6 +86,7 @@ Patch3:   	fs.patch
 Patch4:		unusedvars.patch
 Patch5:		no-test.patch
 Patch6:		strlcpy_issues.patch
+Patch7:		fclose_issues.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -201,6 +202,13 @@ mv ninja-%{ninja_version} ninja
 %if 0%{?fedora} >= 39
 %patch -P6 -p0
 %endif
+
+# Issue with >= F39 not liking not having the file object
+# explicitly forced in an fclose()
+%if 0%{?fedora} >= 39
+%patch -P7 -p0
+%endif
+
 
 %build
 export VERBOSE=1
