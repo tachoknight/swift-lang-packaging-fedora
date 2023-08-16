@@ -87,6 +87,7 @@ Patch4:		unusedvars.patch
 Patch5:		no-test.patch
 Patch6:		strlcpy_issues.patch
 Patch7:		fclose_issues.patch
+Patch8:		new_glibc.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -200,7 +201,10 @@ mv ninja-%{ninja_version} ninja
 # Glibc 2.38 added strlcat and strlcpy, which is in Fedora
 # 39 and later
 %if 0%{?fedora} >= 39
-%patch -P6 -p0
+%dnl %patch -P6 -p0
+# Trying to set the flag appropriately via CMake to see if it can
+# be sent upstream
+%patch -p8 -p0
 %endif
 
 # Issue with >= F39 not liking not having the file object
