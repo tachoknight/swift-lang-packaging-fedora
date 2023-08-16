@@ -204,7 +204,7 @@ mv ninja-%{ninja_version} ninja
 %dnl %patch -P6 -p0
 # Trying to set the flag appropriately via CMake to see if it can
 # be sent upstream
-%patch -p8 -p0
+%patch -P8 -p0
 %endif
 
 # Issue with >= F39 not liking not having the file object
