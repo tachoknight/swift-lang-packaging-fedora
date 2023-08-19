@@ -199,17 +199,17 @@ mv ninja-%{ninja_version} ninja
 %patch -P5 -p0
 
 # Glibc 2.38 added strlcat and strlcpy, which is in Fedora
-# 39 and later, so this patch modifies the CMakeLists.txt file
-# to add a check for them, along with a patch to the header
-# file that if they are present, don't define the functions
-# seperately.
-%patch -P8 -p0
-
 # Issue with >= F39 not liking not having the file object
 # explicitly forced in an fclose()
 %if 0%{?fedora} >= 39
 %patch -P7 -p0
 %endif
+
+# 39 and later, so this patch modifies the CMakeLists.txt file
+# to add a check for them, along with a patch to the header
+# file that if they are present, don't define the functions
+# seperately.
+%patch -P8 -p0
 
 
 %build
