@@ -198,7 +198,6 @@ mv ninja-%{ninja_version} ninja
 # Tests fail for some reason preventing the package from being built
 %patch -P5 -p0
 
-# Glibc 2.38 added strlcat and strlcpy, which is in Fedora
 # Issue with >= F39 not liking not having the file object
 # explicitly forced in an fclose()
 %if 0%{?fedora} >= 39
