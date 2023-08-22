@@ -253,6 +253,7 @@ export QA_SKIP_RPATHS=1
 %changelog
 * Tue Aug 22 2023 Ron Olson <tachoknight@gmail.com> 5.8.1-2
 - Added patch to work with glibc 2.38
+  Resolves: rhbz#2226476
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
