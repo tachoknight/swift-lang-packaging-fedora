@@ -33,28 +33,22 @@ rpmbuild -bs ./swift-lang.spec 2>&1 | tee $MYDIR/build-output.txt
 echo Submitting to Koji | figlet -c -f future | lolcat
 export SRPM_FILE=`find $HOME/rpmbuild/SRPMS -name swift-lang\*`
 echo rawhide | figlet -c -f mini | lolcat
-nohup koji build --scratch rawhide $SRPM_FILE &
-sleep 60s
+koji build --nowait --scratch rawhide $SRPM_FILE 
 echo f$FEDORA_VERSION | figlet -c -f mini | lolcat
-nohup koji build --scratch f$FEDORA_VERSION $SRPM_FILE &
-sleep 10s
+koji build --nowait --scratch f$FEDORA_VERSION $SRPM_FILE
 # Now the previous version of Fedora
 let "FEDORA_VERSION -= 1"
 echo f$FEDORA_VERSION | figlet -c -f mini | lolcat
-nohup koji build --scratch f$FEDORA_VERSION $SRPM_FILE &
-sleep 10s
+koji build --nowait --scratch f$FEDORA_VERSION $SRPM_FILE
 # And the next version
 let "FEDORA_VERSION += 2"
 echo f$FEDORA_VERSION | figlet -c -f mini | lolcat
-nohup koji build --scratch f$FEDORA_VERSION $SRPM_FILE &
-sleep 10s
+koji build --scratch --nowait f$FEDORA_VERSION $SRPM_FILE
 # And the EPEL versions...
 echo epel9 | figlet -c -f mini | lolcat
-nohup koji build --scratch epel9 $SRPM_FILE &
-sleep 10s
+koji build --nowait --scratch epel9 $SRPM_FILE
 echo epel8 | figlet -c -f mini | lolcat
-nohup koji build --scratch epel8 $SRPM_FILE &
-sleep 10s
+koji build --scratch --nowait epel8 $SRPM_FILE 
 
 popd
 
