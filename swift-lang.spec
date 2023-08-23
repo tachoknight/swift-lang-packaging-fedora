@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.8.1-RELEASE
-%global fedora_release 1
+%global fedora_release 2
 %global package_version 5.8.1
 
 # Set to the right version per the json file
