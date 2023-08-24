@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-08-22-a
+%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-08-23-a
 %global fedora_release 1
 %global package_version 5.9
 
