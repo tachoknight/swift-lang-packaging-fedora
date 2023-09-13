@@ -6,9 +6,9 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-09-05-a
+%global swift_version swift-5.10-DEVELOPMENT-SNAPSHOT-2023-09-09-a
 %global fedora_release 1
-%global package_version 5.9
+%global package_version 5.10
 
 # Set to the right version per the json file
 %global swift_source_location swift-source
