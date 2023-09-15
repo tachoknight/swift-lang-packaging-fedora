@@ -256,6 +256,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Sep 15 2023 Ron Olson <tachoknight@gmail.com> - 5.10-1
+- First working version of Swift 5.10
 * Wed Mar 29 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
 - Cleanup and first attempt at getting 5.9 going though
   5.8 hasn't been released yet
