@@ -14,18 +14,18 @@
 %global swift_source_location swift-source
 %global icu_version 65-1
 %global yams_version 5.0.1
-%global swift_argument_parser_version 1.2.2
+%global swift_argument_parser_version 1.2.3
 %global swift_crypto_version 2.5.0
 %global ninja_version 1.11.1
-%global cmake_version 3.19.6
+%global cmake_version 3.24.2
 %global swift_atomics_version 1.0.2
 %global swift_collections_version 1.0.1
 %global swift_numerics_version 1.0.1
 %global swift_system_version 1.1.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
-%global swift_certificates_version 0.4.1
-%global swift_asn1_version 0.7.0
+%global swift_certificates_version 0.6.0
+%global swift_asn1_version 0.8.0
 
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
