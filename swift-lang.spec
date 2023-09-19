@@ -256,7 +256,7 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Mon Sep 18 2022 Ron Olson <tachoknight@gmail.com> - 5.9-1
+* Mon Sep 18 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
 - Updated to Swift 5.9-RELEASE
   Resolves: rhbz#2239543
 * Wed Mar 29 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
