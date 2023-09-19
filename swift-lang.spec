@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.10-DEVELOPMENT-SNAPSHOT-2023-09-09-a
+%global swift_version 5.10-DEVELOPMENT-SNAPSHOT-2023-09-16-a
 %global fedora_release 1
 %global package_version 5.10
 
@@ -256,6 +256,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Sep 18 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
+- Updated to Swift 5.9-RELEASE
+  Resolves: rhbz#2239543
 * Fri Sep 15 2023 Ron Olson <tachoknight@gmail.com> - 5.10-1
 - First working version of Swift 5.10
 * Wed Mar 29 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
