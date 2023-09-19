@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-09-05-a
+%global swift_version 5.9-RELEASE
 %global fedora_release 1
 %global package_version 5.9
 
@@ -256,6 +256,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Sep 18 2022 Ron Olson <tachoknight@gmail.com> - 5.9-1
+- Updated to Swift 5.9-RELEASE
+  Resolves: rhbz#2239543
 * Wed Mar 29 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
 - Cleanup and first attempt at getting 5.9 going though
   5.8 hasn't been released yet
