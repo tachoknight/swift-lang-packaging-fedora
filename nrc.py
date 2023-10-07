@@ -21,6 +21,7 @@ def mid(s, offset, amount):
 def getDate(s):
     # Because we know the format of the string, this is safe to do
     # (e.g. swift-4.2-DEVELOPMENT-SNAPSHOT-2018-07-17-a)
+    print(f"The date is {mid(s.strip(), 32, len(s.strip())-32-2)}")
     return datetime.datetime.strptime(mid(s.strip(), 32, len(s.strip())-32-2), '%Y-%m-%d').date()
 
 def getGitTag(post):
@@ -97,7 +98,7 @@ print(f"Looking for Swift version {CURRENT_VERSION}")
 print("Ok, Gonna go through them...")
 for post in d.entries:    
     print(post.title)
-    if left(post.title, 9) == CURRENT_VERSION:        
+    if left(post.title, 10) == CURRENT_VERSION:        
         postDate = getDate(post.title)
         # Okay, is this date newer than the last time we
         # processed anything?
