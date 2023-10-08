@@ -3,6 +3,7 @@
 import sys
 import json
 
+# probably want: ./getvers.py ~/rpmbuild/BUILD/swift-source/swift/utils/update_checkout/update-checkout-config.json release/5.9
 if len(sys.argv) != 3:
     print("args: path to json file, version of swift")
     sys.exit()
