@@ -223,6 +223,11 @@ fi
 export PATH=$PWD/binforpython:$PATH
 %endif
 
+# Temporary fix for libSwiftcore.so not being available for the
+# Swift compiler when it needs it (still investigating what's
+# going on with that - 10/11/23)
+export LD_LIBRARY_PATH=%{_builddir}/swift-source/build/buildbot_linux/swift-linux-`uname -m`/bootstrapping1/lib/swift/linux:$LD_LIBRARY_PATH
+
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
