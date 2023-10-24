@@ -88,7 +88,6 @@ Patch5:		no-test.patch
 Patch6:		strlcpy_issues.patch
 Patch7:		fclose_issues.patch
 Patch8:		new_glibc.patch
-Patch9:		fclose2.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
