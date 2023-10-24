@@ -211,8 +211,6 @@ mv ninja-%{ninja_version} ninja
 # seperately.
 %patch -P8 -p0
 
-# Force unwrap of file pointer
-%patch -P9 -p0
 
 %build
 export VERBOSE=1
