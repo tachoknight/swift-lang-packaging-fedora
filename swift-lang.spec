@@ -230,6 +230,9 @@ export PATH=$PWD/binforpython:$PATH
 # only works in a container. Also note this is hard-coded to
 # 5.8.1 (this is as of 12/8/23) and will eventually be more
 # generic (if this continues to be a thing at all)
+#
+# cat /proc/1/environ|tr "\0" "\n"|grep container
+# That is how to check if in a container if also using podman
 if [ -f /.dockerenv ]; then
 	ln -s /usr/libexec/swift/5.8.1/lib/swift /usr/lib/swift
 fi
