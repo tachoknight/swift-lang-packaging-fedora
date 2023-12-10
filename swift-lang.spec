@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-11-17-a
+%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-11-29-a
 %global fedora_release 1
 %global package_version 5.9
 
@@ -34,7 +34,7 @@
 
 Name:           swift-lang
 Version:        %{package_version}
-Release:        %{fedora_release}%{?dist}
+Release:        %{fedora_release}%{?dist}.leebc3
 Summary:        The Swift programming language
 License:        Apache-2.0
 URL:            https://www.swift.org
@@ -86,8 +86,9 @@ Patch3:   	fs.patch
 Patch4:		unusedvars.patch
 Patch5:		no-test.patch
 Patch6:		strlcpy_issues.patch
-Patch7:		fclose_issues.patch
+Patch7:		file_nonnull.patch
 Patch8:		new_glibc.patch
+Patch9:		densemap.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -210,6 +211,10 @@ mv ninja-%{ninja_version} ninja
 # seperately.
 %patch -P8 -p0
 
+# Add a workaround for the crash on llvm DenseMap
+# Not sure why this requires a patch, but it seems to
+# be needed for aaarch64
+%patch -P9 -p0
 
 %build
 export VERBOSE=1
@@ -222,11 +227,6 @@ if [ ! -d $PWD/binforpython ] ; then
 fi
 export PATH=$PWD/binforpython:$PATH
 %endif
-
-# Temporary fix for libSwiftcore.so not being available for the
-# Swift compiler when it needs it (still investigating what's
-# going on with that - 10/11/23)
-export LD_LIBRARY_PATH=%{_builddir}/swift-source/build/buildbot_linux/swift-linux-`uname -m`/bootstrapping1/lib/swift/linux:$LD_LIBRARY_PATH
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
@@ -261,9 +261,12 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Fri Oct 20 2023 Ron Olson <tachoknight@gmail.com> - 5.9.1-1
-- Updated to Swift 5.9.1-RELEASE
-  Resolves: rhbz#2239543
+* Sat Dec 09 2023 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.9-1.leebc3
+- Fix for the issue where Patch9 was not applied
+* Fri Dec 08 2023 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.9-1.leebc2
+- Replace forced unwrapping with a guard statement
+* Fri Dec 08 2023 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.9-1.leebc1
+- Add a workaround for the crash on llvm DenseMap
 * Mon Sep 18 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
 - Updated to Swift 5.9-RELEASE
   Resolves: rhbz#2239543
