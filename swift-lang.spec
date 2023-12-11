@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.9.1-RELEASE
+%global swift_version 5.9.2-RELEASE
 %global fedora_release 1
 %global package_version 5.9
 
