@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.9-DEVELOPMENT-SNAPSHOT-2023-11-29-a
+%global swift_version 5.9.1-RELEASE
 %global fedora_release 1
 %global package_version 5.9
 
@@ -34,7 +34,7 @@
 
 Name:           swift-lang
 Version:        %{package_version}
-Release:        %{fedora_release}%{?dist}.leebc3
+Release:        %{fedora_release}%{?dist}
 Summary:        The Swift programming language
 License:        Apache-2.0
 URL:            https://www.swift.org
