@@ -1,0 +1,22 @@
+--- swift-tools-support-core/Sources/TSCBasic/FileSystem.swift
++++ swift-tools-support-core/Sources/TSCBasic/FileSystem.swift
+@@ -469,8 +469,7 @@ private class LocalFileSystem: FileSystem {
+ 
+     func readFileContents(_ path: AbsolutePath) throws -> ByteString {
+         // Open the file.
+-        let fp = fopen(path.pathString, "rb")
+-        if fp == nil {
++        guard let fp = fopen(path.pathString, "rb") else {
+             throw FileSystemError(errno: errno, path)
+         }
+         defer { fclose(fp) }
+@@ -499,8 +498,7 @@ private class LocalFileSystem: FileSystem {
+ 
+     func writeFileContents(_ path: AbsolutePath, bytes: ByteString) throws {
+         // Open the file.
+-        let fp = fopen(path.pathString, "wb")
+-        if fp == nil {
++        guard let fp = fopen(path.pathString, "wb") else {
+             throw FileSystemError(errno: errno, path)
+         }
+         defer { fclose(fp) }

@@ -1,0 +1,291 @@
+Add a workaround for the crash on llvm DenseMap
+
+On Arm64 with some compiler, Swift compiler crashes when accessing
+GlobalFuncs[entity] by using the [] operator.
+The crash is from moveFromOldBuckets() in llvm/include/llvm/ADT/DenseMap.h.
+It is not clear why the crash happens only on Arm64.
+
+This patch replaces the [] operator with find() and insert().
+See https://www.mail-archive.com/devel@lists.fedoraproject.org/msg194918.html
+for the crash report.
+--- swift/lib/IRGen/GenDecl.cpp
++++ swift/lib/IRGen/GenDecl.cpp
+@@ -4649,8 +4649,11 @@ IRGenModule::getAddrOfObjCMetadataUpdateFunction(ClassDecl *classDecl,
+   assert(ObjCInterop);
+
+   LinkEntity entity = LinkEntity::forObjCMetadataUpdateFunction(classDecl);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -4659,6 +4662,7 @@ IRGenModule::getAddrOfObjCMetadataUpdateFunction(ClassDecl *classDecl,
+   Signature signature(ObjCUpdateCallbackTy, llvm::AttributeList(), DefaultCC);
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -4692,8 +4696,11 @@ IRGenModule::getAddrOfTypeMetadataAccessFunction(CanType type,
+   IRGen.noteUseOfTypeMetadata(Nominal);
+
+   LinkEntity entity = LinkEntity::forTypeMetadataAccessFunction(type);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -4704,6 +4711,7 @@ IRGenModule::getAddrOfTypeMetadataAccessFunction(CanType type,
+   Signature signature(fnType, llvm::AttributeList(), SwiftCC);
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -4719,16 +4727,19 @@ FunctionPointer IRGenModule::getAddrOfOpaqueTypeDescriptorAccessFunction(
+   auto fnType = llvm::FunctionType::get(OpaqueTypeDescriptorPtrTy, {}, false);
+   Signature signature(fnType, llvm::AttributeList(), SwiftCC);
+
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
+-    if (forDefinition)
+-      updateLinkageForDefinition(*this, entry, entity);
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
++    if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return FunctionPointer::forDirect(FunctionPointer::Kind::Function, entry,
+                                       nullptr, signature);
+   }
+
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return FunctionPointer::forDirect(FunctionPointer::Kind::Function, entry,
+                                     nullptr, signature);
+ }
+@@ -4747,8 +4758,10 @@ IRGenModule::getAddrOfGenericTypeMetadataAccessFunction(
+   auto type = nominal->getDeclaredType()->getCanonicalType();
+   assert(type->hasUnboundGenericType());
+   LinkEntity entity = LinkEntity::forTypeMetadataAccessFunction(type);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -4776,6 +4789,7 @@ IRGenModule::getAddrOfGenericTypeMetadataAccessFunction(
+   Signature signature(fnType, llvm::AttributeList(), SwiftCC);
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -4792,10 +4806,11 @@ IRGenModule::getAddrOfCanonicalSpecializedGenericTypeMetadataAccessFunction(
+
+   LinkEntity entity =
+       LinkEntity::forPrespecializedTypeMetadataAccessFunction(theType);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
+-    if (forDefinition)
+-      updateLinkageForDefinition(*this, entry, entity);
++    auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
++    if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+
+@@ -4808,6 +4823,7 @@ IRGenModule::getAddrOfCanonicalSpecializedGenericTypeMetadataAccessFunction(
+   Signature signature(functionType, llvm::AttributeList(), SwiftCC);
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -5219,8 +5235,10 @@ llvm::Function *
+ IRGenModule::getAddrOfTypeMetadataInstantiationFunction(NominalTypeDecl *D,
+                                               ForDefinition_t forDefinition) {
+   LinkEntity entity = LinkEntity::forTypeMetadataInstantiationFunction(D);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++    auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -5260,6 +5278,7 @@ IRGenModule::getAddrOfTypeMetadataInstantiationFunction(NominalTypeDecl *D,
+   Signature signature(fnType, llvm::AttributeList(), DefaultCC);
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -5267,8 +5286,10 @@ llvm::Function *
+ IRGenModule::getAddrOfTypeMetadataCompletionFunction(NominalTypeDecl *D,
+                                               ForDefinition_t forDefinition) {
+   LinkEntity entity = LinkEntity::forTypeMetadataCompletionFunction(D);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++    auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -5286,6 +5307,7 @@ IRGenModule::getAddrOfTypeMetadataCompletionFunction(NominalTypeDecl *D,
+   Signature signature(fnType, llvm::AttributeList(), SwiftCC);
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -5453,8 +5475,10 @@ llvm::Function *IRGenModule::getAddrOfValueWitness(CanType abstractType,
+                                                 ForDefinition_t forDefinition) {
+   LinkEntity entity = LinkEntity::forValueWitness(abstractType, index);
+
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -5462,6 +5486,7 @@ llvm::Function *IRGenModule::getAddrOfValueWitness(CanType abstractType,
+   auto signature = getValueWitnessSignature(index);
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -5850,8 +5875,10 @@ IRGenModule::getAddrOfGenericWitnessTableInstantiationFunction(
+
+   LinkEntity entity =
+     LinkEntity::forGenericProtocolWitnessTableInstantiationFunction(conf);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -5862,6 +5889,7 @@ IRGenModule::getAddrOfGenericWitnessTableInstantiationFunction(
+   Signature signature(fnType, llvm::AttributeList(), DefaultCC);
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -5873,8 +5901,10 @@ IRGenModule::getAddrOfWitnessTableLazyAccessFunction(
+                                               ForDefinition_t forDefinition) {
+   LinkEntity entity =
+     LinkEntity::forProtocolWitnessTableLazyAccessFunction(conf, conformingType);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -5887,6 +5917,7 @@ IRGenModule::getAddrOfWitnessTableLazyAccessFunction(
+   entry = createFunction(*this, link, signature);
+   ApplyIRLinkage({link.getLinkage(), link.getVisibility(), link.getDLLStorage()})
+       .to(entry, link.isForDefinition());
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -5954,8 +5985,10 @@ IRGenModule::getAddrOfAssociatedTypeWitnessTableAccessFunction(
+   LinkEntity entity =
+     LinkEntity::forAssociatedTypeWitnessTableAccessFunction(conformance,
+                                                             association);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -5963,6 +5996,7 @@ IRGenModule::getAddrOfAssociatedTypeWitnessTableAccessFunction(
+   auto signature = getAssociatedTypeWitnessTableAccessFunctionSignature();
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -5973,8 +6007,10 @@ IRGenModule::getAddrOfDefaultAssociatedConformanceAccessor(
+
+   LinkEntity entity =
+     LinkEntity::forDefaultAssociatedConformanceAccessor(requirement);
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) {
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
+     if (forDefinition) updateLinkageForDefinition(*this, entry, entity);
+     return entry;
+   }
+@@ -5982,6 +6018,7 @@ IRGenModule::getAddrOfDefaultAssociatedConformanceAccessor(
+   auto signature = getAssociatedTypeWitnessTableAccessFunctionSignature();
+   LinkInfo link = LinkInfo::get(*this, entity, forDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
+
+@@ -5989,12 +6026,17 @@ llvm::Function *
+ IRGenModule::getAddrOfContinuationPrototype(CanSILFunctionType fnType) {
+   LinkEntity entity = LinkEntity::forCoroutineContinuationPrototype(fnType);
+
+-  llvm::Function *&entry = GlobalFuncs[entity];
+-  if (entry) return entry;
++  auto found = GlobalFuncs.find(entity);
++  llvm::Function *entry = nullptr;
++  if (found != GlobalFuncs.end()) {
++    entry = found->second;
++    return entry;
++  }
+
+   auto signature = Signature::forCoroutineContinuation(*this, fnType);
+   LinkInfo link = LinkInfo::get(*this, entity, NotForDefinition);
+   entry = createFunction(*this, link, signature);
++  GlobalFuncs.insert({entity, entry});
+   return entry;
+ }
