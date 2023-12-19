@@ -231,9 +231,9 @@ export PATH=$PWD/binforpython:$PATH
 # 5.8.1 (this is as of 12/8/23) and will eventually be more
 # generic (if this continues to be a thing at all)
 #
-#if [ "$(cat /proc/1/sched | head -n 1 | awk '{print $1}')" == "bash" ]; then
+if [ "$(cat /proc/1/sched | head -n 1 | awk '{print $1}')" == "bash" ]; then
 	ln -s /usr/libexec/swift/5.8.1/lib/swift /usr/lib/swift
-#fi
+fi
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
