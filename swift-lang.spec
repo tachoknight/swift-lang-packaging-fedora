@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.10-DEVELOPMENT-SNAPSHOT-2023-12-19-a
+%global swift_version 5.10-DEVELOPMENT-SNAPSHOT-2023-12-20-a
 %global fedora_release 1
 %global package_version 5.10
 
@@ -88,6 +88,7 @@ Patch5:		no-test.patch
 Patch6:		strlcpy_issues.patch
 Patch7:		fclose_issues.patch
 Patch8:		new_glibc.patch
+Patch9:		swiftrto.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -212,6 +213,9 @@ mv ninja-%{ninja_version} ninja
 # file that if they are present, don't define the functions
 # seperately.
 %patch -P8 -p0
+
+# For finding swiftrt.o in the right place
+%patch -P9 -p0
 
 
 %build
