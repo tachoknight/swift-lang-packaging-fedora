@@ -231,6 +231,7 @@ ln -fs %{_libexecdir}/swift/%{package_version}/bin/swiftc %{buildroot}%{_bindir}
 ln -fs %{_libexecdir}/swift/%{package_version}/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
 mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
+mkdir -p %{buildroot}/lib
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/lib/swift
 
 # This is to fix an issue with check-rpaths complaining about
