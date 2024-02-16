@@ -1,0 +1,12 @@
+--- swift/lib/Driver/UnixToolChains.cpp.orig	2023-12-21 20:05:01.595459343 -0600
++++ swift/lib/Driver/UnixToolChains.cpp	2023-12-21 20:06:27.482394420 -0600
+@@ -281,6 +281,9 @@
+   llvm::sys::path::append(swiftrtPath,
+                           swift::getMajorArchitectureName(getTriple()));
+   llvm::sys::path::append(swiftrtPath, "swiftrt.o");
++  //Arguments.push_back(context.Args.MakeArgString(swiftrtPath));
++  // XYZZY
++  swiftrtPath = "/usr/libexec/swift/5.8.1/lib/swift/linux/x86_64/swiftrt.o";
+   Arguments.push_back(context.Args.MakeArgString(swiftrtPath));
+ 
+   addPrimaryInputsOfType(Arguments, context.Inputs, context.Args,

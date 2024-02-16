@@ -1,0 +1,19 @@
+--- swift/cmake/modules/AddSwift.cmake.orig	2024-02-15 13:47:44.300541015 -0600
++++ swift/cmake/modules/AddSwift.cmake	2024-02-15 13:53:44.593670558 -0600
+@@ -543,11 +543,15 @@
+       # At build time and run time, link against the swift libraries in the
+       # installed host toolchain.
+       if(SWIFT_PATH_TO_SWIFT_SDK)
+-        set(swift_dir "${SWIFT_PATH_TO_SWIFT_SDK}/usr")
++	# XYZZY
++        set(swift_dir "${SWIFT_PATH_TO_SWIFT_SDK}/usr/libexec/swift/5.8.1")
+       else()
+         get_filename_component(swift_bin_dir ${SWIFT_EXEC_FOR_SWIFT_MODULES} DIRECTORY)
+         get_filename_component(swift_dir ${swift_bin_dir} DIRECTORY)
+       endif()
++      # XYZZY
++      set(swift_dir "/usr/libexec/swift/5.8.1")
++      # xyzzy - back to original
+       set(host_lib_dir "${swift_dir}/lib/swift/${SWIFT_SDK_${SWIFT_HOST_VARIANT_SDK}_LIB_SUBDIR}")
+       set(host_lib_arch_dir "${host_lib_dir}/${SWIFT_HOST_VARIANT_ARCH}")
+ 
