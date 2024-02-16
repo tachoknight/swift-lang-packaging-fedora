@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.8.1-RELEASE
-%global fedora_release 2
+%global fedora_release 3
 %global package_version 5.8.1
 
 # Set to the right version per the json file
@@ -231,6 +231,7 @@ ln -fs %{_libexecdir}/swift/%{package_version}/bin/swiftc %{buildroot}%{_bindir}
 ln -fs %{_libexecdir}/swift/%{package_version}/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
 mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
+ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/lib/swift
 
 # This is to fix an issue with check-rpaths complaining about
 # how the Swift binaries use RPATH
@@ -251,6 +252,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Feb 16 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-3
+- Added symlink for future versions of Swift
 * Tue Aug 22 2023 Ron Olson <tachoknight@gmail.com> 5.8.1-2
 - Added patch to work with glibc 2.38
   Resolves: rhbz#2226476
