@@ -18,10 +18,10 @@
 %global swift_crypto_version 3.0.0
 %global ninja_version 1.11.1
 %global cmake_version 3.24.2
-%global swift_atomics_version 1.0.2
-%global swift_collections_version 1.0.1
-%global swift_numerics_version 1.0.1
-%global swift_system_version 1.1.1
+%global swift_atomics_version 1.2.0
+%global swift_collections_version 1.0.5
+%global swift_numerics_version 1.0.2
+%global swift_system_version 1.2.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
 %global swift_certificates_version 1.0.1
@@ -198,26 +198,26 @@ mv ninja-%{ninja_version} ninja
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Enable LZMA
-%patch -P2 -p0
+%dnl %patch -P2 -p0
 
 # Tests fail for some reason preventing the package from being built
-%patch -P5 -p0
+%dnl %patch -P5 -p0
 
 # Issue with >= F39 not liking not having the file object
 # explicitly forced in an fclose()
 %if 0%{?fedora} >= 39
-%patch -P7 -p0
+%dnl %patch -P7 -p0
 %endif
 
 # 39 and later, so this patch modifies the CMakeLists.txt file
 # to add a check for them, along with a patch to the header
 # file that if they are present, don't define the functions
 # seperately.
-%patch -P8 -p0
+%dnl %patch -P8 -p0
 
 # For finding swiftrt.o in the right place
-%patch -P9 -p0
-%patch -P10 -p0
+%dnl %patch -P9 -p0
+%dnl %patch -P10 -p0
 
 
 %build
