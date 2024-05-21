@@ -18,14 +18,16 @@
 %global swift_crypto_version 3.0.0
 %global ninja_version 1.11.1
 %global cmake_version 3.24.2
-%global swift_atomics_version 1.0.2
-%global swift_collections_version 1.0.1
-%global swift_numerics_version 1.0.1
-%global swift_system_version 1.1.1
+%global swift_atomics_version 1.2.0
+%global swift_collections_version 1.0.5
+%global swift_numerics_version 1.0.2
+%global swift_system_version 1.2.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
 %global swift_certificates_version 1.0.1
 %global swift_asn1_version 1.0.0
+%global wasmkit_version 0.0.3
+%global wasi_version 20
 
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
@@ -69,7 +71,7 @@ Source26:       https://github.com/apple/swift-numerics/archive/%{swift_numerics
 Source27:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
 Source28:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
 Source29:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
-%dnl Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
+%dnl Source30:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
 Source30:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
 Source31:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source32:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
@@ -78,6 +80,8 @@ Source33:       https://github.com/apple/swift-experimental-string-processing/ar
 Source34:       https://github.com/apple/swift-certificates/archive/%{swift_certificates_version}.tar.gz#/swift-certificates.tar.gz
 Source35:       https://github.com/apple/swift-asn1/archive/%{swift_asn1_version}.tar.gz#/swift-asn1.tar.gz
 Source36:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz#/icu.tar.gz
+Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
+Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 
 
 Patch1:		uintptr.patch
@@ -144,7 +148,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36
+%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36 -a 37 -a 38
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -193,31 +197,35 @@ mv Yams-%{yams_version} yams
 # Ninja
 mv ninja-%{ninja_version} ninja
 
+# WasmKit
+mv WasmKit-%{wasmkit_version} wasmkit
+
+
 # Fix python to python3 
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Enable LZMA
-%patch -P2 -p0
+%dnl %patch -P2 -p0
 
 # Tests fail for some reason preventing the package from being built
-%patch -P5 -p0
+%dnl %patch -P5 -p0
 
 # Issue with >= F39 not liking not having the file object
 # explicitly forced in an fclose()
 %if 0%{?fedora} >= 39
-%patch -P7 -p0
+%dnl %patch -P7 -p0
 %endif
 
 # 39 and later, so this patch modifies the CMakeLists.txt file
 # to add a check for them, along with a patch to the header
 # file that if they are present, don't define the functions
 # seperately.
-%patch -P8 -p0
+%dnl %patch -P8 -p0
 
 # For finding swiftrt.o in the right place
-%patch -P9 -p0
-%patch -P10 -p0
+%dnl %patch -P9 -p0
+%dnl %patch -P10 -p0
 
 
 %build
