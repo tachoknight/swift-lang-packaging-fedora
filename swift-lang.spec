@@ -6,7 +6,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-04-22-a
+%global swift_version 5.10.1-RELEASE
 %global fedora_release 1
 %global package_version 6.0
 
@@ -282,6 +282,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Thu Jun 06 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-1
+- Updated to Swift 5.10.1-RELEASE
+  Resolves: rhbz#2239543
 * Tue Apr 23 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
 - First attempt at getting 6.0 working
 * Mon Sep 18 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1

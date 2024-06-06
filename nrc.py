@@ -21,8 +21,8 @@ def mid(s, offset, amount):
 def getDate(s):
     # Because we know the format of the string, this is safe to do
     # (e.g. swift-4.2-DEVELOPMENT-SNAPSHOT-2018-07-17-a)
-    print(f"The date is {mid(s.strip(), 32, len(s.strip())-32-2)}")
-    return datetime.datetime.strptime(mid(s.strip(), 32, len(s.strip())-32-2), '%Y-%m-%d').date()
+    print(f"The date is {mid(s.strip(), 31, len(s.strip())-32-1)}")
+    return datetime.datetime.strptime(mid(s.strip(), 31, len(s.strip())-32-1), '%Y-%m-%d').date()
 
 def getGitTag(post):
     f = requests.get(post.link)
