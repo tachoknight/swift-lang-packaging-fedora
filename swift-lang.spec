@@ -8,7 +8,7 @@
 #################################################
 %global swift_version 5.10.1-RELEASE
 %global fedora_release 1
-%global package_version 6.0
+%global package_version 5.10.1
 
 # Set to the right version per the json file
 %global swift_source_location swift-source
