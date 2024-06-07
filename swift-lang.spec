@@ -218,7 +218,7 @@ export VERBOSE=1
 if [ ! -d $PWD/oldclang ] ; then
         mkdir -p $PWD/oldclang
         ln -s /usr/bin/clang-15 $PWD/oldclang/clang
-	ln -s /usr/bin/clang++-15 $PWD/oldclang/clang
+	ln -s /usr/bin/clang++-15 $PWD/oldclang/clang++
 fi
 export PATH=$PWD/oldclang:$PATH
 %endif
