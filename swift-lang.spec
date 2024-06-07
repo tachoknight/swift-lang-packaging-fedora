@@ -85,7 +85,7 @@ Patch8:         new_glibc.patch
 
 
 %ifarch aarch64
-BuildRequires:  clang-15
+BuildRequires:  clang15
 %else
 BuildRequires:  clang
 %endif
