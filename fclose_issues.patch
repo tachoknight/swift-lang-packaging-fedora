@@ -1,6 +1,6 @@
---- swift-tools-support-core/Sources/TSCBasic/FileSystem.swift.orig	2023-08-15 14:01:48.975819260 -0500
-+++ swift-tools-support-core/Sources/TSCBasic/FileSystem.swift	2023-08-15 14:02:09.449066299 -0500
-@@ -473,7 +473,7 @@
+--- swift-tools-support-core/Sources/TSCBasic/FileSystem.swift.orig	2024-06-07 15:57:58.282574272 -0500
++++ swift-tools-support-core/Sources/TSCBasic/FileSystem.swift	2024-06-07 16:00:41.442339293 -0500
+@@ -425,19 +425,19 @@
          if fp == nil {
              throw FileSystemError(errno: errno, path)
          }
@@ -9,7 +9,21 @@
  
          // Read the data one block at a time.
          let data = BufferedOutputByteStream()
-@@ -503,7 +503,7 @@
+         var tmpBuffer = [UInt8](repeating: 0, count: 1 << 12)
+         while true {
+-            let n = fread(&tmpBuffer, 1, tmpBuffer.count, fp)
++            let n = fread(&tmpBuffer, 1, tmpBuffer.count, fp!)
+             if n < 0 {
+                 if errno == EINTR { continue }
+                 throw FileSystemError(.ioError(code: errno), path)
+             }
+             if n == 0 {
+-                let errno = ferror(fp)
++                let errno = ferror(fp!)
+                 if errno != 0 {
+                     throw FileSystemError(.ioError(code: errno), path)
+                 }
+@@ -455,12 +455,12 @@
          if fp == nil {
              throw FileSystemError(errno: errno, path)
          }
@@ -18,3 +32,9 @@
  
          // Write the data in one chunk.
          var contents = bytes.contents
+         while true {
+-            let n = fwrite(&contents, 1, contents.count, fp)
++            let n = fwrite(&contents, 1, contents.count, fp!)
+             if n < 0 {
+                 if errno == EINTR { continue }
+                 throw FileSystemError(.ioError(code: errno), path)
