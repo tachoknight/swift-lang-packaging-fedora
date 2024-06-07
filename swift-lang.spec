@@ -84,7 +84,11 @@ Patch7:         fclose_issues.patch
 Patch8:         new_glibc.patch
 
 
+%ifarch aarch64
+BuildRequires:  clang-15
+%else
 BuildRequires:  clang
+%endif
 BuildRequires:  swig
 BuildRequires:  rsync
 BuildRequires:  python3
@@ -208,14 +212,15 @@ mv ninja-%{ninja_version} ninja
 
 %build
 export VERBOSE=1
-# EPEL8 may not have /usr/bin/python, so we 
-# roll our own because the build script expects there to be one.
-%if 0%{?el8}
-if [ ! -d $PWD/binforpython ] ; then
-	mkdir -p $PWD/binforpython
-	ln -s /usr/bin/python3 $PWD/binforpython/python
+
+# Specific for aarch64 architecture
+%ifarch aarch64
+if [ ! -d $PWD/oldclang ] ; then
+        mkdir -p $PWD/oldclang
+        ln -s /usr/bin/clang-15 $PWD/oldclang/clang
+	ln -s /usr/bin/clang++-15 $PWD/oldclang/clang
 fi
-export PATH=$PWD/binforpython:$PATH
+export PATH=$PWD/oldclang:$PATH
 %endif
 
 # Here we go!
