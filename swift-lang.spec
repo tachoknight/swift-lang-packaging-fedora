@@ -262,6 +262,8 @@ ln -fs %{_libexecdir}/swift/%{package_version}/bin/swiftc %{buildroot}%{_bindir}
 ln -fs %{_libexecdir}/swift/%{package_version}/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
 mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
+mkdir -p %{buildroot}/usr/lib
+ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
 
 # This is to fix an issue with check-rpaths complaining about
 # how the Swift binaries use RPATH
@@ -275,6 +277,7 @@ export QA_SKIP_RPATHS=1
 %{_bindir}/sourcekit-lsp
 %{_mandir}/man1/swift.1.gz
 %{_libexecdir}/swift/
+%{_usr}/lib/swift
 
 
 %post -p /sbin/ldconfig
