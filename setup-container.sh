@@ -15,6 +15,10 @@ dnf update -y
 dnf install -y rpm-build rpm-devel rpmdevtools vim 
 dnf install -y 'dnf-command(config-manager)'
 
+# And get the version
+VERSION=`grep VERSION_ID /etc/os-release | cut -d '=' -f 2`
+echo Version is $VERSION
+
 if [[ $FLAVOR == "Oracle"* ]]; then
 	# Oracle does it differently
         dnf install -y epel-release
@@ -23,6 +27,11 @@ elif [[ $FLAVOR == "Fedora"* ]]; then
 	# Good ol' Fedora
         echo Oh, working with Fedora are we?
 	dnf install -y figlet lolcat
+
+	# DNF5 is apparently in Fedora 41 and later
+	if [ "$VERSION" -ge 41 ]; then
+		dnf5 install 'dnf5-command(builddep)'
+	fi
 else
 	# This should cover all the other flavors, like CentOS,
 	# Rocky, AlmaLinux, etc.
