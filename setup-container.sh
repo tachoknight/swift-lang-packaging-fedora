@@ -30,7 +30,7 @@ elif [[ $FLAVOR == "Fedora"* ]]; then
 
 	# DNF5 is apparently in Fedora 41 and later
 	if [ "$VERSION" -ge 41 ]; then
-		dnf5 install 'dnf5-command(builddep)'
+		dnf5 install -y 'dnf5-command(builddep)'
 	fi
 else
 	# This should cover all the other flavors, like CentOS,
