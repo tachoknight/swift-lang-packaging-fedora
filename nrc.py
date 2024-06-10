@@ -97,11 +97,12 @@ d = feedparser.parse("https://github.com/apple/swift/releases.atom")
 print(f"Looking for Swift version {CURRENT_VERSION}")
 print("Ok, Gonna go through them...")
 for post in d.entries:    
-    print(post.title)
-    if left(post.title, 10) == CURRENT_VERSION:        
+    print(left(post.title, 9))
+    if left(post.title, 9) == CURRENT_VERSION:        
         postDate = getDate(post.title)
         # Okay, is this date newer than the last time we
         # processed anything?
+        print(f"Comparing {postDate} to {lastDate}")
         if postDate > lastDate:
             print("yep, got to do it!")
             process(post, postDate)
