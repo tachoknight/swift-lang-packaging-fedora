@@ -84,17 +84,6 @@ Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 
 
-Patch1:		uintptr.patch
-Patch2:		enablelzma.patch
-Patch3:   	fs.patch
-Patch4:		unusedvars.patch
-Patch5:		no-test.patch
-Patch6:		strlcpy_issues.patch
-Patch7:		fclose_issues.patch
-Patch8:		new_glibc.patch
-Patch9:		swiftrto.patch
-Patch10:	sdk_path.patch
-
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
@@ -117,18 +106,13 @@ BuildRequires:	zlib-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
-# Apparently we need Swift to build Swift (shrug)
 BuildRequires:	swiftlang
 
 Requires:       glibc-devel
-%if 0%{?rhel} && 0%{?rhel} == 8
-Requires:       binutils
-%else
-Requires:	binutils-gold
-%endif
+Requires:	      binutils-gold
 Requires:       gcc
 Requires:       ncurses-devel
-Requires:	lldb
+Requires:	      lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -205,49 +189,9 @@ mv WasmKit-%{wasmkit_version} wasmkit
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
-# Enable LZMA
-%dnl %patch -P2 -p0
-
-# Tests fail for some reason preventing the package from being built
-%dnl %patch -P5 -p0
-
-# Issue with >= F39 not liking not having the file object
-# explicitly forced in an fclose()
-%if 0%{?fedora} >= 39
-%dnl %patch -P7 -p0
-%endif
-
-# 39 and later, so this patch modifies the CMakeLists.txt file
-# to add a check for them, along with a patch to the header
-# file that if they are present, don't define the functions
-# seperately.
-%dnl %patch -P8 -p0
-
-# For finding swiftrt.o in the right place
-%dnl %patch -P9 -p0
-%dnl %patch -P10 -p0
-
 
 %build
 export VERBOSE=1
-# EPEL8 may not have /usr/bin/python, so we 
-# roll our own because the build script expects there to be one.
-%if 0%{?el8}
-if [ ! -d $PWD/binforpython ] ; then
-	mkdir -p $PWD/binforpython
-	ln -s /usr/bin/python3 $PWD/binforpython/python
-fi
-export PATH=$PWD/binforpython:$PATH
-%endif
-
-# Temp until we figure out a better way to do this - note this 
-# only works in a container. Also note this is hard-coded to
-# 5.8.1 (this is as of 12/8/23) and will eventually be more
-# generic (if this continues to be a thing at all)
-#
-if [ "$(cat /proc/1/sched | head -n 1 | awk '{print $1}')" == "bash" ]; then
-	ln -s /usr/libexec/swift/5.8.1/lib/swift /usr/lib/swift
-fi
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
