@@ -10,10 +10,11 @@
 %global fedora_release 1
 %global package_version 6.0
 
-# Set to the right version per the json file
 %global swift_source_location swift-source
+
+# Set to the right version per the json file
 %global icu_version 65-1
-%global yams_version 5.0.1
+%global yams_version 5.0.6
 %global swift_argument_parser_version 1.2.3
 %global swift_crypto_version 3.0.0
 %global ninja_version 1.11.1
@@ -21,7 +22,7 @@
 %global swift_atomics_version 1.2.0
 %global swift_collections_version 1.0.5
 %global swift_numerics_version 1.0.2
-%global swift_system_version 1.2.1
+%global swift_system_version 1.3.0
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
 %global swift_certificates_version 1.0.1
@@ -31,7 +32,7 @@
 
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
-%global swift_format_version 508.0.0
+%global swift_format_version 510.1.0
 
 
 Name:           swift-lang
@@ -83,7 +84,7 @@ Source36:       https://github.com/unicode-org/icu/archive/release-%{icu_version
 Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 
-Patch1:		need_pic.patch
+Patch1:         need_pic.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
