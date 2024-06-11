@@ -83,6 +83,7 @@ Source36:       https://github.com/unicode-org/icu/archive/release-%{icu_version
 Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 
+Patch1:		need_pic.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -188,6 +189,9 @@ mv WasmKit-%{wasmkit_version} wasmkit
 # Fix python to python3 
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
+
+# Enable PIC for cmark
+%patch -P1 -p0
 
 
 %build
