@@ -32,7 +32,7 @@
 
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
-%global swift_format_version 510.1.0
+%global swift_format_version 6.0
 
 
 Name:           swift-lang
@@ -72,8 +72,8 @@ Source26:       https://github.com/apple/swift-numerics/archive/%{swift_numerics
 Source27:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
 Source28:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
 Source29:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
-%dnl Source30:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
-Source30:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
+Source30:       https://github.com/apple/swift-format/archive/refs/heads/release/%{swift_format_version}.zip#/swift-format.zip
+%dnl Source30:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
 Source31:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source32:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 Source33:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
