@@ -165,8 +165,7 @@ mv swift-numerics-%{swift_numerics_version} swift-numerics
 mv swift-system-%{swift_system_version} swift-system
 mv swift-nio-%{swift_nio_version} swift-nio
 mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
-%dnl mv swift-format-swift-%{swift_version} swift-format
-mv swift-format-%{swift_format_version} swift-format
+mv swift-format-release-%{swift_format_version} swift-format
 mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
 mv swift-stress-tester-swift-%{swift_version} swift-stress-tester
