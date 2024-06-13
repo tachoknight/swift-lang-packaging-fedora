@@ -13,7 +13,7 @@
 %global swift_source_location swift-source
 
 # Set to the right version per the json file
-%global icu_version refs/heads/maint/maint-69.zip
+%global icu_version 69
 %global yams_version 5.0.6
 %global swift_argument_parser_version 1.2.3
 %global swift_crypto_version 3.0.0
@@ -76,7 +76,7 @@ Source32:       https://github.com/apple/swift-markdown/archive/swift-%{swift_ve
 Source33:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
 Source34:       https://github.com/apple/swift-certificates/archive/%{swift_certificates_version}.tar.gz#/swift-certificates.tar.gz
 Source35:       https://github.com/apple/swift-asn1/archive/%{swift_asn1_version}.tar.gz#/swift-asn1.tar.gz
-Source36:       https://github.com/unicode-org/icu/archive/%{icu_version}#/icu.zip
+Source36:       https://github.com/unicode-org/icu/archive/refs/heads/maint/maint-%{icu_version}#/icu.zip
 Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
@@ -169,10 +169,10 @@ mv swift-stress-tester-swift-%{swift_version} swift-stress-tester
 mv swift-experimental-string-processing-swift-%{swift_version} swift-experimental-string-processing
 mv swift-certificates-%{swift_certificates_version} swift-certificates
 mv swift-asn1-%{swift_asn1_version} swift-asn1
-mv swift-llvm-bindings-%{swift_llvm_bindings_version} swift-llvm-bindings
+mv swift-llvm-bindings-swift-release-%{swift_llvm_bindings_version} swift-llvm-bindings
 
 # ICU 
-mv icu-release-%{icu_version} icu
+mv icu-maint-maint-%{icu_version} icu
 
 # Yams
 mv Yams-%{yams_version} yams
