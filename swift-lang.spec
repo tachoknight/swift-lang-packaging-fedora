@@ -76,7 +76,7 @@ Source32:       https://github.com/apple/swift-markdown/archive/swift-%{swift_ve
 Source33:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
 Source34:       https://github.com/apple/swift-certificates/archive/%{swift_certificates_version}.tar.gz#/swift-certificates.tar.gz
 Source35:       https://github.com/apple/swift-asn1/archive/%{swift_asn1_version}.tar.gz#/swift-asn1.tar.gz
-Source36:       https://github.com/unicode-org/icu/archive/refs/heads/maint/maint-%{icu_version}#/icu.zip
+Source36:       https://github.com/unicode-org/icu/archive/refs/heads/maint/maint-%{icu_version}.zip#/icu.zip
 Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
