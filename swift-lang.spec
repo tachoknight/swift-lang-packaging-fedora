@@ -79,7 +79,7 @@ Source35:       https://github.com/apple/swift-asn1/archive/%{swift_asn1_version
 Source36:       https://github.com/unicode-org/icu/archive/%{icu_version}#/icu.zip
 Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
-Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
+Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
 
 Patch1:         need_pic.patch
 
