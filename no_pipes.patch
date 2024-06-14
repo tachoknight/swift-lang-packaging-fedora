@@ -1,6 +1,6 @@
-diff --color -Naur swift-source-orig/llvm-project/clang/utils/creduce-clang-crash.py swift-source/llvm-project/clang/utils/creduce-clang-crash.py
---- swift-source-orig/llvm-project/clang/utils/creduce-clang-crash.py	2024-06-13 19:54:42.303016942 -0500
-+++ swift-source/llvm-project/clang/utils/creduce-clang-crash.py	2024-06-13 19:57:15.922473813 -0500
+diff --color -Naur llvm-project/clang/utils/creduce-clang-crash.py llvm-project/clang/utils/creduce-clang-crash.py
+--- llvm-project/clang/utils/creduce-clang-crash.py	2024-06-13 19:54:42.303016942 -0500
++++ llvm-project/clang/utils/creduce-clang-crash.py	2024-06-13 19:57:15.922473813 -0500
 @@ -15,7 +15,6 @@
  import stat
  import sys
@@ -27,9 +27,9 @@ diff --color -Naur swift-source-orig/llvm-project/clang/utils/creduce-clang-cras
  
          write_to_script(output, self.testfile)
          self.check_interestingness()
-diff --color -Naur swift-source-orig/llvm-project/libcxx/utils/libcxx/test/dsl.py swift-source/llvm-project/libcxx/utils/libcxx/test/dsl.py
---- swift-source-orig/llvm-project/libcxx/utils/libcxx/test/dsl.py	2024-06-13 19:55:23.627829920 -0500
-+++ swift-source/llvm-project/libcxx/utils/libcxx/test/dsl.py	2024-06-13 19:57:42.124257373 -0500
+diff --color -Naur llvm-project/libcxx/utils/libcxx/test/dsl.py llvm-project/libcxx/utils/libcxx/test/dsl.py
+--- llvm-project/libcxx/utils/libcxx/test/dsl.py	2024-06-13 19:55:23.627829920 -0500
++++ llvm-project/libcxx/utils/libcxx/test/dsl.py	2024-06-13 19:57:42.124257373 -0500
 @@ -8,7 +8,7 @@
  
  import os
@@ -48,9 +48,9 @@ diff --color -Naur swift-source-orig/llvm-project/libcxx/utils/libcxx/test/dsl.p
  
  
  @_memoizeExpensiveOperation(lambda c, flags="": (c.substitutions, c.environment, flags))
-diff --color -Naur swift-source-orig/llvm-project/libcxx/utils/libcxx/test/format.py swift-source/llvm-project/libcxx/utils/libcxx/test/format.py
---- swift-source-orig/llvm-project/libcxx/utils/libcxx/test/format.py	2024-06-13 19:55:23.627829920 -0500
-+++ swift-source/llvm-project/libcxx/utils/libcxx/test/format.py	2024-06-13 19:58:01.911604299 -0500
+diff --color -Naur llvm-project/libcxx/utils/libcxx/test/format.py llvm-project/libcxx/utils/libcxx/test/format.py
+--- llvm-project/libcxx/utils/libcxx/test/format.py	2024-06-13 19:55:23.627829920 -0500
++++ llvm-project/libcxx/utils/libcxx/test/format.py	2024-06-13 19:58:01.911604299 -0500
 @@ -11,7 +11,7 @@
  import lit
  import lit.formats
@@ -60,9 +60,9 @@ diff --color -Naur swift-source-orig/llvm-project/libcxx/utils/libcxx/test/forma
  import re
  import shutil
  
-diff --color -Naur swift-source-orig/ninja/configure.py swift-source/ninja/configure.py
---- swift-source-orig/ninja/configure.py	2024-06-13 19:54:39.050795565 -0500
-+++ swift-source/ninja/configure.py	2024-06-13 19:56:39.970026531 -0500
+diff --color -Naur ninja/configure.py ninja/configure.py
+--- ninja/configure.py	2024-06-13 19:54:39.050795565 -0500
++++ ninja/configure.py	2024-06-13 19:56:39.970026531 -0500
 @@ -23,7 +23,7 @@
  
  from optparse import OptionParser
