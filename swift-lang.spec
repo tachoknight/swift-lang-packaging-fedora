@@ -82,6 +82,7 @@ Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-
 Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
 
 Patch1:         need_pic.patch
+Patch2:		no_pipes.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -191,6 +192,8 @@ mv WasmKit-%{wasmkit_version} wasmkit
 # Enable PIC for cmark
 %patch -P1 -p0
 
+# Pipes has been removed in Python
+%patch -P2 -p0
 
 %build
 export VERBOSE=1
