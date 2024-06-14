@@ -82,7 +82,7 @@ Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-
 Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
 
 Patch1:         need_pic.patch
-Patch2:		no_pipes.patch
+Patch2:         no_pipes.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -101,10 +101,10 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
-BuildRequires:	binutils-devel
-BuildRequires:	zlib-devel
+BuildRequires:  binutils-devel
+BuildRequires:  zlib-devel
 %if ! 0%{?el8}
-BuildRequires:	python-unversioned-command
+BuildRequires:  python-unversioned-command
 %endif
 BuildRequires:	swiftlang
 
@@ -116,7 +116,7 @@ Requires:	      lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
-Provides: 	swiftlang = %{version}-%{release}
+Provides:       swiftlang = %{version}-%{release}
 
 
 %description
