@@ -45,4 +45,7 @@ dnf install -y the_silver_searcher
 # Now get the dependencies from the spec file
 dnf builddep -y ./swift-lang.spec
 
+# And we always want the line numbers in vim
+echo "set nu" > ~/.vimrc
+
 echo Container is ready to gooooooo....
