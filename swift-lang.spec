@@ -109,10 +109,10 @@ BuildRequires:  python-unversioned-command
 BuildRequires:	swiftlang
 
 Requires:       glibc-devel
-Requires:	      binutils-gold
+Requires:       binutils-gold
 Requires:       gcc
 Requires:       ncurses-devel
-Requires:	      lldb
+Requires:       lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
