@@ -106,20 +106,17 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
-BuildRequires:	binutils-devel
+BuildRequires:  binutils-devel
 %if ! 0%{?el8}
-BuildRequires:	python-unversioned-command
+BuildRequires:  python-unversioned-command
 %endif
+BuildRequires:  binutils-gold
 
 Requires:       glibc-devel
-%if 0%{?rhel} && 0%{?rhel} == 8
-Requires:       binutils
-%else
-Requires:	binutils-gold
-%endif
+Requires:       binutils-gold
 Requires:       gcc
 Requires:       ncurses-devel
-Requires:	lldb
+Requires:       lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
