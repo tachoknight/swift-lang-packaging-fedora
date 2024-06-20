@@ -263,7 +263,7 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Thu Jun 30 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-4
+* Thu Jun 20 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-4
 - Added patch to build without pipes on Rawhide and Fedora 41
 * Fri Feb 16 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-3
 - Added symlink for future versions of Swift
