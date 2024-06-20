@@ -75,13 +75,14 @@ Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_ve
 Source34:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
 %dnl Source35:       https://github.com/apple/swift-llvm-bindings/archive/swift-%{swift_version}.tar.gz#/swift-llvm-bindings.tar.gz
 
-Patch1:		uintptr.patch
-Patch2:		enablelzma.patch
-Patch3:   	fs.patch
-Patch4:		unusedvars.patch
-Patch5:		no-test.patch
-Patch7:         fclose_issues.patch
-Patch8:         new_glibc.patch
+Patch1:   uintptr.patch
+Patch2:   enablelzma.patch
+Patch3:   fs.patch
+Patch4:   unusedvars.patch
+Patch5:   no-test.patch
+Patch7:   fclose_issues.patch
+Patch8:   new_glibc.patch
+Patch9:   no_pipes_58.patch
 
 
 %ifarch aarch64
@@ -209,6 +210,9 @@ mv ninja-%{ninja_version} ninja
 # file that if they are present, don't define the functions
 # seperately.
 %patch -P8 -p0
+
+# For 41 and later, python pipes are no longer a thing
+%patch -P9 -p0
 
 %build
 export VERBOSE=1
