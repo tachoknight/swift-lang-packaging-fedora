@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.8.1-RELEASE
-%global fedora_release 4
+%global fedora_release 5
 %global package_version 5.8.1
 
 # Set to the right version per the json file
@@ -83,6 +83,7 @@ Patch5:   no-test.patch
 Patch7:   fclose_issues.patch
 Patch8:   new_glibc.patch
 Patch9:   no_pipes_58.patch
+Patch10:  cython_updates.patch
 
 
 %ifarch aarch64
@@ -213,6 +214,8 @@ mv ninja-%{ninja_version} ninja
 
 # For 41 and later, python pipes are no longer a thing
 %patch -P9 -p0
+# For 41 and later, some additional old parts removed
+%patch -P10 -p0
 
 %build
 export VERBOSE=1
@@ -263,6 +266,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Jun 21 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-5
+- Added another patch
 * Thu Jun 20 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-4
 - Added patch to build without pipes on Rawhide and Fedora 41
 * Fri Feb 16 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-3
