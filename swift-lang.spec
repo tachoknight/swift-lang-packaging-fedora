@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.10.1-RELEASE
-%global fedora_release 1
+%global fedora_release 2
 %global package_version 5.10.1
 
 # Set to the right version per the json file
@@ -84,16 +84,18 @@ Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 
 
-Patch1:		uintptr.patch
-Patch2:		enablelzma.patch
-Patch3:   	fs.patch
-Patch4:		unusedvars.patch
-Patch5:		no-test.patch
-Patch6:		strlcpy_issues.patch
-Patch7:		fclose_issues.patch
-Patch8:		new_glibc.patch
-Patch9:		swiftrto.patch
-Patch10:	sdk_path.patch
+Patch1:   uintptr.patch
+Patch2:   enablelzma.patch
+Patch3:   fs.patch
+Patch4:   unusedvars.patch
+Patch5:   no-test.patch
+Patch6:   strlcpy_issues.patch
+Patch7:   fclose_issues.patch
+Patch8:   new_glibc.patch
+Patch9:   swiftrto.patch
+Patch10:  sdk_path.patch
+Patch11:  no_pipes_58.patch
+Patch12:  cython_updates.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -117,18 +119,15 @@ BuildRequires:	zlib-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
-# Apparently we need Swift to build Swift (shrug)
+# After 5.8, Swift is needed to build Swift
 BuildRequires:	swiftlang
+BuildRequires:  binutils-gold
 
 Requires:       glibc-devel
-%if 0%{?rhel} && 0%{?rhel} == 8
-Requires:       binutils
-%else
-Requires:	binutils-gold
-%endif
+Requires:       binutils-gold
 Requires:       gcc
 Requires:       ncurses-devel
-Requires:	lldb
+Requires:       lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -227,6 +226,12 @@ mv WasmKit-%{wasmkit_version} wasmkit
 %dnl %patch -P9 -p0
 %dnl %patch -P10 -p0
 
+# Python got a big update in F41 and we need to adjust for it
+%if 0%{?fedora} >= 41
+%patch -P11 -p0
+%patch -P12 -p0
+%endif
+
 
 %build
 export VERBOSE=1
@@ -285,6 +290,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Sat Jun 22 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-2
+- Changes for Fedora >= 41 and Python 3.13
 * Thu Jun 06 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-1
 - Updated to Swift 5.10.1-RELEASE
   Resolves: rhbz#2239543

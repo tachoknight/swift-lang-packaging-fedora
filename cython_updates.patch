@@ -1,0 +1,32 @@
+diff --color -Naur llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp
+--- llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp	2024-06-21 17:13:30.216450095 -0500
++++ llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp	2024-06-21 17:17:12.418191122 -0500
+@@ -76,7 +76,7 @@
+ #elif PY_MAJOR_VERSION == 3 && PY_MINOR_VERSION < 7
+   return _Py_Finalizing != nullptr;
+ #else
+-  return _Py_IsFinalizing();
++  return Py_IsFinalizing();
+ #endif
+ }
+ 
+diff --color -Naur llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp
+--- llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp	2024-06-21 17:13:30.217450161 -0500
++++ llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp	2024-06-21 17:18:29.299291469 -0500
+@@ -201,16 +201,6 @@
+       return;
+ #endif
+ 
+-    if (PyEval_ThreadsInitialized()) {
+-      Log *log = GetLog(LLDBLog::Script);
+-
+-      m_was_already_initialized = true;
+-      m_gil_state = PyGILState_Ensure();
+-      LLDB_LOGV(log, "Ensured PyGILState. Previous state = {0}locked\n",
+-                m_gil_state == PyGILState_UNLOCKED ? "un" : "");
+-      return;
+-    }
+-
+     // InitThreads acquires the GIL if it hasn't been called before.
+     PyEval_InitThreads();
+   }
