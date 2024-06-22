@@ -233,24 +233,6 @@ mv WasmKit-%{wasmkit_version} wasmkit
 
 %build
 export VERBOSE=1
-# EPEL8 may not have /usr/bin/python, so we 
-# roll our own because the build script expects there to be one.
-%if 0%{?el8}
-if [ ! -d $PWD/binforpython ] ; then
-	mkdir -p $PWD/binforpython
-	ln -s /usr/bin/python3 $PWD/binforpython/python
-fi
-export PATH=$PWD/binforpython:$PATH
-%endif
-
-# Temp until we figure out a better way to do this - note this 
-# only works in a container. Also note this is hard-coded to
-# 5.8.1 (this is as of 12/8/23) and will eventually be more
-# generic (if this continues to be a thing at all)
-#
-if [ "$(cat /proc/1/sched | head -n 1 | awk '{print $1}')" == "bash" ]; then
-	ln -s /usr/libexec/swift/5.8.1/lib/swift /usr/lib/swift
-fi
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
