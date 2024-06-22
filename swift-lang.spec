@@ -94,8 +94,7 @@ Patch7:   fclose_issues.patch
 Patch8:   new_glibc.patch
 Patch9:   swiftrto.patch
 Patch10:  sdk_path.patch
-Patch11:  no_pipes_58.patch
-Patch12:  cython_updates.patch
+Patch11:  no_pipes_510.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -229,7 +228,6 @@ mv WasmKit-%{wasmkit_version} wasmkit
 # Python got a big update in F41 and we need to adjust for it
 %if 0%{?fedora} >= 41
 %patch -P11 -p0
-%patch -P12 -p0
 %endif
 
 
