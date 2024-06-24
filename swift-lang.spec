@@ -111,6 +111,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  python-unversioned-command
 %endif
 BuildRequires:	swiftlang
+BuildRequires:  lld
 
 Requires:       glibc-devel
 Requires:       binutils-gold
