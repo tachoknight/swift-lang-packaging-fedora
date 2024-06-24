@@ -96,6 +96,10 @@ Patch9:   swiftrto.patch
 Patch10:  sdk_path.patch
 Patch11:  no_pipes_510.patch
 
+%if 0%{?fedora} >= 41
+BuildRequires:  python3.11
+BuildRequires:  python3.11-devel
+%endif
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
