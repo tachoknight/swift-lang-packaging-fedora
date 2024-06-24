@@ -6,6 +6,24 @@
 # they build correctly
 #
 
+function check_authenticated {
+  output=$(koji hello)
+  
+  if echo "$output" | grep -q "Authenticated"; then
+    return 0  # True, if "Authenticated" is found
+  else
+    return 1  # False, if "Authenticated" is not found
+  fi
+}
+
+# Check if authenticated with Koji
+if ! check_authenticated; then
+    echo HEY! LOG INTO KOJI! | figlet -c -f future | lolcat
+    exit 1
+fi
+
+echo WE ARE LOGGED INTO KOJI! | figlet -c -f future | lolcat
+
 START_TS=`date`
 
 export MYDIR=$PWD
@@ -14,7 +32,7 @@ export FEDORA_VERSION=`rpm -E %fedora`
 
 #<<comment
 echo Gonna submit scratch builds | figlet -c -f pagga | lolcat
-echo DID YOU LOG INTO KOJI FIRST? | figlet -c -f future | lolcat
+
 echo Building SRPM first...
 
 rm -rf $HOME/rpmbuild
@@ -53,6 +71,7 @@ koji build --scratch --nowait epel8 $SRPM_FILE
 popd
 
 echo Check status at https://koji.fedoraproject.org/koji/tasks?owner=tachoknight&state=active&view=tree&method=all&order=-id
+echo or use:    koji list-tasks --mine --before "`date -d \"+24 hours\" +\"%Y-%m-%d %H:%M\"`" --after "`date -d \"today 00:00\" +\"%Y-%m-%d %H:%M\"`"
 
 echo Started:_____$START_TS
 echo Ended:_______`date`
