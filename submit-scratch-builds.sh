@@ -65,8 +65,6 @@ koji build --scratch --nowait f$FEDORA_VERSION $SRPM_FILE
 # And the EPEL versions...
 echo epel9 | figlet -c -f mini | lolcat
 koji build --nowait --scratch epel9 $SRPM_FILE
-echo epel8 | figlet -c -f mini | lolcat
-koji build --scratch --nowait epel8 $SRPM_FILE 
 
 popd
 
