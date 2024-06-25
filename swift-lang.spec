@@ -83,6 +83,7 @@ Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/
 
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
+Patch3:         enable_lzma.patch
 
 %if 0%{?fedora} >= 41
 BuildRequires:  python3.11
@@ -199,6 +200,10 @@ mv WasmKit-%{wasmkit_version} wasmkit
 
 # Pipes has been removed in Python
 %patch -P2 -p0
+
+# Enable LZMA
+%patch -P3 -p0
+
 
 %build
 export VERBOSE=1
