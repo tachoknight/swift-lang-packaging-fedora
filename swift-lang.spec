@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.10.1-RELEASE
-%global fedora_release 2
+%global fedora_release 3
 %global package_version 5.10.1
 
 # Set to the right version per the json file
@@ -208,7 +208,7 @@ mv WasmKit-%{wasmkit_version} wasmkit
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Enable LZMA
-%dnl %patch -P2 -p0
+%patch -P2 -p0
 
 # Tests fail for some reason preventing the package from being built
 %dnl %patch -P5 -p0
@@ -274,6 +274,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Jun 25 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-3
+- Enable LZMA 
 * Sat Jun 22 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-2
 - Changes for Fedora >= 41 and Python 3.13
 * Thu Jun 06 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-1
