@@ -26,7 +26,7 @@ if [[ $FLAVOR == "Oracle"* ]]; then
 elif [[ $FLAVOR == "Fedora"* ]]; then
 	# Good ol' Fedora
         echo Oh, working with Fedora are we?
-	dnf install -y figlet lolcat
+	dnf install -y figlet lolcat toilet
 
 	# DNF5 is apparently in Fedora 41 and later
 	if [ "$VERSION" -ge 41 ]; then
