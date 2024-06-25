@@ -85,7 +85,7 @@ Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
 
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 40
 BuildRequires:  python3.11
 BuildRequires:  python3.11-devel
 %endif
