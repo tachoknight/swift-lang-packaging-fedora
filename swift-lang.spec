@@ -1,3 +1,9 @@
+# 6/27/24 - temporary disable __brp_add_determinism
+# as it prevents the package from successfully building
+%if 0%{?fedora} >= 41
+# on Fedora 41/Rawhide
+%endif
+%undefine __brp_add_determinism
 %global debug_package %{nil}
 %undefine _auto_set_build_flags
 
@@ -108,10 +114,8 @@ BuildRequires:  perl-podlators
 BuildRequires:  python3-six
 BuildRequires:  binutils-devel
 BuildRequires:  zlib-devel
-%if ! 0%{?el8}
 BuildRequires:  python-unversioned-command
-%endif
-BuildRequires:	swiftlang
+BuildRequires:  swiftlang
 BuildRequires:  lld
 
 Requires:       glibc-devel
