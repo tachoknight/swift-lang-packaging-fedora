@@ -276,6 +276,8 @@ export QA_SKIP_RPATHS=1
 %changelog
 * Tue Jun 25 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-3
 - Enable LZMA 
+* Mon Jun 24 2024 Python Maint <python-maint@redhat.com> - 5.10.1-2.1
+- Rebuilt for Python 3.13
 * Sat Jun 22 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-2
 - Changes for Fedora >= 41 and Python 3.13
 * Thu Jun 06 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-1
