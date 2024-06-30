@@ -1,0 +1,30 @@
+--- ./swift/lib/ClangImporter/ClangIncludePaths.cpp.orig	2024-06-30 16:35:47.652546965 -0500
++++ ./swift/lib/ClangImporter/ClangIncludePaths.cpp	2024-06-30 17:05:13.359940762 -0500
+@@ -35,8 +35,10 @@
+   Path result;
+ 
+   StringRef SDKPath = Opts.getSDKPath();
+-  if (!SDKPath.empty()) {
+-    result.append(SDKPath.begin(), SDKPath.end());
++  if (!Opts.RuntimeResourcePath.empty()) {
++    results.clear();
++    result.append(Opts.RuntimeResourcePath.begin(),
++                  Opts.RuntimeResourcePath.end());
+     llvm::sys::path::append(result, "usr", "lib", "swift");
+     llvm::sys::path::append(result, platform);
+     if (isArchSpecific) {
+@@ -51,10 +53,11 @@
+       return result;
+   }
+ 
+-  if (!Opts.RuntimeResourcePath.empty()) {
++  StringRef SDKPath = Opts.getSDKPath();
++  if (!SDKPath.empty()) {
+     result.clear();
+-    result.append(Opts.RuntimeResourcePath.begin(),
+-                  Opts.RuntimeResourcePath.end());
++    result.append(SDKPath.begin(), SDKPath.end());
++    llvm::sys::path::append(result, "usr", "lib", "swift");
+     llvm::sys::path::append(result, platform);
+     if (isArchSpecific) {
+       llvm::sys::path::append(result, arch);
