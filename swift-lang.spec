@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.10.1-RELEASE
-%global fedora_release 3
+%global fedora_release 4
 %global package_version 5.10.1
 
 # Set to the right version per the json file
@@ -96,10 +96,6 @@ Patch9:   swiftrto.patch
 Patch10:  sdk_path.patch
 Patch11:  no_pipes_510.patch
 
-%if 0%{?fedora} >= 41
-BuildRequires:  python3.11
-BuildRequires:  python3.11-devel
-%endif
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
@@ -229,10 +225,7 @@ mv WasmKit-%{wasmkit_version} wasmkit
 %dnl %patch -P9 -p0
 %dnl %patch -P10 -p0
 
-# Python got a big update in F41 and we need to adjust for it
-%if 0%{?fedora} >= 41
 %patch -P11 -p0
-%endif
 
 
 %build
@@ -274,6 +267,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Thu Jul 04 2024 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.10.1-4
+- Use default Python for Fedora 41+
 * Tue Jun 25 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-3
 - Enable LZMA 
 * Mon Jun 24 2024 Python Maint <python-maint@redhat.com> - 5.10.1-2.1
