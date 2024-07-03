@@ -90,7 +90,6 @@ Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
-Patch4:		finagolfin.patch
 
 %if 0%{?fedora} >= 40
 BuildRequires:  python3.11
@@ -208,9 +207,6 @@ mv WasmKit-%{wasmkit_version} wasmkit
 
 # Enable LZMA
 %patch -P3 -p0
-
-# https://github.com/swiftlang/swift/pull/74814
-%patch -P4 -p0
 
 
 %build
