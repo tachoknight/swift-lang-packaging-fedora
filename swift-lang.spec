@@ -2,8 +2,8 @@
 # as it prevents the package from successfully building
 %if 0%{?fedora} >= 41
 # on Fedora 41/Rawhide
-%endif
 %undefine __brp_add_determinism
+%endif
 %global debug_package %{nil}
 %undefine _auto_set_build_flags
 
