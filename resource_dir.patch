@@ -1,0 +1,46 @@
+From f189a95d6371cdb44f773029f7a19b94f0d9a839 Mon Sep 17 00:00:00 2001
+From: Finagolfin <finagolfin@tuta.io>
+Date: Fri, 28 Jun 2024 20:06:06 +0530
+Subject: [PATCH] [ClangImporter] Make sure the `-resource-dir` is checked
+ before the `-sdk`, as done everywhere else in the compiler
+
+Otherwise, these module maps can be pulled from a system SDK instead when
+building a fresh Swift stdlib, fixes #74696.
+---
+ lib/ClangImporter/ClangIncludePaths.cpp | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/lib/ClangImporter/ClangIncludePaths.cpp b/lib/ClangImporter/ClangIncludePaths.cpp
+index 23431af724459..7e6ca8c2a9cb6 100644
+--- a/lib/ClangImporter/ClangIncludePaths.cpp
++++ b/lib/ClangImporter/ClangIncludePaths.cpp
+@@ -35,10 +35,10 @@ static std::optional<Path> getActualModuleMapPath(
+ 
+   Path result;
+ 
+-  StringRef SDKPath = Opts.getSDKPath();
+-  if (!SDKPath.empty()) {
+-    result.append(SDKPath.begin(), SDKPath.end());
+-    llvm::sys::path::append(result, "usr", "lib", "swift");
++  if (!Opts.RuntimeResourcePath.empty()) {
++    result.clear();
++    result.append(Opts.RuntimeResourcePath.begin(),
++                  Opts.RuntimeResourcePath.end());
+     llvm::sys::path::append(result, platform);
+     if (isArchSpecific) {
+       llvm::sys::path::append(result, arch);
+@@ -52,10 +52,10 @@ static std::optional<Path> getActualModuleMapPath(
+       return result;
+   }
+ 
+-  if (!Opts.RuntimeResourcePath.empty()) {
+-    result.clear();
+-    result.append(Opts.RuntimeResourcePath.begin(),
+-                  Opts.RuntimeResourcePath.end());
++  StringRef SDKPath = Opts.getSDKPath();
++  if (!SDKPath.empty()) {
++    result.append(SDKPath.begin(), SDKPath.end());
++    llvm::sys::path::append(result, "usr", "lib", "swift");
+     llvm::sys::path::append(result, platform);
+     if (isArchSpecific) {
+       llvm::sys::path::append(result, arch);

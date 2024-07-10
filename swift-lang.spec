@@ -90,6 +90,7 @@ Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
+patch4:		resource_dir.patch
 
 %if 0%{?fedora} >= 40
 BuildRequires:  python3.11
@@ -208,10 +209,14 @@ mv WasmKit-%{wasmkit_version} wasmkit
 # Enable LZMA
 %patch -P3 -p0
 
+# https://github.com/swiftlang/swift/pull/74814
+pushd swift
+%patch -P4 -p1
+popd
+
 
 %build
 export VERBOSE=1
-
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
