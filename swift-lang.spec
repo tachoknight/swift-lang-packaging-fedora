@@ -92,10 +92,6 @@ Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
 patch4:		resource_dir.patch
 
-%if 0%{?fedora} >= 40
-BuildRequires:  python3.11
-BuildRequires:  python3.11-devel
-%endif
 BuildRequires:  clang
 BuildRequires:  swig
 BuildRequires:  rsync
