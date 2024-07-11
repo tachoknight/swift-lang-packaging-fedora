@@ -90,8 +90,8 @@ Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
-patch4:		resource_dir.patch
-Patch5:		CF_Not_Glibc.patch
+patch4:         resource_dir.patch
+Patch5:         CF_Not_Glibc.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
