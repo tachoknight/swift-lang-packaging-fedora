@@ -12,7 +12,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-07-09-a
+%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-07-10-a
 %global fedora_release 1
 %global package_version 6.0
 
@@ -91,6 +91,7 @@ Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
 patch4:		resource_dir.patch
+Patch5:		CF_Not_Glibc.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -209,6 +210,10 @@ mv WasmKit-%{wasmkit_version} wasmkit
 pushd swift
 %patch -P4 -p1
 popd
+
+# https://forums.swift.org/t/cannot-build-toolchain-on-ubuntu-24-04-lts/72200
+# Temporary I hope
+%patch -P5 -p0
 
 
 %build
