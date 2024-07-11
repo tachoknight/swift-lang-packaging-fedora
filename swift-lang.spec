@@ -218,6 +218,8 @@ popd
 
 %build
 export VERBOSE=1
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib/swift/linux
+
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
