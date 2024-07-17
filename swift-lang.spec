@@ -12,7 +12,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-07-15-a
+%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-07-16-a
 %global fedora_release 1
 %global package_version 6.0
 
@@ -92,6 +92,7 @@ Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
 patch4:         resource_dir.patch
 Patch5:         CF_Not_Glibc.patch
+Patch6:         hmm1.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -215,6 +216,8 @@ popd
 # Temporary I hope
 %patch -P5 -p0
 
+# Doubt this will work
+%patch -P6 -p0
 
 %build
 export VERBOSE=1
