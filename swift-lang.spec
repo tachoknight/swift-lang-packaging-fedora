@@ -82,7 +82,7 @@ Source35:       https://github.com/apple/swift-asn1/archive/%{swift_asn1_version
 Source36:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz#/icu.tar.gz
 Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
-
+Source39:       swiftlang.conf
 
 Patch1:   uintptr.patch
 Patch2:   enablelzma.patch
@@ -246,6 +246,8 @@ mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 mkdir -p %{buildroot}/usr/lib
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
+mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
+install -m 0644 %{SOURCE39} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 # This is to fix an issue with check-rpaths complaining about
 # how the Swift binaries use RPATH
@@ -260,6 +262,7 @@ export QA_SKIP_RPATHS=1
 %{_mandir}/man1/swift.1.gz
 %{_libexecdir}/swift/
 %{_usr}/lib/swift
+%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 
 %post -p /sbin/ldconfig
