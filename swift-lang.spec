@@ -214,7 +214,7 @@ popd
 
 # https://forums.swift.org/t/cannot-build-toolchain-on-ubuntu-24-04-lts/72200
 # Temporary I hope
-%patch -P5 -p0
+%dnl %patch -P5 -p0
 
 
 %build
