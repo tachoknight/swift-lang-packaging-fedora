@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.10.1-RELEASE
-%global fedora_release 4
+%global fedora_release 5
 %global package_version 5.10.1
 
 # Set to the right version per the json file
@@ -270,6 +270,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Fri Jul 19 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-5
+- Added libraries to cache
 * Thu Jul 04 2024 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.10.1-4
 - Use default Python for Fedora 41+
 * Tue Jun 25 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-3
