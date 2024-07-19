@@ -12,7 +12,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-07-17-a
+%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-07-18-a
 %global fedora_release 1
 %global package_version 6.0
 
@@ -86,6 +86,7 @@ Source36:       https://github.com/unicode-org/icu/archive/refs/heads/maint/main
 Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
+Source40:       swiftlang.conf
 
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
@@ -235,6 +236,8 @@ mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 mkdir -p %{buildroot}/usr/lib
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
+mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
+install -m 0644 %{SOURCE40} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 # This is to fix an issue with check-rpaths complaining about
 # how the Swift binaries use RPATH
@@ -249,12 +252,16 @@ export QA_SKIP_RPATHS=1
 %{_mandir}/man1/swift.1.gz
 %{_libexecdir}/swift/
 %{_usr}/lib/swift
+%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
+
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 
 %changelog
+* Fri Jul 19 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
+- Added file to add the Swift libraries to the ld.so.conf.d directory
 * Sun Jun 30 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
 - Patch from finagolfin
   https://github.com/swiftlang/swift/pull/74814
