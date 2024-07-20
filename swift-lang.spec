@@ -12,7 +12,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-07-18-a
+%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-07-19-a
 %global fedora_release 1
 %global package_version 6.0
 
@@ -76,7 +76,8 @@ Source26:       https://github.com/apple/swift-numerics/archive/%{swift_numerics
 Source27:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
 Source28:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
 Source29:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
-Source30:       https://github.com/apple/swift-format/archive/refs/heads/release/%{swift_format_version}.zip#/swift-format.zip
+%dnl Source30:       https://github.com/apple/swift-format/archive/refs/heads/release/%{swift_format_version}.zip#/swift-format.zip
+Source30:       https://github.com/swiftlang/swift-format/archive/refs/tags/510.1.0.tar.gz#/swift-format.tar.gz
 Source31:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source32:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 Source33:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
@@ -172,7 +173,8 @@ mv swift-numerics-%{swift_numerics_version} swift-numerics
 mv swift-system-%{swift_system_version} swift-system
 mv swift-nio-%{swift_nio_version} swift-nio
 mv swift-nio-ssl-%{swift_nio_ssl_version} swift-nio-ssl
-mv swift-format-release-%{swift_format_version} swift-format
+%dnl mv swift-format-release-%{swift_format_version} swift-format
+mv swift-format-510.1.0 swift-format
 mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
 mv swift-stress-tester-swift-%{swift_version} swift-stress-tester
