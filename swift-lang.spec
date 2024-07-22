@@ -100,19 +100,13 @@ BuildRequires:  rsync
 BuildRequires:  python3
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-distro
-BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
 BuildRequires:  libdispatch-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
-BuildRequires:  libicu-devel
 BuildRequires:  perl-podlators
-BuildRequires:  python3-six
-BuildRequires:  binutils-devel
-BuildRequires:  zlib-devel
 BuildRequires:  python-unversioned-command
 BuildRequires:  swiftlang
 BuildRequires:  lld
@@ -120,8 +114,6 @@ BuildRequires:  lld
 Requires:       glibc-devel
 Requires:       binutils-gold
 Requires:       gcc
-Requires:       ncurses-devel
-Requires:       lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -260,6 +252,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Jul 22 2024 Byoungchan Lee <byoungchan.lee@gmx.com> - 6.0-1
+- Minimize runtime/compile time dependencies
 * Fri Jul 19 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
 - Added file to add the Swift libraries to the ld.so.conf.d directory
 * Sun Jun 30 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
