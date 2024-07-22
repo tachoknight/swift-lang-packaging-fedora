@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.10.1-RELEASE
-%global fedora_release 5
+%global fedora_release 6
 %global package_version 5.10.1
 
 # Set to the right version per the json file
@@ -102,19 +102,13 @@ BuildRequires:  rsync
 BuildRequires:  python3
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-distro
-BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
 BuildRequires:  libdispatch-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
-BuildRequires:  libicu-devel
 BuildRequires:  perl-podlators
-BuildRequires:  python3-six
-BuildRequires:	binutils-devel
-BuildRequires:	zlib-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
@@ -125,8 +119,6 @@ BuildRequires:  binutils-gold
 Requires:       glibc-devel
 Requires:       binutils-gold
 Requires:       gcc
-Requires:       ncurses-devel
-Requires:       lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -270,6 +262,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Jul 22 2024 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.10.1-6
+- Minimize runtime/compile time dependencies
 * Fri Jul 19 2024 Ron Olson <tachoknight@gmail.com> - 5.10.1-5
 - Added libraries to cache
 * Thu Jul 04 2024 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.10.1-4
