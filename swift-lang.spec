@@ -92,8 +92,7 @@ Source40:       swiftlang.conf
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
-patch4:         resource_dir.patch
-Patch5:         CF_Not_Glibc.patch
+Patch4:         resource_dir.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -206,14 +205,9 @@ pushd swift
 %patch -P4 -p1
 popd
 
-# https://forums.swift.org/t/cannot-build-toolchain-on-ubuntu-24-04-lts/72200
-# Temporary I hope
-%dnl %patch -P5 -p0
-
 
 %build
 export VERBOSE=1
-export LD_LIBRARY_PATH=/usr/libexec/swift/5.10.1/lib/swift/linux/:${LD_LIBRARY_PATH}
 
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
