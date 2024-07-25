@@ -26,7 +26,7 @@
 %global ninja_version 1.11.1
 %global cmake_version 3.24.2
 %global swift_atomics_version 1.2.0
-%global swift_collections_version 1.1.1
+%global swift_collections_version 1.1.2
 %global swift_numerics_version 1.0.2
 %global swift_system_version 1.3.0
 %global swift_nio_version 2.31.2
