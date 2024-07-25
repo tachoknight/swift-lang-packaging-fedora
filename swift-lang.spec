@@ -37,6 +37,7 @@
 %global wasi_version 20
 %global swift_format_version 6.0
 %global swift_llvm_bindings_version 6.0
+%global swift_foundation_icu_version 6.0
 
 
 Name:           swift-lang
@@ -87,7 +88,8 @@ Source36:       https://github.com/unicode-org/icu/archive/refs/heads/maint/main
 Source37:       https://github.com/swiftwasm/WasmKit/archive/refs/tags/%{wasmkit_version}.tar.gz#/wasm.tar.gz
 Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-sdk-%{wasi_version}.tar.gz#/wasi-sdk.tar.gz
 Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
-Source40:       swiftlang.conf
+Source40:       https://github.com/apple/swift-foundation-icu/archive/refs/heads/release/%{swift_foundation_icu_version}.zip#/swift-foundation-icu.zip
+Source41:       swiftlang.conf
 
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
@@ -133,7 +135,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36 -a 37 -a 38 -a 39
+%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36 -a 37 -a 38 -a 39 -a 40
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -173,6 +175,7 @@ mv swift-experimental-string-processing-swift-%{swift_version} swift-experimenta
 mv swift-certificates-%{swift_certificates_version} swift-certificates
 mv swift-asn1-%{swift_asn1_version} swift-asn1
 mv swift-llvm-bindings-swift-release-%{swift_llvm_bindings_version} swift-llvm-bindings
+mv swift-foundation-icu-release-%{swift_foundation_icu_version} swift-foundation-icu
 
 # ICU 
 mv icu-maint-maint-%{icu_version} icu
