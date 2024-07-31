@@ -96,6 +96,7 @@ Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
 Patch4:         resource_dir.patch
+Patch5:         have_strcat.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -208,6 +209,10 @@ mv WasmKit-%{wasmkit_version} wasmkit
 pushd swift
 %patch -P4 -p1
 popd
+
+# Weird (hopefully temp) situation of strlcpy and strncat
+# not being found at the system level
+%patch -P5 -p0
 
 
 %build
