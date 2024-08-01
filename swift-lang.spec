@@ -212,7 +212,11 @@ popd
 
 # Weird (hopefully temp) situation of strlcpy and strncat
 # not being found at the system level
+# This does not work for EPEL9, so we need to make sure
+# that this patch is _not_ applied when building for EPEL9
+%if ! 0%{?el9}
 %patch -P5 -p0
+%endif
 
 
 %build
