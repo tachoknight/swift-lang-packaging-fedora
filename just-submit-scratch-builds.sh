@@ -53,7 +53,6 @@ koji build --scratch --nowait f$FEDORA_VERSION $SRPM_FILE
 echo epel9 | figlet -c -f mini | lolcat
 koji build --nowait --scratch epel9 $SRPM_FILE
 
-popd
 
 echo Check status at https://koji.fedoraproject.org/koji/tasks?owner=tachoknight&state=active&view=tree&method=all&order=-id
 echo or use:   echo or use: koji list-tasks --mine --before="\"`date -d \"+24 hours\" +\"%Y-%m-%d %H:%M\"`\"" --after="\"`date -d \"today 00:00\" +\"%Y-%m-%d %H:%M\"`\"" 
