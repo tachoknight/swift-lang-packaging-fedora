@@ -32,20 +32,7 @@ export FEDORA_VERSION=`rpm -E %fedora`
 
 #<<comment
 echo Gonna submit scratch builds | figlet -c -f pagga | lolcat
-
-echo Building SRPM first...
-
-rm -rf $HOME/rpmbuild
-rm $MYDIR/build-output.txt
-mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-cp $MYDIR/*.patch $HOME/rpmbuild/SOURCES
-cp $MYDIR/swift-lang.spec $HOME/rpmbuild/SPECS
-
-pushd $HOME/rpmbuild/SPECS
-spectool -g -R ./swift-lang.spec
-# Now do the actual build
-rpmbuild -bs ./swift-lang.spec 2>&1 | tee $MYDIR/build-output.txt
-#comment
+echo \*\*\\nHey! We\'re assuming an SRPM file exists\\n\*\* | figlet -c -f pagga | lolcat
 
 # Now submit them
 echo Submitting to Koji | figlet -c -f future | lolcat
@@ -69,7 +56,7 @@ koji build --nowait --scratch epel9 $SRPM_FILE
 popd
 
 echo Check status at https://koji.fedoraproject.org/koji/tasks?owner=tachoknight&state=active&view=tree&method=all&order=-id
-echo or use: koji list-tasks --mine --before="\"`date -d \"+24 hours\" +\"%Y-%m-%d %H:%M\"`\"" --after="\"`date -d \"today 00:00\" +\"%Y-%m-%d %H:%M\"`\""
+echo or use:   echo or use: koji list-tasks --mine --before="\"`date -d \"+24 hours\" +\"%Y-%m-%d %H:%M\"`\"" --after="\"`date -d \"today 00:00\" +\"%Y-%m-%d %H:%M\"`\"" 
 
 echo Started:_____$START_TS
 echo Ended:_______`date`
