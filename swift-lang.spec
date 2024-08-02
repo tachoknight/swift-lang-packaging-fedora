@@ -97,6 +97,7 @@ Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
 Patch4:         resource_dir.patch
 Patch5:         have_strcat.patch
+Patch6:         python_threads_init.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -218,6 +219,11 @@ popd
 %patch -P5 -p0
 %endif
 
+# After Python 3.12 certain functions have been removed, 
+# which is in Fedora 41
+%if 0%{?fedora} >= 41
+%patch -P6 -p0
+%endif
 
 %build
 export VERBOSE=1
