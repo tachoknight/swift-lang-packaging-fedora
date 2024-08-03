@@ -97,7 +97,7 @@ Patch2:         no_pipes.patch
 Patch3:         enable_lzma.patch
 Patch4:         resource_dir.patch
 Patch5:         have_strcat.patch
-Patch6:         python_threads_init.patch
+Patch6:         latest_python.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
