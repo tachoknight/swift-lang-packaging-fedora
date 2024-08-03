@@ -1,21 +1,29 @@
 --- llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp.orig	2024-08-01 20:37:45.248357585 -0500
-+++ llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp	2024-08-02 09:22:12.284034500 -0500
-@@ -182,7 +182,7 @@
++++ llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp	2024-08-03 09:21:28.537428785 -0500
+@@ -182,18 +182,15 @@
        return;
  #endif
  
 -    if (PyEval_ThreadsInitialized()) {
-+    if (Py_Initialize()) {
-       Log *log = GetLog(LLDBLog::Script);
+-      Log *log = GetLog(LLDBLog::Script);
++    Py_Initialize();
++    Log *log = GetLog(LLDBLog::Script);
  
-       m_was_already_initialized = true;
-@@ -191,9 +191,6 @@
-                 m_gil_state == PyGILState_UNLOCKED ? "un" : "");
-       return;
-     }
+-      m_was_already_initialized = true;
+-      m_gil_state = PyGILState_Ensure();
+-      LLDB_LOGV(log, "Ensured PyGILState. Previous state = {0}locked\n",
+-                m_gil_state == PyGILState_UNLOCKED ? "un" : "");
+-      return;
+-    }
 -
 -    // InitThreads acquires the GIL if it hasn't been called before.
 -    PyEval_InitThreads();
++    m_was_already_initialized = true;
++    m_gil_state = PyGILState_Ensure();
++    LLDB_LOGV(log, "Ensured PyGILState. Previous state = {0}locked\n",
++              m_gil_state == PyGILState_UNLOCKED ? "un" : "");
++    return;
++   
    }
  
    PyGILState_STATE m_gil_state = PyGILState_UNLOCKED;
