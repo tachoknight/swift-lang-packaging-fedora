@@ -4,10 +4,6 @@ THISDIR=$HOME/swift-lang-packaging-fedora
 
 pushd $THISDIR
 
-# Gives us the version number of this platform
-THISVERSION=`cat /etc/os-release | grep PLATFORM_ID | awk -F: '/platform:*/{print $2}' | cut -c 2- | rev | cut -c 2- | rev`
-echo Building on $THISVERSION of Fedora
-
 # First we want to capture the hash of the swift-lang.spec
 # file...
 bh=`md5sum ./swift-lang.spec`
