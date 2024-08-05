@@ -39,6 +39,7 @@ rm -rf $HOME/rpmbuild
 rm $MYDIR/build-output.txt
 mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 cp $MYDIR/*.patch $HOME/rpmbuild/SOURCES
+cp $MYDIR/swiftlang.conf $HOME/rpmbuild/SOURCES
 cp $MYDIR/swift-lang.spec $HOME/rpmbuild/SPECS
 
 pushd $HOME/rpmbuild/SPECS
