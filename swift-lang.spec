@@ -90,6 +90,7 @@ Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-
 Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
 Source40:       https://github.com/apple/swift-foundation-icu/archive/refs/heads/release/%{swift_foundation_icu_version}.zip#/swift-foundation-icu.zip
 Source41:       https://github.com/apple/swift-foundation/archive/refs/heads/release/%{swift_foundation_version}.zip#/swift-foundation.zip
+# Source42 is referenced in the %install section below
 Source42:       swiftlang.conf
 
 Patch1:         need_pic.patch
@@ -244,7 +245,7 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 mkdir -p %{buildroot}/usr/lib
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE40} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
+install -m 0644 %{SOURCE42} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 # This is to fix an issue with check-rpaths complaining about
 # how the Swift binaries use RPATH
