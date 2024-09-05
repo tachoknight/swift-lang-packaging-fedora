@@ -245,6 +245,8 @@ mkdir -p %{buildroot}/usr/lib
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
 install -m 0644 %{SOURCE42} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
+mkdir -p %{buildroot}%{_libdir}
+ln -fs %{_libexecdir}/swift/%{package_version}/lib/lib{IndexStore,sourcekitdInProc,swiftDemangle}.so* %{buildroot}%{_libdir}/
 
 # This is to fix an issue with check-rpaths complaining about
 # how the Swift binaries use RPATH
@@ -267,6 +269,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Aug 26 2024 Zephyr Lykos <fedora@mochaa.ws> - 6.0-1
+- Export Swift development tool libraries to libdir
 * Mon Jul 22 2024 Byoungchan Lee <byoungchan.lee@gmx.com> - 6.0-1
 - Minimize runtime/compile time dependencies
 * Fri Jul 19 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
