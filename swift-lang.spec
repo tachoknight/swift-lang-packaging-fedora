@@ -90,7 +90,8 @@ Source38:       https://github.com/WebAssembly/wasi-libc/archive/refs/tags/wasi-
 Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/swift/release/%{swift_llvm_bindings_version}.zip#/swift-llvm-bindings.zip
 Source40:       https://github.com/apple/swift-foundation-icu/archive/refs/heads/release/%{swift_foundation_icu_version}.zip#/swift-foundation-icu.zip
 Source41:       https://github.com/apple/swift-foundation/archive/refs/heads/release/%{swift_foundation_version}.zip#/swift-foundation.zip
-Source42:       swiftlang.conf
+Source42:       https://github.com/apple/swift-testing/archive/refs/tags/swift-%{swift_version}.tar.gz#/swift-testing.tar.gz
+Source43:       swiftlang.conf
 
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
@@ -138,11 +139,12 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36 -a 37 -a 38 -a 39 -a 40 -a 41
+%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36 -a 37 -a 38 -a 39 -a 40 -a 41 -a 42
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
 mv swift-cmark-swift-%{swift_version} cmark
+mv swift-testing-swift-%{swift_version} swift-testing
 mv swift-corelibs-foundation-swift-%{swift_version} swift-corelibs-foundation
 mv swift-corelibs-libdispatch-swift-%{swift_version} swift-corelibs-libdispatch
 mv swift-corelibs-xctest-swift-%{swift_version} swift-corelibs-xctest
@@ -244,7 +246,7 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 mkdir -p %{buildroot}/usr/lib
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE42} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
+install -m 0644 %{SOURCE43} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 mkdir -p %{buildroot}%{_libdir}
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/lib{IndexStore,sourcekitdInProc,swiftDemangle}.so* %{buildroot}%{_libdir}/
 
