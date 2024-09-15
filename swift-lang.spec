@@ -249,10 +249,11 @@ mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 mkdir -p %{buildroot}/usr/lib
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
-mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE44} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 mkdir -p %{buildroot}%{_libdir}
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/lib{IndexStore,sourcekitdInProc,swiftDemangle}.so* %{buildroot}%{_libdir}/
+mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
+install -m 0644 %{SOURCE44} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
+
 
 # This is to fix an issue with check-rpaths complaining about
 # how the Swift binaries use RPATH
