@@ -269,8 +269,8 @@ export QA_SKIP_RPATHS=1
 %{_libexecdir}/swift/
 %{_usr}/lib/swift
 %{_libdir}/libIndexStore.so*
-%{_libdir}/libsourcekitdInProc.so
-%{_libdir}/libswiftDemangle.so
+%{_libdir}/libsourcekitdInProc.so*
+%{_libdir}/libswiftDemangle.so*
 %{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 
