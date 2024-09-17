@@ -12,7 +12,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-09-11-a
+%global swift_version 6.0-RELEASE
 %global fedora_release 1
 %global package_version 6.0
 
@@ -279,6 +279,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Sep 16 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
+- Updated to Swift 6.0-RELEASE
 * Mon Aug 26 2024 Zephyr Lykos <fedora@mochaa.ws> - 6.0-1
 - Export Swift development tool libraries to libdir
 * Mon Jul 22 2024 Byoungchan Lee <byoungchan.lee@gmx.com> - 6.0-1
