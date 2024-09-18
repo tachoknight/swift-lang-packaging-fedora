@@ -110,12 +110,10 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  libxml2-devel
 BuildRequires:  libsqlite3x-devel
-BuildRequires:  libdispatch-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  perl-podlators
-BuildRequires:  python-unversioned-command
 BuildRequires:  swiftlang
 BuildRequires:  lld
 
