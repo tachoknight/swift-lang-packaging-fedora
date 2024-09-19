@@ -88,7 +88,7 @@ Patch11:  latest_python.patch
 
 
 %ifarch aarch64
-BuildRequires:  clang15
+BuildRequires:  clang >= 15
 %else
 BuildRequires:  clang
 %endif
