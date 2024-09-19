@@ -99,7 +99,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-distro
 BuildRequires:  libbsd-devel
 BuildRequires:  libxml2-devel
-BuildRequires:  libsqlite3x-devel
+BuildRequires:  sqlite-devel
 BuildRequires:  libdispatch-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
