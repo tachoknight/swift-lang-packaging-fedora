@@ -84,6 +84,7 @@ Patch7:   fclose_issues.patch
 Patch8:   new_glibc.patch
 Patch9:   no_pipes_58.patch
 Patch10:  cython_updates.patch
+Patch11:  latest_python.patch
 
 
 %ifarch aarch64
@@ -213,6 +214,10 @@ mv ninja-%{ninja_version} ninja
 %patch -P9 -p0
 # For 41 and later, some additional old parts removed
 %patch -P10 -p0
+
+# Python 3.12 changes
+%patch -P11 -p0
+
 
 %build
 export VERBOSE=1
