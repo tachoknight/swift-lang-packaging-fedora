@@ -109,7 +109,7 @@ BuildRequires:  python3
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  libxml2-devel
-BuildRequires:  libsqlite3x-devel
+BuildRequires:  sqlite-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
