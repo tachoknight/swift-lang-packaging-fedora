@@ -1,8 +1,8 @@
 diff --color -Naur llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp
---- llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp	2024-08-03 13:04:05.441817601 -0500
-+++ llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp	2024-08-03 13:14:00.001254584 -0500
-@@ -74,7 +74,7 @@
- #if PY_MAJOR_VERSION == 3 && PY_MINOR_VERSION < 7
+--- llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp	2024-09-19 10:08:49.705575598 -0500
++++ llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/PythonDataObjects.cpp	2024-09-19 10:10:32.912369606 -0500
+@@ -76,7 +76,7 @@
+ #elif PY_MAJOR_VERSION == 3 && PY_MINOR_VERSION < 7
    return _Py_Finalizing != nullptr;
  #else
 -  return _Py_IsFinalizing();
@@ -11,9 +11,9 @@ diff --color -Naur llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Pytho
  }
  
 diff --color -Naur llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp
---- llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp	2024-08-03 13:04:05.442817667 -0500
-+++ llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp	2024-08-03 13:12:15.688335534 -0500
-@@ -182,7 +182,7 @@
+--- llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp	2024-09-19 10:08:49.706575663 -0500
++++ llvm-project/lldb/source/Plugins/ScriptInterpreter/Python/ScriptInterpreterPython.cpp	2024-09-19 10:12:11.357850178 -0500
+@@ -201,7 +201,7 @@
        return;
  #endif
  
@@ -22,7 +22,7 @@ diff --color -Naur llvm-project-orig/lldb/source/Plugins/ScriptInterpreter/Pytho
        Log *log = GetLog(LLDBLog::Script);
  
        m_was_already_initialized = true;
-@@ -191,9 +191,6 @@
+@@ -210,9 +210,6 @@
                  m_gil_state == PyGILState_UNLOCKED ? "un" : "");
        return;
      }
