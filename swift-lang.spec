@@ -216,7 +216,7 @@ mv ninja-%{ninja_version} ninja
 %dnl %patch -P10 -p0
 
 # Python 3.12 changes
-%patch -P11 -p0
+%dnl %patch -P11 -p0
 
 
 %build
