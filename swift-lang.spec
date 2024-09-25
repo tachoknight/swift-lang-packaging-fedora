@@ -12,7 +12,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-09-17-a
+%global swift_version 6.0.1-RELEASE
 %global fedora_release 1
 %global package_version 6.0
 
@@ -277,6 +277,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Sep 25 2024 Ron Olson <tachoknight@gmail.com> - 6.0.1-1
+- Updated to Swift 6.0.1-RELEASE
+  Resolves: rhbz#2313366
 * Mon Sep 16 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
 - Updated to Swift 6.0-RELEASE
 * Mon Aug 26 2024 Zephyr Lykos <fedora@mochaa.ws> - 6.0-1
