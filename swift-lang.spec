@@ -14,7 +14,7 @@
 #################################################
 %global swift_version 6.0.1-RELEASE
 %global fedora_release 1
-%global package_version 6.0
+%global package_version 6.0.1
 
 %global swift_source_location swift-source
 
