@@ -3,17 +3,18 @@
 import sys
 import json
 
-# probably want: ./getvers.py ~/rpmbuild/BUILD/swift-source/swift/utils/update_checkout/update-checkout-config.json release/5.9
+# probably want: ./getvers.py ~/rpmbuild/BUILD/swift-source/swift release/5.9
 if len(sys.argv) != 3:
-    print("args: path to json file, version of swift")
+    print("args: swift source directory, version of swift")
     sys.exit()
 
-print(f"Gonna check {sys.argv[1]} for {sys.argv[2]}")
+full_path = sys.argv[1] + "/utils/update_checkout/update-checkout-config.json"
+print(f"Gonna check {full_path} for {sys.argv[2]}")
 
 try:
-    f = open(sys.argv[1])
+    f = open(full_path)
 except OSError as e:
-    print(f"Hmm, no good reading {sys.argv[1]}: {e.errno} - {e.strerror}")
+    print(f"Hmm, no good reading {full_path}: {e.errno} - {e.strerror}")
     sys.exit()
 
 # Now convert to json...
