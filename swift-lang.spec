@@ -12,7 +12,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0.1-RELEASE
+%global swift_version 6.0-DEVELOPMENT-SNAPSHOT-2024-10-08-a
 %global package_version 6.0.1
 %global fedora_release 1
 
