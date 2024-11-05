@@ -231,7 +231,9 @@ popd
 
 %build
 export VERBOSE=1
-
+# warning about function type casts is enabled by default in >= clang 19; libdispatch has -Werror set
+# so this was causing the compile to fail
+export CFLAGS="-Wno-error=cast-function-type `echo $CFLAGS`"
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
