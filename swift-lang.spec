@@ -1,7 +1,6 @@
-# 6/27/24 - temporary disable __brp_add_determinism
-# as it prevents the package from successfully building
+
 %if 0%{?fedora} >= 41
-# on Fedora 41/Rawhide
+# on Fedora >= 41
 %undefine __brp_add_determinism
 %endif
 %global debug_package %{nil}
@@ -125,6 +124,8 @@ ExclusiveArch:  x86_64 aarch64
 
 Provides:       swiftlang = %{version}-%{release}
 
+%global __provides_exclude_from ^(%{_libexecdir}/%{name}/%{package_version}/lib/.*\\.so.*|%{_libexecdir}/%{name}/%{package_version}/lib64/.*\\.so.*)$
+%global __requires_exclude_from ^(%{_libexecdir}/%{name}/%{package_version}/lib/.*\\.so.*|%{_libexecdir}/%{name}/%{package_version}/lib64/.*\\.so.*)$
 
 %description
 Swift is a general-purpose programming language built using 
