@@ -125,8 +125,8 @@ ExclusiveArch:  x86_64 aarch64
 
 Provides:       swiftlang = %{version}-%{release}
 
-%global __provides_exclude_from ^(%{_libexecdir}/%{name}/%{package_version}/lib/.*\\.so.*|%{_libexecdir}/%{name}/%{package_version}/lib64/.*\\.so.*)$
-%global __requires_exclude_from ^(%{_libexecdir}/%{name}/%{package_version}/lib/.*\\.so.*|%{_libexecdir}/%{name}/%{package_version}/lib64/.*\\.so.*)$
+%dnl %global __provides_exclude_from ^(%{_libexecdir}/%{name}/%{package_version}/lib/.*\\.so.*|%{_libexecdir}/%{name}/%{package_version}/lib64/.*\\.so.*)$
+%dnl %global __requires_exclude_from ^(%{_libexecdir}/%{name}/%{package_version}/lib/.*\\.so.*|%{_libexecdir}/%{name}/%{package_version}/lib64/.*\\.so.*)$
 
 %description
 Swift is a general-purpose programming language built using 
