@@ -100,6 +100,7 @@ Patch3:         enable_lzma.patch
 Patch4:         resource_dir.patch
 Patch5:         have_strcat.patch
 Patch6:         latest_python.patch
+Patch7:         disable_warning.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -229,6 +230,9 @@ popd
 %if 0%{?fedora} >= 41
 %patch -P6 -p0
 %endif
+
+# disable warning treated as error in libdispatch
+%patch -P7 -p0
 
 %build
 export VERBOSE=1
