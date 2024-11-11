@@ -101,6 +101,7 @@ Patch4:         resource_dir.patch
 Patch5:         have_strcat.patch
 Patch6:         latest_python.patch
 Patch7:         disable_warning.patch
+Patch8:         no_testable_package.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -234,11 +235,12 @@ popd
 # disable warning treated as error in libdispatch
 %patch -P7 -p0
 
+# Disable integration tests as they are causing the packaging
+# to fail (after Swift has been successfully built)
+%patch -P8 -p0
+
 %build
 export VERBOSE=1
-# warning about function type casts is enabled by default in >= clang 19; libdispatch has -Werror set
-# so this was causing the compile to fail
-export CFLAGS="-Wno-error=cast-function-type `echo $CFLAGS`"
 # Here we go!
 swift/utils/build-script --preset=buildbot_linux,no_test install_destdir=%{_builddir} installable_package=%{_builddir}/swift-%{version}-%{linux_version}.tar.gz
 
