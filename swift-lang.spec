@@ -130,6 +130,14 @@ ExclusiveArch:  x86_64 aarch64
 
 Provides:       swiftlang = %{version}-%{release}
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2291122
+# (python3-swiftclient provides a program called "swift" 
+# that clashes with the binary created by this package)
+# This is currently for all versions, so we don't
+# specify one
+Conflicts:      python3-swiftclient
+
+
 # Per https://bugzilla.redhat.com/show_bug.cgi?id=2324076 we
 # need to exclude all of the LLVM libraries, basically everything
 # we bundle, from being picked up by the RPM dependency 
