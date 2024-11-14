@@ -93,7 +93,6 @@ Source41:       https://github.com/apple/swift-foundation/archive/refs/heads/rel
 Source42:       https://github.com/apple/swift-testing/archive/refs/tags/swift-%{swift_version}.tar.gz#/swift-testing.tar.gz
 Source43:       https://github.com/madler/zlib/releases/download/v%{zlib_version}/zlib13.zip
 Source44:       swiftlang.conf
-Source45:       excludelibs.inc
 
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
@@ -144,9 +143,12 @@ Conflicts:      python3-swiftclient
 # generator for "provides" (i.e. we don't want to have our
 # version of liblldb.so found when someone is searching for 
 # general version of LLDB).
-# The file we include here contains the full list of all the
-# libraries we do not want to be seen outside our package.
-%include %{SOURCE45}
+%global __provides_exclude ^(libLTO[.]so.*)$
+%global __requires_exclude ^(libLTO[.]so.*)$
+%global __provides_exclude ^(libclang_rt.*.so.*)$
+%global __requires_exclude ^(libclang_rt.*.so.*)$
+%global __provides_exclude ^(liblldb[.]so.*)$
+%global __requires_exclude ^(liblldb[.]so.*)$
 
 
 %description
