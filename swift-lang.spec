@@ -130,9 +130,15 @@ ExclusiveArch:  x86_64 aarch64
 
 Provides:       swiftlang = %{version}-%{release}
 
-
-%global __provides_exclude_from ^(%{_libexecdir}/%{name}/%{package_version}/lib/.*\\.so.*|%{_libexecdir}/%{name}/%{package_version}/lib64/.*\\.so.*)$
-%global __requires_exclude_from ^(%{_libexecdir}/%{name}/%{package_version}/lib/.*\\.so.*|%{_libexecdir}/%{name}/%{package_version}/lib64/.*\\.so.*)$
+# Per https://bugzilla.redhat.com/show_bug.cgi?id=2324076 we
+# need to exclude all of the LLVM libraries, basically everything
+# we bundle, from being picked up by the RPM dependency 
+# generator for "provides" (i.e. we don't want to have our
+# version of liblldb.so found when someone is searching for 
+# general version of LLDB).
+# The file we include here contains the full list of all the
+# libraries we do not want to be seen outside our package.
+%include %{SOURCE45}
 
 
 %description
