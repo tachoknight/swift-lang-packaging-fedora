@@ -306,11 +306,13 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Mon Oct 28 2024 Ron Olson <tachoknight@gmail.com> - 6.0.2-1
+* Thu Nov 14 2024 Ron Olson <tachoknight@gmail.com> - 6.0.2-1
 - Updated to Swift 6.0.2-RELEASE
+  Resolves: rhbz#2291122
+  Resolves: rhbz#2322729
+  Resolves: rhbz#2324076
 * Wed Sep 25 2024 Ron Olson <tachoknight@gmail.com> - 6.0.1-1
 - Updated to Swift 6.0.1-RELEASE
-  Resolves: rhbz#2313366
 * Mon Sep 16 2024 Ron Olson <tachoknight@gmail.com> - 6.0-1
 - Updated to Swift 6.0-RELEASE
 * Mon Aug 26 2024 Zephyr Lykos <fedora@mochaa.ws> - 6.0-1
