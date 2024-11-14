@@ -15,6 +15,7 @@ dnf -y update
 rm -rf $HOME/rpmbuild
 rm $MYDIR/build-output.txt
 mkdir -p $HOME/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+cp $PWD/*.inc $HOME/rpmbuild/SOURCES
 cp $PWD/*.patch $HOME/rpmbuild/SOURCES
 cp $PWD/*.conf $HOME/rpmbuild/SOURCES
 cp $PWD/swift-lang.spec $HOME/rpmbuild/SPECS
