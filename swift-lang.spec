@@ -93,6 +93,7 @@ Source41:       https://github.com/apple/swift-foundation/archive/refs/heads/rel
 Source42:       https://github.com/apple/swift-testing/archive/refs/tags/swift-%{swift_version}.tar.gz#/swift-testing.tar.gz
 Source43:       https://github.com/madler/zlib/releases/download/v%{zlib_version}/zlib13.zip
 Source44:       swiftlang.conf
+Source45:       excludelibs.inc
 
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
