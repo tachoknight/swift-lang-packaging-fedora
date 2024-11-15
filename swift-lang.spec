@@ -143,12 +143,8 @@ Conflicts:      python3-swiftclient
 # generator for "provides" (i.e. we don't want to have our
 # version of liblldb.so found when someone is searching for 
 # general version of LLDB).
-%global __provides_exclude ^(libLTO[.]so.*)$
-%global __requires_exclude ^(libLTO[.]so.*)$
-%global __provides_exclude ^(libclang_rt.*.so.*)$
-%global __requires_exclude ^(libclang_rt.*.so.*)$
-%global __provides_exclude ^(liblldb[.]so.*)$
-%global __requires_exclude ^(liblldb[.]so.*)$
+%global __provides_exclude ^(libLTO[.]so.*|libclang_rt.*.so.*|liblldb[.]so.*)$
+%global __requires_exclude ^(libLTO[.]so.*|libclang_rt.*.so.*|liblldb[.]so.*)$
 
 
 %description
