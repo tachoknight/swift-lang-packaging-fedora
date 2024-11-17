@@ -102,6 +102,7 @@ Patch5:         have_strcat.patch
 Patch6:         latest_python.patch
 Patch7:         disable_warning.patch
 Patch8:         no_testable_package.patch
+Patch9:         no_optimization.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -256,6 +257,14 @@ popd
 # Disable integration tests as they are causing the packaging
 # to fail (after Swift has been successfully built)
 %patch -P8 -p0
+
+# The clang compiler crashes on Fedora 42 and Rawhide
+# on x86_64 on a particular file
+%if 0%{?fedora} >= 42 
+%ifarch x86_64 
+%patch -P9 -p0
+%endif
+%endif
 
 %build
 export VERBOSE=1

@@ -1,0 +1,18 @@
+--- llbuild/lib/llvm/Support/Host.cpp.orig	2024-11-17 17:13:43.435246988 -0600
++++ llbuild/lib/llvm/Support/Host.cpp	2024-11-17 17:15:43.745287736 -0600
+@@ -45,6 +45,9 @@
+ 
+ #define DEBUG_TYPE "host-detection"
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-O2"
++
+ //===----------------------------------------------------------------------===//
+ //
+ //  Implementations of the CPU detection routines
+@@ -1373,3 +1376,5 @@
+ 
+   return PT.str();
+ }
++
++#pragma GCC diagnostic pop
