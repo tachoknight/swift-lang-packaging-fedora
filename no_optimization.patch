@@ -1,18 +1,7 @@
 --- llbuild/lib/llvm/Support/Host.cpp.orig	2024-11-17 17:13:43.435246988 -0600
-+++ llbuild/lib/llvm/Support/Host.cpp	2024-11-17 17:15:43.745287736 -0600
-@@ -45,6 +45,9 @@
- 
- #define DEBUG_TYPE "host-detection"
- 
-+#pragma GCC diagnostic push
-+#pragma GCC diagnostic ignored "-O2"
-+
- //===----------------------------------------------------------------------===//
++++ llbuild/lib/llvm/Support/Host.cpp	2024-11-17 21:48:45.890207140 -0600
+@@ -1,3 +1,4 @@
++#pragma clang optimize off
+ //===-- Host.cpp - Implement OS Host Concept --------------------*- C++ -*-===//
  //
- //  Implementations of the CPU detection routines
-@@ -1373,3 +1376,5 @@
- 
-   return PT.str();
- }
-+
-+#pragma GCC diagnostic pop
+ //                     The LLVM Compiler Infrastructure
