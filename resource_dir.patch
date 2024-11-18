@@ -1,4 +1,4 @@
-From f189a95d6371cdb44f773029f7a19b94f0d9a839 Mon Sep 17 00:00:00 2001
+From b7ec9c840722d19dfc81411da02916d30da12893 Mon Sep 17 00:00:00 2001
 From: Finagolfin <finagolfin@tuta.io>
 Date: Fri, 28 Jun 2024 20:06:06 +0530
 Subject: [PATCH] [ClangImporter] Make sure the `-resource-dir` is checked
@@ -7,14 +7,14 @@ Subject: [PATCH] [ClangImporter] Make sure the `-resource-dir` is checked
 Otherwise, these module maps can be pulled from a system SDK instead when
 building a fresh Swift stdlib, fixes #74696.
 ---
- lib/ClangImporter/ClangIncludePaths.cpp | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ lib/ClangImporter/ClangIncludePaths.cpp | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/lib/ClangImporter/ClangIncludePaths.cpp b/lib/ClangImporter/ClangIncludePaths.cpp
-index 23431af724459..7e6ca8c2a9cb6 100644
+index 77173166ba494..7399a01b57c62 100644
 --- a/lib/ClangImporter/ClangIncludePaths.cpp
 +++ b/lib/ClangImporter/ClangIncludePaths.cpp
-@@ -35,10 +35,10 @@ static std::optional<Path> getActualModuleMapPath(
+@@ -35,10 +35,9 @@ static std::optional<Path> getActualModuleMapPath(
  
    Path result;
  
@@ -23,24 +23,24 @@ index 23431af724459..7e6ca8c2a9cb6 100644
 -    result.append(SDKPath.begin(), SDKPath.end());
 -    llvm::sys::path::append(result, "usr", "lib", "swift");
 +  if (!Opts.RuntimeResourcePath.empty()) {
-+    result.clear();
 +    result.append(Opts.RuntimeResourcePath.begin(),
 +                  Opts.RuntimeResourcePath.end());
      llvm::sys::path::append(result, platform);
      if (isArchSpecific) {
        llvm::sys::path::append(result, arch);
-@@ -52,10 +52,10 @@ static std::optional<Path> getActualModuleMapPath(
+@@ -52,10 +51,11 @@ static std::optional<Path> getActualModuleMapPath(
        return result;
    }
  
 -  if (!Opts.RuntimeResourcePath.empty()) {
--    result.clear();
--    result.append(Opts.RuntimeResourcePath.begin(),
--                  Opts.RuntimeResourcePath.end());
 +  StringRef SDKPath = Opts.getSDKPath();
 +  if (!SDKPath.empty()) {
+     result.clear();
+-    result.append(Opts.RuntimeResourcePath.begin(),
+-                  Opts.RuntimeResourcePath.end());
 +    result.append(SDKPath.begin(), SDKPath.end());
 +    llvm::sys::path::append(result, "usr", "lib", "swift");
      llvm::sys::path::append(result, platform);
      if (isArchSpecific) {
        llvm::sys::path::append(result, arch);
+
