@@ -1,7 +1,73 @@
 --- llbuild/lib/llvm/Support/Host.cpp.orig	2024-11-17 17:13:43.435246988 -0600
-+++ llbuild/lib/llvm/Support/Host.cpp	2024-11-17 21:48:45.890207140 -0600
-@@ -1,3 +1,4 @@
-+#pragma clang optimize off
- //===-- Host.cpp - Implement OS Host Concept --------------------*- C++ -*-===//
- //
- //                     The LLVM Compiler Infrastructure
++++ llbuild/lib/llvm/Support/Host.cpp	2024-11-19 09:01:49.374183297 -0600
+@@ -25,6 +25,9 @@
+ #include "llvm/Support/raw_ostream.h"
+ #include <assert.h>
+ #include <string.h>
++#include <stdio.h>
++#include <stdlib.h>
++
+ 
+ // Include the platform-specific parts of this class.
+ #ifdef LLVM_ON_UNIX
+@@ -1085,45 +1088,23 @@
+ // using the number of unique physical/core id pairs. The following
+ // implementation reads the /proc/cpuinfo format on an x86_64 system.
+ static int computeHostNumPhysicalCores() {
+-  // Read /proc/cpuinfo as a stream (until EOF reached). It cannot be
+-  // mmapped because it appears to have 0 size.
+-  llvm::ErrorOr<std::unique_ptr<llvm::MemoryBuffer>> Text =
+-      llvm::MemoryBuffer::getFileAsStream("/proc/cpuinfo");
+-  if (std::error_code EC = Text.getError()) {
+-    llvm::errs() << "Can't read "
+-                 << "/proc/cpuinfo: " << EC.message() << "\n";
+-    return -1;
+-  }
+-  SmallVector<StringRef, 8> strs;
+-  (*Text)->getBuffer().split(strs, "\n", /*MaxSplit=*/-1,
+-                             /*KeepEmpty=*/false);
+-  int CurPhysicalId = -1;
+-  int CurCoreId = -1;
+-  SmallSet<std::pair<int, int>, 32> UniqueItems;
+-  for (auto &Line : strs) {
+-    Line = Line.trim();
+-    if (!Line.startswith("physical id") && !Line.startswith("core id"))
+-      continue;
+-    std::pair<StringRef, StringRef> Data = Line.split(':');
+-    auto Name = Data.first.trim();
+-    auto Val = Data.second.trim();
+-    if (Name == "physical id") {
+-      assert(CurPhysicalId == -1 &&
+-             "Expected a core id before seeing another physical id");
+-      Val.getAsInteger(10, CurPhysicalId);
++    FILE *cpuinfo = fopen("/proc/cpuinfo", "r");
++    if (cpuinfo == NULL) {
++        perror("fopen");
++        return EXIT_FAILURE;
+     }
+-    if (Name == "core id") {
+-      assert(CurCoreId == -1 &&
+-             "Expected a physical id before seeing another core id");
+-      Val.getAsInteger(10, CurCoreId);
+-    }
+-    if (CurPhysicalId != -1 && CurCoreId != -1) {
+-      UniqueItems.insert(std::make_pair(CurPhysicalId, CurCoreId));
+-      CurPhysicalId = -1;
+-      CurCoreId = -1;
++
++    char line[256];
++    int core_count = 0;
++
++    while (fgets(line, sizeof(line), cpuinfo)) {
++        if (strncmp(line, "processor", 9) == 0) {
++            core_count++;
++        }
+     }
+-  }
+-  return UniqueItems.size();
++
++    fclose(cpuinfo);
++    return core_count;
+ }
+ #elif defined(__APPLE__) && defined(__x86_64__)
+ #include <sys/param.h>
