@@ -1,73 +1,24 @@
---- llbuild/lib/llvm/Support/Host.cpp.orig	2024-11-17 17:13:43.435246988 -0600
-+++ llbuild/lib/llvm/Support/Host.cpp	2024-11-19 09:01:49.374183297 -0600
-@@ -25,6 +25,9 @@
- #include "llvm/Support/raw_ostream.h"
- #include <assert.h>
- #include <string.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+
+diff --color -Naur llbuild-orig/lib/llvm/Support/CMakeLists.txt llbuild/lib/llvm/Support/CMakeLists.txt
+--- llbuild-orig/lib/llvm/Support/CMakeLists.txt	2024-09-05 18:18:16.000000000 -0500
++++ llbuild/lib/llvm/Support/CMakeLists.txt	2024-11-20 16:07:54.309067679 -0600
+@@ -1,6 +1,8 @@
+ # Disable implicit-fallthrough, if used.
+ append_if(CXX_SUPPORTS_IMPLICIT_FALLTHROUGH_FLAG "-Wno-implicit-fallthrough" CMAKE_CXX_FLAGS)
  
- // Include the platform-specific parts of this class.
- #ifdef LLVM_ON_UNIX
-@@ -1085,45 +1088,23 @@
- // using the number of unique physical/core id pairs. The following
- // implementation reads the /proc/cpuinfo format on an x86_64 system.
- static int computeHostNumPhysicalCores() {
--  // Read /proc/cpuinfo as a stream (until EOF reached). It cannot be
--  // mmapped because it appears to have 0 size.
--  llvm::ErrorOr<std::unique_ptr<llvm::MemoryBuffer>> Text =
--      llvm::MemoryBuffer::getFileAsStream("/proc/cpuinfo");
--  if (std::error_code EC = Text.getError()) {
--    llvm::errs() << "Can't read "
--                 << "/proc/cpuinfo: " << EC.message() << "\n";
--    return -1;
--  }
--  SmallVector<StringRef, 8> strs;
--  (*Text)->getBuffer().split(strs, "\n", /*MaxSplit=*/-1,
--                             /*KeepEmpty=*/false);
--  int CurPhysicalId = -1;
--  int CurCoreId = -1;
--  SmallSet<std::pair<int, int>, 32> UniqueItems;
--  for (auto &Line : strs) {
--    Line = Line.trim();
--    if (!Line.startswith("physical id") && !Line.startswith("core id"))
--      continue;
--    std::pair<StringRef, StringRef> Data = Line.split(':');
--    auto Name = Data.first.trim();
--    auto Val = Data.second.trim();
--    if (Name == "physical id") {
--      assert(CurPhysicalId == -1 &&
--             "Expected a core id before seeing another physical id");
--      Val.getAsInteger(10, CurPhysicalId);
-+    FILE *cpuinfo = fopen("/proc/cpuinfo", "r");
-+    if (cpuinfo == NULL) {
-+        perror("fopen");
-+        return EXIT_FAILURE;
-     }
--    if (Name == "core id") {
--      assert(CurCoreId == -1 &&
--             "Expected a physical id before seeing another core id");
--      Val.getAsInteger(10, CurCoreId);
--    }
--    if (CurPhysicalId != -1 && CurCoreId != -1) {
--      UniqueItems.insert(std::make_pair(CurPhysicalId, CurCoreId));
--      CurPhysicalId = -1;
--      CurCoreId = -1;
++SET_SOURCE_FILES_PROPERTIES(Host.cpp PROPERTIES COMPILE_FLAGS -O1)
 +
-+    char line[256];
-+    int core_count = 0;
+ add_llbuild_library(llvmSupport STATIC
+ APFloat.cpp
+ APInt.cpp
+diff --color -Naur llbuild-orig/utils/import-llvm/cmake/supportCMakeLists.txt llbuild/utils/import-llvm/cmake/supportCMakeLists.txt
+--- llbuild-orig/utils/import-llvm/cmake/supportCMakeLists.txt	2024-09-05 18:18:16.000000000 -0500
++++ llbuild/utils/import-llvm/cmake/supportCMakeLists.txt	2024-11-20 16:09:00.316243756 -0600
+@@ -1,6 +1,8 @@
+ # Disable implicit-fallthrough, if used.
+ append_if(CXX_SUPPORTS_IMPLICIT_FALLTHROUGH_FLAG "-Wno-implicit-fallthrough" CMAKE_CXX_FLAGS)
+ 
++SET_SOURCE_FILES_PROPERTIES(Host.cpp PROPERTIES COMPILE_FLAGS -O1)
 +
-+    while (fgets(line, sizeof(line), cpuinfo)) {
-+        if (strncmp(line, "processor", 9) == 0) {
-+            core_count++;
-+        }
-     }
--  }
--  return UniqueItems.size();
-+
-+    fclose(cpuinfo);
-+    return core_count;
- }
- #elif defined(__APPLE__) && defined(__x86_64__)
- #include <sys/param.h>
+ add_llbuild_library(llvmSupport
+ APFloat.cpp
+ APInt.cpp
