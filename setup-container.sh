@@ -40,7 +40,7 @@ else
         dnf config-manager --set-enabled powertools
 fi
 
-dnf install -y the_silver_searcher
+dnf install -y the_silver_searcher tig
 
 # Now get the dependencies from the spec file
 dnf builddep -y ./swift-lang.spec
