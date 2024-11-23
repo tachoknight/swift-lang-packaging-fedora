@@ -102,7 +102,7 @@ Patch5:         have_strcat.patch
 Patch6:         latest_python.patch
 Patch7:         disable_warning.patch
 Patch8:         no_testable_package.patch
-Patch9:         no_optimization.patch
+Patch9:         clang_crash_fix.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
