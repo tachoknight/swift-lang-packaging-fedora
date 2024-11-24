@@ -11,8 +11,8 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0.2-RELEASE
-%global package_version 6.0.2
+%global swift_version 6.1-DEVELOPMENT-SNAPSHOT-2024-11-21-a
+%global package_version 6.1
 %global fedora_release 1
 
 %global swift_source_location swift-source
@@ -224,17 +224,17 @@ mv zlib-%{zlib_version} zlib
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Enable PIC for cmark
-%patch -P1 -p0
+%dnl %patch -P1 -p0
 
 # Pipes has been removed in Python
-%patch -P2 -p0
+%dnl %patch -P2 -p0
 
 # Enable LZMA
-%patch -P3 -p0
+%dnl %patch -P3 -p0
 
 # https://github.com/swiftlang/swift/pull/74814
 pushd swift
-%patch -P4 -p1
+%dnl %patch -P4 -p1
 popd
 
 # Weird (hopefully temp) situation of strlcpy and strncat
@@ -242,27 +242,27 @@ popd
 # This does not work for EPEL9, so we need to make sure
 # that this patch is _not_ applied when building for EPEL9
 %if ! 0%{?el9}
-%patch -P5 -p0
+%dnl %patch -P5 -p0
 %endif
 
 # After Python 3.12 certain functions have been removed, 
 # which is in Fedora 41
 %if 0%{?fedora} >= 41
-%patch -P6 -p0
+%dnl %patch -P6 -p0
 %endif
 
 # disable warning treated as error in libdispatch
-%patch -P7 -p0
+%dnl %patch -P7 -p0
 
 # Disable integration tests as they are causing the packaging
 # to fail (after Swift has been successfully built)
-%patch -P8 -p0
+%dnl %patch -P8 -p0
 
 # The clang compiler crashes on Fedora 42 and Rawhide
 # on x86_64 on a particular file
 %if 0%{?fedora} >= 42 
 %ifarch x86_64 
-%patch -P9 -p0
+%dnl %patch -P9 -p0
 %endif
 %endif
 
