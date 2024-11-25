@@ -20,25 +20,25 @@
 # Set to the right version per the json file
 %global icu_version 69
 %global yams_version 5.0.6
-%global swift_argument_parser_version 1.2.3
+%global swift_argument_parser_version 1.4.0
 %global swift_crypto_version 3.0.0
 %global ninja_version 1.11.1
-%global cmake_version 3.24.2
+%global cmake_version 3.30.2
 %global swift_atomics_version 1.2.0
-%global swift_collections_version 1.1.2
+%global swift_collections_version 1.1.3
 %global swift_numerics_version 1.0.2
 %global swift_system_version 1.3.0
-%global swift_nio_version 2.31.2
+%global swift_nio_version 2.65.0
 %global swift_nio_ssl_version 2.15.0
 %global swift_certificates_version 1.0.1
 %global swift_asn1_version 1.0.0
-%global wasmkit_version 0.0.3
-%global wasi_version 20
+%global wasmkit_version 0.1.2
+%global wasi_version 22
 %global swift_format_version 6.0
 %global swift_llvm_bindings_version 6.0
 %global swift_foundation_icu_version 6.0
 %global swift_foundation_version 6.0
-%global zlib_version 1.3
+%global zlib_version 1.3.1
 
 
 Name:           swift-lang
