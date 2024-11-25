@@ -102,15 +102,7 @@ Source46:       https://github.com/apple/swift-log/archive/refs/tags/%{swift_log
 Source47:       https://github.com/swiftlang/swift-sdk-generator/archive/refs/heads/release/%{swift_sdk_generator_version}.zip#/swift-sdk-generator.zip
 Source48:       swiftlang.conf
 
-Patch1:         need_pic.patch
-Patch2:         no_pipes.patch
-Patch3:         enable_lzma.patch
-Patch4:         resource_dir.patch
-Patch5:         have_strcat.patch
-Patch6:         latest_python.patch
-Patch7:         disable_warning.patch
-Patch8:         no_testable_package.patch
-Patch9:         clang_crash_fix.patch
+Patch1:         ninja_no_pipes.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -235,48 +227,9 @@ mv zlib-%{zlib_version} zlib
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
-# Enable PIC for cmark
-%dnl %patch -P1 -p0
+# Ninja is still using pipes?
+%patch -P1 -p0
 
-# Pipes has been removed in Python
-%dnl %patch -P2 -p0
-
-# Enable LZMA
-%dnl %patch -P3 -p0
-
-# https://github.com/swiftlang/swift/pull/74814
-pushd swift
-%dnl %patch -P4 -p1
-popd
-
-# Weird (hopefully temp) situation of strlcpy and strncat
-# not being found at the system level
-# This does not work for EPEL9, so we need to make sure
-# that this patch is _not_ applied when building for EPEL9
-%if ! 0%{?el9}
-%dnl %patch -P5 -p0
-%endif
-
-# After Python 3.12 certain functions have been removed, 
-# which is in Fedora 41
-%if 0%{?fedora} >= 41
-%dnl %patch -P6 -p0
-%endif
-
-# disable warning treated as error in libdispatch
-%dnl %patch -P7 -p0
-
-# Disable integration tests as they are causing the packaging
-# to fail (after Swift has been successfully built)
-%dnl %patch -P8 -p0
-
-# The clang compiler crashes on Fedora 42 and Rawhide
-# on x86_64 on a particular file
-%if 0%{?fedora} >= 42 
-%ifarch x86_64 
-%dnl %patch -P9 -p0
-%endif
-%endif
 
 %build
 export VERBOSE=1
