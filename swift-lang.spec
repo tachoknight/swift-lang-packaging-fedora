@@ -39,6 +39,10 @@
 %global swift_foundation_icu_version 6.0
 %global swift_foundation_version 6.0
 %global zlib_version 1.3.1
+%global swift_toolchain_sqlite_version 1.0.1
+%global swift_async_algorithms_version 1.0.1
+%global swift_log_version 1.5.4
+%global swift_sdk_generator_version 6.1
 
 
 Name:           swift-lang
@@ -92,7 +96,11 @@ Source40:       https://github.com/apple/swift-foundation-icu/archive/refs/heads
 Source41:       https://github.com/apple/swift-foundation/archive/refs/heads/release/%{swift_foundation_version}.zip#/swift-foundation.zip
 Source42:       https://github.com/apple/swift-testing/archive/refs/tags/swift-%{swift_version}.tar.gz#/swift-testing.tar.gz
 Source43:       https://github.com/madler/zlib/releases/download/v%{zlib_version}/zlib13.zip
-Source44:       swiftlang.conf
+Source44:       https://github.com/swiftlang/swift-toolchain-sqlite/archive/refs/tags/%{swift_toolchain_sqlite_version}.zip#/swift-toolchain-sqlite.zip
+Source45:       https://github.com/apple/swift-async-algorithms/archive/refs/tags/%{swift_async_algorithms_version}.zip#/swift-async-algorithms.zip
+Source46:       https://github.com/apple/swift-log/archive/refs/tags/%{swift_log_version}.zip#/swift-log.zip
+Source47:       https://github.com/swiftlang/swift-sdk-generator/archive/refs/heads/release/%{swift_sdk_generator_version}.zip#/swift-sdk-generator.zip
+Source48:       swiftlang.conf
 
 Patch1:         need_pic.patch
 Patch2:         no_pipes.patch
@@ -161,7 +169,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36 -a 37 -a 38 -a 39 -a 40 -a 41 -a 42 -a 43
+%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36 -a 37 -a 38 -a 39 -a 40 -a 41 -a 42 -a 43 -a 44 -a 45 -a 46 -a 47
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -203,6 +211,10 @@ mv swift-asn1-%{swift_asn1_version} swift-asn1
 mv swift-llvm-bindings-swift-release-%{swift_llvm_bindings_version} swift-llvm-bindings
 mv swift-foundation-icu-release-%{swift_foundation_icu_version} swift-foundation-icu
 mv swift-foundation-release-%{swift_foundation_version} swift-foundation
+mv swift-toolchain-sqlite-%{swift_toolchain_sqlite_version} swift-toolchain-sqlite
+mv swift-async-algorithms-%{swift_async_algorithms_version} swift-async-algorithms
+mv swift-log-%{swift_log_version} swift-log
+mv swift-sdk-generator-release-%{swift_sdk_generator_version} swift-sdk-generator
 
 # ICU 
 mv icu-maint-maint-%{icu_version} icu
@@ -286,7 +298,7 @@ ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/sw
 mkdir -p %{buildroot}%{_libdir}
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/lib{IndexStore,sourcekitdInProc,swiftDemangle}.so* %{buildroot}%{_libdir}/
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE44} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
+install -m 0644 %{SOURCE48} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 
 # This is to fix an issue with check-rpaths complaining about
