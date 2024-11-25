@@ -95,7 +95,7 @@ Source39:       https://github.com/apple/swift-llvm-bindings/archive/refs/heads/
 Source40:       https://github.com/apple/swift-foundation-icu/archive/refs/heads/release/%{swift_foundation_icu_version}.zip#/swift-foundation-icu.zip
 Source41:       https://github.com/apple/swift-foundation/archive/refs/heads/release/%{swift_foundation_version}.zip#/swift-foundation.zip
 Source42:       https://github.com/apple/swift-testing/archive/refs/tags/swift-%{swift_version}.tar.gz#/swift-testing.tar.gz
-Source43:       https://github.com/madler/zlib/releases/download/v%{zlib_version}/zlib13.zip
+Source43:       https://github.com/madler/zlib/releases/download/v%{zlib_version}/zlib131.zip
 Source44:       https://github.com/swiftlang/swift-toolchain-sqlite/archive/refs/tags/%{swift_toolchain_sqlite_version}.zip#/swift-toolchain-sqlite.zip
 Source45:       https://github.com/apple/swift-async-algorithms/archive/refs/tags/%{swift_async_algorithms_version}.zip#/swift-async-algorithms.zip
 Source46:       https://github.com/apple/swift-log/archive/refs/tags/%{swift_log_version}.zip#/swift-log.zip
