@@ -34,10 +34,10 @@
 %global swift_asn1_version 1.0.0
 %global wasmkit_version 0.1.2
 %global wasi_version 22
-%global swift_format_version 6.0
-%global swift_llvm_bindings_version 6.0
-%global swift_foundation_icu_version 6.0
-%global swift_foundation_version 6.0
+%global swift_format_version 6.1
+%global swift_llvm_bindings_version 6.1
+%global swift_foundation_icu_version 6.1
+%global swift_foundation_version 6.1
 %global zlib_version 1.3.1
 %global swift_toolchain_sqlite_version 1.0.1
 %global swift_async_algorithms_version 1.0.1
