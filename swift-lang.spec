@@ -278,6 +278,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Nov 26 2024 Ron Olson <tachoknight@gmail.com> - 6.1-1
+- Working version with Ninja patch
 * Sun Nov 24 2024 Ron Olson <tachoknight@gmail.com> - 6.1-1
 - First attempt at getting 6.1 working
 * Thu Nov 14 2024 Ron Olson <tachoknight@gmail.com> - 6.0.2-1
