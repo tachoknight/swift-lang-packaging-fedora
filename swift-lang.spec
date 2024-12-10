@@ -249,10 +249,12 @@ cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 mkdir -p %{buildroot}/usr/lib
 ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
 mkdir -p %{buildroot}%{_libdir}
-ln -fs %{_libexecdir}/swift/%{package_version}/lib/lib{IndexStore,sourcekitdInProc,swiftDemangle}.so* %{buildroot}%{_libdir}/
+ln -fs %{_libexecdir}/swift/%{package_version}/lib/libIndexStore.so %{buildroot}%{_libdir}/
+ln -fs %{_libexecdir}/swift/%{package_version}/lib/libIndexStore.so.17 %{buildroot}%{_libdir}/
+ln -fs %{_libexecdir}/swift/%{package_version}/lib/libsourcekitdInProc.so %{buildroot}%{_libdir}/
+ln -fs %{_libexecdir}/swift/%{package_version}/lib/libswiftDemangle.so %{buildroot}%{_libdir}/
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
 install -m 0644 %{SOURCE48} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
-
 
 # This is to fix an issue with check-rpaths complaining about
 # how the Swift binaries use RPATH
@@ -268,8 +270,8 @@ export QA_SKIP_RPATHS=1
 %{_libexecdir}/swift/
 %{_usr}/lib/swift
 %{_libdir}/libIndexStore.so*
-%{_libdir}/libsourcekitdInProc.so*
-%{_libdir}/libswiftDemangle.so*
+%{_libdir}/libsourcekitdInProc.so
+%{_libdir}/libswiftDemangle.so
 %{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 
@@ -278,6 +280,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Dec 10 2024 Zephyr Lykos <fedora@mochaa.ws> - 6.1-1
+- fix libdir symlink installation
 * Tue Nov 26 2024 Ron Olson <tachoknight@gmail.com> - 6.1-1
 - Working version with Ninja patch
 * Sun Nov 24 2024 Ron Olson <tachoknight@gmail.com> - 6.1-1
