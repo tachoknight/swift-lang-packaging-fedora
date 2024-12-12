@@ -11,8 +11,8 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.0.2-RELEASE
-%global package_version 6.0.2
+%global swift_version 6.0.3-RELEASE
+%global package_version 6.0.3
 %global fedora_release 1
 
 %global swift_source_location swift-source
