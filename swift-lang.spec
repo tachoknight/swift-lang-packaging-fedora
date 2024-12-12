@@ -232,11 +232,6 @@ mv zlib-%{zlib_version} zlib
 # Enable LZMA
 %patch -P3 -p0
 
-# https://github.com/swiftlang/swift/pull/74814
-pushd swift
-%patch -P4 -p1
-popd
-
 # Weird (hopefully temp) situation of strlcpy and strncat
 # not being found at the system level
 # This does not work for EPEL9, so we need to make sure
