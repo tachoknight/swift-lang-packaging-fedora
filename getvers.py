@@ -3,7 +3,7 @@
 import sys
 import json
 
-# probably want: ./getvers.py ~/rpmbuild/BUILD/swift-source/swift release/5.9
+# probably want: ./getvers.py ~/rpmbuild/BUILD/swift-lang-6.1-build/swift-source/swift release/6.1
 if len(sys.argv) != 3:
     print("args: swift source directory, version of swift")
     sys.exit()

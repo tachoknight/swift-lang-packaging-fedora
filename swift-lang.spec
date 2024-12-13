@@ -219,6 +219,7 @@ mv ninja-%{ninja_version} ninja
 
 # WasmKit
 mv WasmKit-%{wasmkit_version} wasmkit
+mv wasi-libc-wasi-sdk-%{wasi_version} wasi-libc
 
 # zlib
 mv zlib-%{zlib_version} zlib
