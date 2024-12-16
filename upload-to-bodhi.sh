@@ -85,7 +85,7 @@ fedpkg build --nowait
 let "FEDORA_VERSION += 2"
 echo f$FEDORA_VERSION | figlet -c -f mini | lolcat
 # Let's see if this works...
-if ! fedpkg switch-branch f$FEDORA_VERSION; then
+if fedpkg switch-branch f$FEDORA_VERSION; then
     git merge rawhide
     git push
     fedpkg build --nowait
