@@ -13,7 +13,7 @@
 #################################################
 %global swift_version 6.0.3-RELEASE
 %global package_version 6.0.3
-%global fedora_release 1
+%global fedora_release 2
 
 %global swift_source_location swift-source
 
@@ -273,6 +273,8 @@ cp -r %{_builddir}/usr/* %{buildroot}%{_libexecdir}/swift/%{package_version}
 mkdir -p %{buildroot}%{_bindir}
 ln -fs %{_libexecdir}/swift/%{package_version}/bin/swift %{buildroot}%{_bindir}/swift
 ln -fs %{_libexecdir}/swift/%{package_version}/bin/swiftc %{buildroot}%{_bindir}/swiftc
+ln -fs %{_libexecdir}/swift/%{package_version}/bin/swift-build %{buildroot}%{_bindir}/swift-build
+ln -fs %{_libexecdir}/swift/%{package_version}/bin/swift-run %{buildroot}%{_bindir}/swift-run
 ln -fs %{_libexecdir}/swift/%{package_version}/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
 mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
@@ -296,6 +298,8 @@ export QA_SKIP_RPATHS=1
 %license swift/LICENSE.txt
 %{_bindir}/swift
 %{_bindir}/swiftc
+%{_bindir}/swift-build
+%{_bindir}/swift-run
 %{_bindir}/sourcekit-lsp
 %{_mandir}/man1/swift.1.gz
 %{_libexecdir}/swift/
@@ -311,6 +315,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Mon Dec 16 2024 Ron Olson <tachoknight@gmail.com> - 6.0.3-2
+- Added swift-run and swift-build as symlinks for future
+  versions of Swift
 * Thu Dec 12 2024 Ron Olson <tachoknight@gmail.com> - 6.0.3-1
 - Updated to Swift 6.0.3-RELEASE
   Resolves: rhbz#2332031
