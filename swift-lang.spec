@@ -285,7 +285,7 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Mon Dec 16 2024 Ron Olson <tachoknight@gmail.com> - 6.0.3-2
+* Mon Dec 16 2024 Ron Olson <tachoknight@gmail.com> - 6.1-1
 - Added swift-run and swift-build as symlinks for future
   versions of Swift
 * Tue Dec 10 2024 Zephyr Lykos <fedora@mochaa.ws> - 6.1-1
