@@ -11,7 +11,7 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 6.1-DEVELOPMENT-SNAPSHOT-2024-12-15-a
+%global swift_version 6.1-DEVELOPMENT-SNAPSHOT-2024-12-16-a
 %global package_version 6.1
 %global fedora_release 1
 
