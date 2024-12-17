@@ -85,6 +85,7 @@ Patch8:   new_glibc.patch
 Patch9:   no_pipes_58.patch
 Patch10:  cython_updates.patch
 Patch11:  latest_python.patch
+Patch12:  disable_warning.patch
 
 
 %ifarch aarch64
@@ -218,6 +219,8 @@ mv ninja-%{ninja_version} ninja
 # Python 3.12 changes
 %dnl %patch -P11 -p0
 
+# Warning as error in EPEL 10
+%patch -P12 -p0
 
 %build
 export VERBOSE=1

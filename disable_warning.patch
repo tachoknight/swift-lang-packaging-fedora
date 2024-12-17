@@ -1,0 +1,39 @@
+diff --color -Naur swift-corelibs-libdispatch-orig/src/apply.c swift-corelibs-libdispatch/src/apply.c
+--- swift-corelibs-libdispatch-orig/src/apply.c	2022-10-01 10:48:05.000000000 -0500
++++ swift-corelibs-libdispatch/src/apply.c	2024-12-17 14:56:01.110477562 -0600
+@@ -20,6 +20,9 @@
+ 
+ #include "internal.h"
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wcast-function-type-mismatch"
++
+ typedef void (*dispatch_apply_function_t)(void *, size_t);
+ static char const * const _dispatch_apply_key = "apply";
+ 
+@@ -366,3 +369,6 @@
+ 			(dispatch_apply_function_t)_dispatch_Block_invoke(work));
+ }
+ #endif
++
++#pragma GCC diagnostic pop
++
+diff --color -Naur swift-corelibs-libdispatch-orig/src/data.c swift-corelibs-libdispatch/src/data.c
+--- swift-corelibs-libdispatch-orig/src/data.c	2022-10-01 10:48:05.000000000 -0500
++++ swift-corelibs-libdispatch/src/data.c	2024-12-17 14:57:39.514903781 -0600
+@@ -20,6 +20,9 @@
+ 
+ #include "internal.h"
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wcast-function-type-mismatch"
++
+ /*
+  * Dispatch data objects are dispatch objects with standard retain/release
+  * memory management. A dispatch data object either points to a number of other
+@@ -738,3 +741,5 @@
+ 	return mep;
+ }
+ #endif // HAVE_MACH
++
++#pragma GCC diagnostic pop
