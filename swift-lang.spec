@@ -7,7 +7,7 @@
 # Make sure these are changed for every release!
 #################################################
 %global swift_version 5.8.1-RELEASE
-%global fedora_release 5
+%global fedora_release 6
 %global package_version 5.8.1
 
 # Set to the right version per the json file
@@ -269,6 +269,10 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Dec 17 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-6
+- Made 5.8.1 work for EPEL 10 as it is the last version of
+  Swift that could be built without another version of
+  Swift being present
 * Fri Jun 21 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-5
 - Added another patch
 * Thu Jun 20 2024 Ron Olson <tachoknight@gmail.com> 5.8.1-4
