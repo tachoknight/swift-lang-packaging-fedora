@@ -1,0 +1,11 @@
+--- swift/utils/build-presets.ini.orig	2024-12-18 16:04:59.478543323 -0600
++++ swift/utils/build-presets.ini	2024-12-18 16:07:08.704085878 -0600
+@@ -857,7 +857,7 @@
+     mixin_linux_installation
+ build-subdir=buildbot_linux
+ lldb
+-release
++debug
+ test
+ validation-test
+ long-test

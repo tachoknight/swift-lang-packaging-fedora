@@ -86,7 +86,7 @@ Patch9:   no_pipes_58.patch
 Patch10:  cython_updates.patch
 Patch11:  latest_python.patch
 Patch12:  disable_warning.patch
-
+Patch13:  debug_build.patch
 
 %ifarch aarch64
 BuildRequires:  clang >= 15
@@ -219,6 +219,12 @@ mv ninja-%{ninja_version} ninja
 
 # Warning as error in EPEL 10
 %patch -P12 -p0
+
+# Trying to troubleshoot compiler crash on aarch64
+%ifarch aarch64
+%patch -P13 -p0
+%endif
+
 
 %build
 export VERBOSE=1
