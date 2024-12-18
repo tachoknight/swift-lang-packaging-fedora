@@ -5,7 +5,7 @@ MYDIR=$PWD
 START_TS=`date`
 
 #BUILD=fedora-rawhide-`uname -i`
-BUILD=alma+epel-8-`uname -m`
+BUILD=centos-stream+epel-10-`uname -m`
 #BUILD=fedora-36-`uname -i`
 
 rm -rf $HOME/rpmbuild

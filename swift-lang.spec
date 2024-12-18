@@ -212,7 +212,7 @@ mv ninja-%{ninja_version} ninja
 # For 41 and later, python pipes are no longer a thing
 %patch -P9 -p0
 # For 41 and later, some additional old parts removed
-%patch -P10 -p0
+%dnl %patch -P10 -p0
 
 # Python 3.12 changes
 %patch -P11 -p0
