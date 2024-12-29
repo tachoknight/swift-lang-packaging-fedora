@@ -116,7 +116,7 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  perl-podlators
-BuildRequires:  swiftlang
+BuildRequires:  swift-lang
 BuildRequires:  lld
 
 Requires:       glibc-devel
