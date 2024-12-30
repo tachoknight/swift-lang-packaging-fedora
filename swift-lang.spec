@@ -112,7 +112,7 @@ BuildRequires:	binutils-devel
 BuildRequires:	python-unversioned-command
 %endif
 # Apparently we need Swift to build Swift (shrug)
-BuildRequires:	swiftlang
+BuildRequires:	swift-lang
 
 Requires:       glibc-devel
 %if 0%{?rhel} && 0%{?rhel} == 8
