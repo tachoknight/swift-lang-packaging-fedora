@@ -89,6 +89,7 @@ Patch6:		strlcpy_issues.patch
 Patch7:		file_nonnull.patch
 Patch8:		new_glibc.patch
 Patch9:		densemap.patch
+Patch10:    disable_warning.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -216,6 +217,10 @@ mv ninja-%{ninja_version} ninja
 # Not sure why this requires a patch, but it seems to
 # be needed for aaarch64
 %patch -P9 -p0
+
+# disable warning treated as error in libdispatch
+%patch -P10 -p0
+
 
 %build
 export VERBOSE=1
