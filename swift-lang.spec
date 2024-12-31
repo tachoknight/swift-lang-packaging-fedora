@@ -90,6 +90,7 @@ Patch7:		file_nonnull.patch
 Patch8:		new_glibc.patch
 Patch9:		densemap.patch
 Patch10:    disable_warning.patch
+Patch11:    fclose_issues.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -221,6 +222,9 @@ mv ninja-%{ninja_version} ninja
 
 # disable warning treated as error in libdispatch
 %patch -P10 -p0
+
+# fclose issues
+%patch -P11 -p0
 
 
 %build
