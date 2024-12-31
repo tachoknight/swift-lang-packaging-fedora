@@ -113,6 +113,7 @@ BuildRequires:	python-unversioned-command
 %endif
 # Apparently we need Swift to build Swift (shrug)
 BuildRequires:	swift-lang
+BuildRequires:  sqlite-devel
 
 Requires:       glibc-devel
 %if 0%{?rhel} && 0%{?rhel} == 8
