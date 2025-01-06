@@ -91,6 +91,8 @@ Patch8:		new_glibc.patch
 Patch9:		densemap.patch
 Patch10:    disable_warning.patch
 Patch11:    fclose_issues.patch
+Patch12:    build_from_scratch.patch
+Patch13:    debug_build.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -112,8 +114,6 @@ BuildRequires:	binutils-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
-# Apparently we need Swift to build Swift (shrug)
-BuildRequires:	swift-lang
 BuildRequires:  sqlite-devel
 
 Requires:       glibc-devel
@@ -226,6 +226,13 @@ mv ninja-%{ninja_version} ninja
 # fclose issues
 %patch -P11 -p0
 
+# don't require existing Swift to build
+%patch -P12 -p0
+
+# Trying to troubleshoot compiler crash on aarch64
+%ifarch aarch64
+%patch -P13 -p0
+%endif
 
 %build
 export VERBOSE=1
