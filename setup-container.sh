@@ -29,6 +29,9 @@ else
         dnf install -y epel-release
         dnf config-manager --set-enabled epel
         dnf config-manager --set-enabled powertools
+
+		# Enable CRB for CentOS-Stream
+		/usr/bin/crb enable
 fi
 
 dnf install -y the_silver_searcher
