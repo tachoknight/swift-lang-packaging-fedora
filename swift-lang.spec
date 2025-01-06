@@ -92,6 +92,7 @@ Patch9:		densemap.patch
 Patch10:    disable_warning.patch
 Patch11:    fclose_issues.patch
 Patch12:    build_from_scratch.patch
+Patch13:    debug_build.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -227,6 +228,11 @@ mv ninja-%{ninja_version} ninja
 
 # don't require existing Swift to build
 %patch -P12 -p0
+
+# Trying to troubleshoot compiler crash on aarch64
+%ifarch aarch64
+%patch -P13 -p0
+%endif
 
 %build
 export VERBOSE=1
