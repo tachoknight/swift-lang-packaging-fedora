@@ -15,6 +15,9 @@ dnf update -y
 dnf install -y rpm-build rpm-devel rpmdevtools vim 
 dnf install -y 'dnf-command(config-manager)'
 
+# For debugging
+dnf install -y llvm-symbolizer
+
 # And get the version
 VERSION=`grep VERSION_ID /etc/os-release | cut -d '=' -f 2`
 echo Version is $VERSION
