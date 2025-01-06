@@ -1,0 +1,15 @@
+--- swift/SwiftCompilerSources/CMakeLists.txt.orig	2025-01-06 15:23:16.067558974 -0600
++++ swift/SwiftCompilerSources/CMakeLists.txt	2025-01-06 15:25:20.972595380 -0600
+@@ -251,12 +251,6 @@
+ 
+ #include \"Parse/RegexParserBridging.h\"
+ ")
+-  add_custom_command(
+-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/HeaderDependencies.cpp"
+-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+-      "${CMAKE_CURRENT_BINARY_DIR}/HeaderDependencies.cpp.tmp"
+-      "${CMAKE_CURRENT_BINARY_DIR}/HeaderDependencies.cpp"
+-  )
+ 
+   # step 2: build a library containing that source file. This library depends on all the included header files.
+   #         The swift modules can now depend on that target.
