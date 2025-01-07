@@ -114,6 +114,7 @@ BuildRequires:	binutils-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
 %endif
+BuildRequires:  swift-lang
 BuildRequires:  sqlite-devel
 
 Requires:       glibc-devel
@@ -227,7 +228,7 @@ mv ninja-%{ninja_version} ninja
 %patch -P11 -p0
 
 # don't require existing Swift to build
-%patch -P12 -p0
+%dnl %patch -P12 -p0
 
 # Trying to troubleshoot compiler crash on aarch64
 %ifarch aarch64
