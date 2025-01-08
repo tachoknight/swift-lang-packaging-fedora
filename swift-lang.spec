@@ -262,6 +262,12 @@ mv zlib-%{zlib_version} zlib
 %endif
 %endif
 
+# Trying to troubleshoot compiler crash on aarch64
+%ifarch aarch64
+%patch -P10 -p0
+%endif
+
+
 %build
 export VERBOSE=1
 # Here we go!
