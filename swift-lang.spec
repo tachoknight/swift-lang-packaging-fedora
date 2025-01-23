@@ -13,7 +13,7 @@
 #################################################
 %global swift_version 6.0.3-RELEASE
 %global package_version 6.0.3
-%global fedora_release 3
+%global fedora_release 4
 
 %global swift_source_location swift-source
 
@@ -320,6 +320,8 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Jan 22 2025 Ron Olson <tachoknight@gmail.com> - 6.0.3-4
+- Resolves: rhbz#2341403
 * Wed Jan 22 2025 Ron Olson <tachoknight@gmail.com> - 6.0.3-3
 - Added patch to explicitly include cstdint
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-2.1
