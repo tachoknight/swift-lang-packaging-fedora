@@ -1,5 +1,6 @@
---- llvm-project/llvm/include/llvm/ADT/SmallVector.h.orig	2025-01-22 22:02:18.970521076 -0600
-+++ llvm-project/llvm/include/llvm/ADT/SmallVector.h	2025-01-22 22:02:58.143347758 -0600
+diff --color -Naur llvm-project-orig/llvm/include/llvm/ADT/SmallVector.h llvm-project/llvm/include/llvm/ADT/SmallVector.h
+--- llvm-project-orig/llvm/include/llvm/ADT/SmallVector.h	2024-12-02 15:33:04.000000000 -0600
++++ llvm-project/llvm/include/llvm/ADT/SmallVector.h	2025-01-23 10:00:52.943060832 -0600
 @@ -21,6 +21,7 @@
  #include <cstddef>
  #include <cstdlib>
@@ -8,3 +9,25 @@
  #include <functional>
  #include <initializer_list>
  #include <iterator>
+diff --color -Naur llvm-project-orig/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MCTargetDesc.h llvm-project/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MCTargetDesc.h
+--- llvm-project-orig/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MCTargetDesc.h	2024-12-02 15:33:04.000000000 -0600
++++ llvm-project/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MCTargetDesc.h	2025-01-23 10:05:58.392501221 -0600
+@@ -17,6 +17,7 @@
+ #include "llvm/Support/DataTypes.h"
+ 
+ #include <memory>
++#include <cstdint>
+ 
+ namespace llvm {
+ class formatted_raw_ostream;
+diff --color -Naur llvm-project-orig/llvm/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h llvm-project/llvm/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h
+--- llvm-project-orig/llvm/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h	2024-12-02 15:33:04.000000000 -0600
++++ llvm-project/llvm/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h	2025-01-23 10:02:28.094060973 -0600
+@@ -15,6 +15,7 @@
+ 
+ #include <memory>
+ #include <string>
++#include <cstdint>
+ 
+ namespace llvm {
+ class formatted_raw_ostream;
