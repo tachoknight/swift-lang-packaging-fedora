@@ -1,0 +1,10 @@
+--- llvm-project/llvm/include/llvm/ADT/SmallVector.h.orig	2025-01-22 22:02:18.970521076 -0600
++++ llvm-project/llvm/include/llvm/ADT/SmallVector.h	2025-01-22 22:02:58.143347758 -0600
+@@ -21,6 +21,7 @@
+ #include <cstddef>
+ #include <cstdlib>
+ #include <cstring>
++#include <cstdint>
+ #include <functional>
+ #include <initializer_list>
+ #include <iterator>

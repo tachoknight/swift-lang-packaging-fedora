@@ -13,7 +13,7 @@
 #################################################
 %global swift_version 6.0.3-RELEASE
 %global package_version 6.0.3
-%global fedora_release 2
+%global fedora_release 3
 
 %global swift_source_location swift-source
 
@@ -103,6 +103,7 @@ Patch6:         latest_python.patch
 Patch7:         disable_warning.patch
 Patch8:         no_testable_package.patch
 Patch9:         clang_crash_fix.patch
+Patch10:        need_cstdint.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -261,6 +262,10 @@ mv zlib-%{zlib_version} zlib
 %endif
 %endif
 
+# Explicitly include <cstdint> for int64
+%patch -P10 -p0
+
+
 %build
 export VERBOSE=1
 # Here we go!
@@ -315,6 +320,11 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Jan 22 2025 Ron Olson <tachoknight@gmail.com> - 6.0.3-3
+- Added patch to explicitly include cstdint
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 16 2024 Ron Olson <tachoknight@gmail.com> - 6.0.3-2
 - Added swift-run and swift-build as symlinks for future
   versions of Swift
