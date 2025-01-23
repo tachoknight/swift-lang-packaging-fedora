@@ -31,3 +31,14 @@ diff --color -Naur llvm-project-orig/llvm/lib/Target/X86/MCTargetDesc/X86MCTarge
  
  namespace llvm {
  class formatted_raw_ostream;
+diff --color -Naur llvm-project-orig/third-party/unittest/googletest/src/gtest-death-test.cc llvm-project/third-party/unittest/googletest/src/gtest-death-test.cc
+--- llvm-project-orig/third-party/unittest/googletest/src/gtest-death-test.cc	2024-12-02 15:33:04.000000000 -0600
++++ llvm-project/third-party/unittest/googletest/src/gtest-death-test.cc	2025-01-23 12:31:35.441842296 -0600
+@@ -33,6 +33,7 @@
+ #include "gtest/gtest-death-test.h"
+ 
+ #include <utility>
++#include <cstdint>
+ 
+ #include "gtest/internal/gtest-port.h"
+ #include "gtest/internal/custom/gtest.h"
