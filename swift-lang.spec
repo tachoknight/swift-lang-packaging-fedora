@@ -104,6 +104,8 @@ Patch7:         disable_warning.patch
 Patch8:         no_testable_package.patch
 Patch9:         clang_crash_fix.patch
 Patch10:        need_cstdint.patch
+Patch11:        need_cstdint_2.patch
+Patch12:        need_cstdint_3.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -264,6 +266,8 @@ mv zlib-%{zlib_version} zlib
 
 # Explicitly include <cstdint> for int64
 %patch -P10 -p0
+%patch -P11 -p0
+%patch -P12 -p0
 
 
 %build

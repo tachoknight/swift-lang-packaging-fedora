@@ -1,0 +1,10 @@
+--- llbuild/utils/unittest/googletest/src/gtest-death-test.cc.orig	2025-01-24 10:47:15.622334661 -0600
++++ llbuild/utils/unittest/googletest/src/gtest-death-test.cc	2025-01-24 10:47:31.920333470 -0600
+@@ -33,6 +33,7 @@
+ #include "gtest/gtest-death-test.h"
+ 
+ #include <utility>
++#include <cstdint>
+ 
+ #include "gtest/internal/gtest-port.h"
+ #include "gtest/internal/custom/gtest.h"
