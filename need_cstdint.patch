@@ -1,3 +1,14 @@
+diff --color -Naur llvm-project-orig/compiler-rt/lib/orc/error.h llvm-project/compiler-rt/lib/orc/error.h
+--- llvm-project-orig/compiler-rt/lib/orc/error.h	2024-12-02 15:33:04.000000000 -0600
++++ llvm-project/compiler-rt/lib/orc/error.h	2025-01-24 09:47:22.327602895 -0600
+@@ -14,6 +14,7 @@
+ #include "stl_extras.h"
+ 
+ #include <cassert>
++#include <cstdint>
+ #include <memory>
+ #include <string>
+ #include <type_traits>
 diff --color -Naur llvm-project-orig/llvm/include/llvm/ADT/SmallVector.h llvm-project/llvm/include/llvm/ADT/SmallVector.h
 --- llvm-project-orig/llvm/include/llvm/ADT/SmallVector.h	2024-12-02 15:33:04.000000000 -0600
 +++ llvm-project/llvm/include/llvm/ADT/SmallVector.h	2025-01-23 10:00:52.943060832 -0600
