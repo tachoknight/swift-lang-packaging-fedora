@@ -1,0 +1,15 @@
+--- swift-foundation/Sources/_FoundationCShims/include/_CStdlib.h.orig	2025-01-27 09:46:51.880285694 -0600
++++ swift-foundation/Sources/_FoundationCShims/include/_CStdlib.h	2025-01-27 10:28:04.962306597 -0600
+@@ -51,9 +51,9 @@
+ #include <locale.h>
+ #endif
+ 
+-#if __has_include(<math.h>)
+-#include <math.h>
+-#endif
++//#if __has_include(<math.h>)
++//#include <math.h>
++//#endif
+ 
+ #if __has_include(<setjmp.h>)
+ #include <setjmp.h>

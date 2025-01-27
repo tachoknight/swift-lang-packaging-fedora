@@ -106,6 +106,8 @@ Patch9:         clang_crash_fix.patch
 Patch10:        need_cstdint.patch
 Patch11:        need_cstdint_2.patch
 Patch12:        need_cstdint_3.patch
+Patch13:        no_match.patch
+
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -268,6 +270,9 @@ mv zlib-%{zlib_version} zlib
 %patch -P10 -p0
 %patch -P11 -p0
 %patch -P12 -p0
+
+# Test to see if this actaully works
+%patch -P13 -p0
 
 
 %build
